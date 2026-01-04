@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
@@ -8,25 +8,25 @@ import { Toaster } from "sonner";
 import { AnalyticsProvider } from "@/components/analytics-provider";
 import Script from "next/script";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://growthos.com"
 
 export const metadata: Metadata = {
-  title: "Growth OS - Product Growth Operating System",
-  description: "Build and optimize your product growth strategy with Growth OS. Define KPIs, track activation metrics, and implement data-driven experiments.",
+  title: "Growth OS — Activation system for PLG SaaS",
+  description: "A builder + templates for KPI trees, activation specs, tracking plans, and dashboard packs. Less chaos, faster time-to-value.",
   metadataBase: new URL(baseUrl),
   openGraph: {
-    title: "Growth OS - Product Growth Operating System",
-    description: "Build and optimize your product growth strategy with Growth OS. Define KPIs, track activation metrics, and implement data-driven experiments.",
+    title: "Growth OS — Activation system for PLG SaaS",
+    description: "A builder + templates for KPI trees, activation specs, tracking plans, and dashboard packs. Less chaos, faster time-to-value.",
     url: baseUrl,
     siteName: "Growth OS",
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Growth OS - Product Growth Operating System",
+        alt: "Growth OS — Activation system for PLG SaaS",
       },
     ],
     locale: "en_US",
@@ -42,8 +42,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Growth OS - Product Growth Operating System",
-    description: "Build and optimize your product growth strategy with Growth OS. Define KPIs, track activation metrics, and implement data-driven experiments.",
+    title: "Growth OS — Activation system for PLG SaaS",
+    description: "A builder + templates for KPI trees, activation specs, tracking plans, and dashboard packs. Less chaos, faster time-to-value.",
     images: ["/og.png"],
   },
   robots: {
@@ -84,13 +84,14 @@ export default function RootLayout({
         )}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${inter.variable} ${jetbrainsMono.variable} antialiased min-h-screen flex flex-col font-sans`}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
+          suppressHydrationWarning
         >
           <AnalyticsProvider />
           <Navbar />

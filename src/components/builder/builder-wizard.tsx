@@ -26,10 +26,10 @@ import { z } from "zod"
 import { analytics } from "@/lib/analytics"
 
 const ACTIVATION_RULES: { value: ActivationRule; label: string }[] = [
-  { value: 'created_primary_object', label: 'Created Primary Object' },
-  { value: 'invited_teammate', label: 'Invited Teammate' },
-  { value: 'used_key_feature', label: 'Used Key Feature' },
-  { value: 'connected_integration', label: 'Connected Integration' },
+  { value: 'created_primary_object', label: 'Created primary object' },
+  { value: 'invited_teammate', label: 'Invited teammate' },
+  { value: 'used_key_feature', label: 'Used key feature' },
+  { value: 'connected_integration', label: 'Connected integration' },
 ]
 
 const CORE_EVENTS: { value: CoreEvent; label: string }[] = [
@@ -49,56 +49,22 @@ export function BuilderWizard() {
   const [recentsPanelKey, setRecentsPanelKey] = useState(0)
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
   const [showValidation, setShowValidation] = useState(false)
+  const [isInitializing, setIsInitializing] = useState(true)
   const isInitialLoad = useRef(true)
 
-  const getInitialState = (): BuilderWizardState => {
-    // First check if we're loading an example
-    const exampleParam = searchParams.get('example')
-    if (exampleParam) {
-      const exampleWizardState = getExampleWizardData(exampleParam)
-      if (exampleWizardState) {
-        // Save as draft so it persists
-        saveDraftInputDebounced(exampleWizardState)
-        toast.success('Example loaded successfully')
-        return exampleWizardState
-      }
-    }
+  const getDefaultState = (): BuilderWizardState => ({
+    productType: '',
+    primaryObject: '',
+    valueAction: '',
+    pricingModel: '',
+    ttvMinutes: '',
+    activationEventName: '',
+    activationRules: [],
+    coreEvents: ['user_signup', 'user_login', 'object_created'],
+    customEvents: []
+  })
 
-    // Then try to load from URL parameters (shared link)
-    const loadParam = searchParams.get('load')
-    if (loadParam) {
-      try {
-        const decoded = decodeShareableInput(loadParam)
-        if (decoded) {
-          return decoded
-        }
-      } catch (error) {
-        console.error('Failed to load from URL:', error)
-        toast.error('Failed to load shared configuration')
-      }
-    }
-
-    // Then try to load draft from localStorage
-    const draft = getDraftInput()
-    if (draft) {
-      return draft
-    }
-
-    // Default state
-    return {
-      productType: '',
-      primaryObject: '',
-      valueAction: '',
-      pricingModel: '',
-      ttvMinutes: '',
-      activationEventName: '',
-      activationRules: [],
-      coreEvents: ['user_signup', 'user_login', 'object_created'],
-      customEvents: []
-    }
-  }
-
-  const [wizardData, setWizardData] = useState<BuilderWizardState>(getInitialState)
+  const [wizardData, setWizardData] = useState<BuilderWizardState>(getDefaultState)
 
   const validateCurrentStep = () => {
     let schema: z.ZodSchema
@@ -154,10 +120,58 @@ export function BuilderWizard() {
     })
   }
 
-  // Clear the initial load flag after component mounts
+  // Initialize wizard data from various sources after component mounts
   useEffect(() => {
-    isInitialLoad.current = false
-  }, [])
+    const initializeWizardData = async () => {
+      let initialState: BuilderWizardState | null = null
+
+      // First check if we're loading an example
+      const exampleParam = searchParams.get('example')
+      if (exampleParam) {
+        const exampleWizardState = getExampleWizardData(exampleParam)
+        if (exampleWizardState) {
+          initialState = exampleWizardState
+          saveDraftInputDebounced(exampleWizardState)
+          toast.success('Example loaded successfully')
+        }
+      }
+
+      // Then try to load from URL parameters (shared link)
+      if (!initialState) {
+        const loadParam = searchParams.get('load')
+        if (loadParam) {
+          try {
+            const decoded = decodeShareableInput(loadParam)
+            if (decoded) {
+              initialState = decoded
+            }
+          } catch (error) {
+            console.error('Failed to load from URL:', error)
+            toast.error('Invalid share link')
+          }
+        }
+      }
+
+      // Then try to load draft from localStorage
+      if (!initialState) {
+        const draft = getDraftInput()
+        if (draft) {
+          initialState = draft
+        }
+      }
+
+      // Update wizard data if we found something to load
+      if (initialState) {
+        setWizardData(initialState)
+      }
+
+      // Clear the initial load flag and initialization state
+      isInitialLoad.current = false
+      setIsInitializing(false)
+    }
+
+    initializeWizardData()
+  }, [searchParams])
 
   const handleLoadSpec = (spec: SavedSpec) => {
     setWizardData(spec.input)
@@ -274,11 +288,90 @@ export function BuilderWizard() {
     }
   }
 
+  if (isInitializing) {
+    return (
+      <div className="space-y-6">
+        {/* Loading skeleton for top action bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
+            <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
+            <div className="h-8 w-24 bg-muted animate-pulse rounded"></div>
+          </div>
+          <div className="h-4 w-32 bg-muted animate-pulse rounded"></div>
+        </div>
+
+        {/* Loading skeleton for load example section */}
+        <Card className="p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <div className="h-5 w-24 bg-muted animate-pulse rounded mb-1"></div>
+              <div className="h-4 w-48 bg-muted animate-pulse rounded"></div>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div className="h-8 w-16 bg-muted animate-pulse rounded"></div>
+            <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
+            <div className="h-8 w-18 bg-muted animate-pulse rounded"></div>
+          </div>
+        </Card>
+
+        {/* Loading skeleton for main content */}
+        <div className="space-y-6">
+          {/* Wizard Card skeleton - full width */}
+          <Card className="w-full">
+            <CardHeader>
+              <div className="h-6 w-32 bg-muted animate-pulse rounded mb-2"></div>
+              <div className="h-4 w-64 bg-muted animate-pulse rounded"></div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="space-y-4">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="space-y-2">
+                    <div className="h-4 w-24 bg-muted animate-pulse rounded"></div>
+                    <div className="h-10 w-full bg-muted animate-pulse rounded"></div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+              <div className="h-9 w-20 bg-muted animate-pulse rounded"></div>
+              <div className="h-9 w-16 bg-muted animate-pulse rounded"></div>
+            </CardFooter>
+          </Card>
+
+          {/* Secondary content skeleton - responsive layout */}
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            {/* Recents skeleton */}
+            <div className="order-2 xl:order-1">
+              <Card className="p-4">
+                <div className="h-5 w-20 bg-muted animate-pulse rounded mb-4"></div>
+                <div className="space-y-2">
+                  {Array.from({ length: 3 }).map((_, i) => (
+                    <div key={i} className="h-12 w-full bg-muted animate-pulse rounded"></div>
+                  ))}
+                </div>
+              </Card>
+            </div>
+
+            {/* Output preview skeleton */}
+            <div className="order-1 xl:order-2">
+              <Card className="p-4">
+                <div className="h-5 w-24 bg-muted animate-pulse rounded mb-4"></div>
+                <div className="h-64 w-full bg-muted animate-pulse rounded"></div>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="space-y-6">
       {/* Top action bar */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-2">
           <SaveSpecDialog wizardData={wizardData} onSaved={handleSaveComplete} />
           <ShareLinkDialog wizardData={wizardData} />
           <Button
@@ -291,7 +384,7 @@ export function BuilderWizard() {
           </Button>
         </div>
         {getDraftInput() && (
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground whitespace-nowrap">
             Draft saved automatically
           </p>
         )}
@@ -299,20 +392,20 @@ export function BuilderWizard() {
 
       {/* Load example section */}
       <Card className="p-4">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h3 className="text-sm font-medium">Load Example</h3>
             <p className="text-xs text-muted-foreground">Start with a preset to see instant value</p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2 mt-3">
           {GROWTH_PRESETS.map((preset) => (
             <Button
               key={preset.name}
               variant="outline"
               size="sm"
               onClick={() => handleLoadPreset(preset.input)}
-              className="text-xs"
+              className="text-xs flex-shrink-0"
             >
               {preset.name}
             </Button>
@@ -320,13 +413,21 @@ export function BuilderWizard() {
         </div>
       </Card>
 
-      {/* Main content grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Wizard Card */}
-        <Card className="col-span-1 lg:col-span-2">
+      {/* Main content - responsive layout */}
+      <div className="space-y-6">
+        {/* Wizard Card - full width on all screens */}
+        <Card className="w-full">
         <CardHeader>
-          <CardTitle>Builder Wizard</CardTitle>
-          <CardDescription>Step {currentStep} of 3</CardDescription>
+          <CardTitle>
+            {currentStep === 1 && "Product Basics"}
+            {currentStep === 2 && "Activation Rules"}
+            {currentStep === 3 && "Tracking"}
+          </CardTitle>
+          <CardDescription>
+            {currentStep === 1 && "Define your core product and value moment"}
+            {currentStep === 2 && "Set what must happen within the time-to-value window"}
+            {currentStep === 3 && "Choose events to track user behavior and growth metrics"}
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {currentStep === 1 && (
@@ -346,7 +447,7 @@ export function BuilderWizard() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="primary-object">Primary Object</Label>
+                <Label htmlFor="primary-object">Primary object</Label>
                 <Input
                   id="primary-object"
                   placeholder="e.g., Project, Workspace, Dashboard"
@@ -358,7 +459,7 @@ export function BuilderWizard() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="value-action">Value Action</Label>
+                <Label htmlFor="value-action">Value action</Label>
                 <Input
                   id="value-action"
                   placeholder="e.g., Deploy, Analyze, Send"
@@ -386,11 +487,11 @@ export function BuilderWizard() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="ttv-minutes">Time to Value (minutes)</Label>
+                <Label htmlFor="ttv-minutes">Time-to-Value (TTV)</Label>
                 <Input
                   id="ttv-minutes"
                   type="number"
-                  placeholder="e.g., 5, 10, 30"
+                  placeholder="Minutes (e.g., 5, 10, 30)"
                   value={wizardData.ttvMinutes}
                   onChange={(e) => updateData({ ttvMinutes: e.target.value })}
                   className={showValidation && validationErrors.ttvMinutes ? "border-destructive" : ""}
@@ -415,7 +516,7 @@ export function BuilderWizard() {
               </div>
 
               <div className="space-y-2">
-                <Label>Activation Rules</Label>
+                <Label>Activation rules</Label>
                 <div className="space-y-3">
                   {ACTIVATION_RULES.map((rule) => (
                     <div key={rule.value} className="flex items-center space-x-2">
@@ -498,10 +599,17 @@ export function BuilderWizard() {
         </CardFooter>
         </Card>
 
-        {/* Right sidebar */}
-        <div className="col-span-1 space-y-6">
-          <RecentsPanel key={recentsPanelKey} onLoadSpec={handleLoadSpec} />
-          <OutputPreview data={wizardData} />
+        {/* Secondary content - responsive layout */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+          {/* Recents Panel */}
+          <div className="order-2 xl:order-1">
+            <RecentsPanel key={recentsPanelKey} onLoadSpec={handleLoadSpec} />
+          </div>
+
+          {/* Output Preview - full width on mobile, half width on desktop */}
+          <div className="order-1 xl:order-2">
+            <OutputPreview data={wizardData} />
+          </div>
         </div>
       </div>
     </div>

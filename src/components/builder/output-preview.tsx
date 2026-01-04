@@ -169,15 +169,15 @@ export function OutputPreview({ data }: OutputPreviewProps) {
 
   return (
     <Card className="h-full">
-      <CardHeader className="flex flex-row items-center justify-between">
+      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <CardTitle>Output Preview</CardTitle>
         {hasContent && (
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
             <Button
               variant="outline"
               size="sm"
               onClick={handleCopyToClipboard}
-              className="gap-2"
+              className="gap-2 flex-1 sm:flex-none"
             >
               {copiedToClipboard ? (
                 <>
@@ -195,18 +195,20 @@ export function OutputPreview({ data }: OutputPreviewProps) {
               variant="outline"
               size="sm"
               onClick={handleDownload}
-              className="gap-2"
+              className="gap-2 flex-1 sm:flex-none"
             >
               <Download className="h-4 w-4" />
               Download
             </Button>
-            <PrintButton />
+            <div className="flex-1 sm:flex-none">
+              <PrintButton />
+            </div>
           </div>
         )}
       </CardHeader>
       <CardContent>
-        <div className="bg-muted rounded-lg p-4 min-h-[400px] max-h-[600px] overflow-auto printable">
-          <pre className="text-sm whitespace-pre-wrap font-mono">
+        <div className="bg-muted rounded-lg p-4 min-h-[500px] max-h-[70vh] overflow-auto printable">
+          <pre className="text-sm whitespace-pre-wrap font-mono leading-relaxed">
             {generateMarkdown() || "Fill in the wizard to see the generated configuration..."}
           </pre>
         </div>
