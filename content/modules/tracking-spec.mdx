@@ -1,0 +1,64 @@
+---
+title: Tracking Spec
+description: Document every event, property, and trigger for consistent analytics
+order: 2
+---
+
+## Why it matters
+
+Bad tracking = bad decisions. A tracking spec ensures everyone captures data the same way, preventing the "which number is right?" debates that kill momentum.
+
+## Template
+
+**Event Structure:**
+```json
+{
+  "event_name": "checkout_completed",
+  "properties": {
+    "revenue": 99.99,
+    "currency": "USD",
+    "items_count": 3,
+    "payment_method": "card"
+  },
+  "user_properties": {
+    "user_id": "u123",
+    "plan_type": "premium"
+  }
+}
+```
+
+**Documentation Format:**
+- **Trigger**: When exactly does this fire?
+- **Purpose**: Why do we track this?
+- **Properties**: Required vs optional fields
+- **Owner**: Who maintains this event?
+
+## Common mistakes
+
+1. **Inconsistent naming** - `signUp` vs `sign_up` vs `user_signup`
+2. **Missing context** - Events without user/session data
+3. **Over-tracking** - Capturing everything "just in case"
+4. **No versioning** - Breaking changes without migration plan
+
+## Example output
+
+**Airbnb Booking Flow:**
+```yaml
+Search Events:
+  - search_initiated
+    properties: [destination, dates, guests]
+  - results_viewed
+    properties: [results_count, filters_applied]
+  - listing_clicked
+    properties: [listing_id, position, price]
+
+Booking Events:
+  - booking_started
+    properties: [listing_id, nights, total_price]
+  - payment_submitted
+    properties: [payment_type, coupon_used]
+  - booking_confirmed
+    properties: [booking_id, host_response_time]
+```
+
+Every PM and engineer uses the same events.

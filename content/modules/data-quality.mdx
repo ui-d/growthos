@@ -1,0 +1,56 @@
+---
+title: Data Quality
+description: Monitor and maintain trustworthy data for confident decisions
+order: 7
+---
+
+## Why it matters
+
+Bad data kills companies slowly. You make wrong decisions, lose trust, and waste months debating numbers instead of growing. Good data quality = faster decisions.
+
+## Template
+
+**Quality Scorecard:**
+```
+Completeness: [% of required fields populated]
+Accuracy: [% matching source of truth]
+Consistency: [% following naming conventions]
+Timeliness: [% updated within SLA]
+Uniqueness: [% without duplicates]
+```
+
+**Monitoring Setup:**
+- Volume checks (±20% threshold)
+- Freshness alerts (<24hr delay)
+- Schema validation (type/format)
+- Business logic tests
+- Anomaly detection
+
+## Common mistakes
+
+1. **No ownership** - "Someone else will fix it"
+2. **Manual checks only** - Humans miss patterns
+3. **Fixing symptoms** - Not addressing root causes
+4. **No documentation** - Same issues repeatedly
+
+## Example output
+
+**Uber's Data Quality Dashboard:**
+```
+Trip Data Health: 94%  
+
+Issues Detected (Last 24h):
+=4 GPS coordinates missing (2.3% of trips)
+=á Duplicate trip IDs (0.1%)
+=á Future timestamps (47 events)
+=â Payment data complete (99.9%)
+
+Automated Actions:
+- Null GPS ’ Use driver's last known location
+- Duplicates ’ Dedupe keeping latest
+- Future dates ’ Queue for reprocessing
+
+MTTR: 2.4 hours (target: <4h)
+```
+
+Result: 99.9% data reliability for critical metrics.

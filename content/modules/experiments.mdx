@@ -1,0 +1,56 @@
+---
+title: Experiments
+description: Run rigorous A/B tests to validate ideas before shipping
+order: 5
+---
+
+## Why it matters
+
+Opinions don't scale. Experiments do. Testing culture removes ego from decisions and ensures you only ship what actually works.
+
+## Template
+
+**Experiment Doc:**
+```markdown
+Hypothesis: [If we do X, Y will increase by Z%]
+Metric: [Primary success metric]
+Duration: [Test length for significance]
+Traffic: [% of users in test]
+MDE: [Minimum detectable effect]
+Success Criteria: [Statistical significance + practical significance]
+```
+
+**Statistical Requirements:**
+- Sample size calculation
+- Power analysis (80%+)
+- Significance level (95%+)
+- Multiple comparison correction
+
+## Common mistakes
+
+1. **Peeking early** - Stopping tests before statistical significance
+2. **Testing everything** - Low-impact changes waste cycles
+3. **Ignoring segments** - Winners for some, losers for others
+4. **No learning doc** - Same mistakes repeated
+
+## Example output
+
+**Netflix Thumbnail Test:**
+```yaml
+Hypothesis: Personalized artwork increases play rate by 10%
+Test Design:
+  Control: Single artwork per title
+  Variant: ML-selected artwork per user
+
+Results:
+  Play Rate: +27% (p<0.001)
+  Watch Time: +5% (p<0.05)
+  Segments:
+    - New users: +35%
+    - Power users: +18%
+
+Decision: Ship globally
+Learning: Visual preferences cluster by viewing history
+```
+
+Test velocity: 100+ experiments per quarter.
