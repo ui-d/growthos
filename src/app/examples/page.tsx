@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Copy, ExternalLink, Hammer, Rocket, Package, Briefcase, Building2, Sparkles } from 'lucide-react'
+import { Copy, ExternalLink, Hammer, Rocket, Package, Briefcase, Building2, Sparkles, ArrowRight } from 'lucide-react'
 import { examples, generateShareUrl, type GrowthOSExample } from '@/lib/growth-os/examples'
 import { toast } from 'sonner'
 
@@ -99,13 +99,13 @@ function ExampleCard({ example }: { example: GrowthOSExample }) {
           className="flex-1"
         >
           <Hammer className="mr-2 h-4 w-4" />
-          Open in Builder
+          Edit in Builder
         </Button>
         <Button
           variant="outline"
           size="icon"
           onClick={handleCopyLink}
-          title="Copy share link"
+          title="Copy link"
         >
           <Copy className="h-4 w-4" />
         </Button>
@@ -116,15 +116,35 @@ function ExampleCard({ example }: { example: GrowthOSExample }) {
 
 export default function ExamplesPage() {
   return (
-    <div className="container mx-auto py-12 px-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">
-            Growth OS Examples
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Explore ready-to-use growth operating systems for different business models.
-            Open them to see the full spec or customize them in the builder.
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-purple-50/50 via-background to-blue-50/50 dark:from-background dark:via-background dark:to-background border-b">
+        <div className="container-wide section-spacing-sm">
+          <div className="text-center max-w-3xl mx-auto">
+            <span className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium bg-primary/10 text-primary rounded-full">
+              <Sparkles className="mr-2 h-3 w-3" />
+              Pre-built Templates
+            </span>
+            <h1 className="heading-primary mb-4">Examples</h1>
+            <p className="text-lg text-muted-foreground">
+              Open a ready-made spec or load it into the builder.
+            </p>
+            <div className="flex flex-wrap gap-2 justify-center mt-6">
+              {Object.keys(categoryIcons).map((category) => (
+                <Badge key={category} variant="secondary" className={categoryColors[category as keyof typeof categoryColors]}>
+                  {category}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Examples Grid */}
+      <section className="container-wide section-spacing">
+        <div className="mb-8">
+          <p className="text-sm text-muted-foreground">
+            {examples.length} example{examples.length !== 1 ? 's' : ''} available
           </p>
         </div>
 
@@ -133,19 +153,31 @@ export default function ExamplesPage() {
             <ExampleCard key={example.id} example={example} />
           ))}
         </div>
+      </section>
 
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground mb-4">
-            Want to create your own custom Growth OS?
-          </p>
-          <Button size="lg" asChild>
-            <Link href="/builder">
-              <Hammer className="mr-2 h-5 w-5" />
-              Open Builder
-            </Link>
-          </Button>
+      {/* CTA Section */}
+      <section className="border-t bg-muted/30">
+        <div className="container-narrow section-spacing">
+          <Card className="bg-gradient-to-r from-primary/10 to-blue-500/10 border-2 border-primary/20">
+            <CardContent className="p-12 text-center">
+              <Hammer className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h2 className="heading-tertiary mb-4">
+                Build Your Custom Growth OS
+              </h2>
+              <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+                Use our interactive builder to create a growth system tailored to your product and business model.
+              </p>
+              <Button size="lg" asChild className="group">
+                <Link href="/builder">
+                  <Hammer className="mr-2 h-5 w-5" />
+                  Open Builder
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
-      </div>
+      </section>
     </div>
   )
 }
