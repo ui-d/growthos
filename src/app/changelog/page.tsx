@@ -36,7 +36,7 @@ const changelog = [
       { type: "feature", text: "Interactive Builder wizard for creating growth specs" },
       { type: "feature", text: "Pre-built examples across SaaS, E-commerce, Creator, and more" },
       { type: "feature", text: "Shareable configuration links" },
-      { type: "feature", text: "Export to Markdown and JSON formats" },
+      { type: "feature", text: "Export to Markdown, JSON, and Print to PDF" },
       { type: "feature", text: "Growth framework modules documentation" },
       { type: "feature", text: "Resource library with curated tools and references" },
     ],

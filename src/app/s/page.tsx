@@ -1,11 +1,12 @@
 import { Metadata } from "next"
-import { Suspense } from "react"
-import { SharedSpecContent } from "@/components/shared/shared-spec-content"
 import { decodeShareableInput } from "@/lib/growth-os/share"
+import { convertToSpecInput } from "@/lib/growth-os/converter"
+import { generateGrowthSpec } from "@/lib/growth-os/generate"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { AlertCircle, ArrowLeft, Share2 } from "lucide-react"
 import Link from "next/link"
+import { SharedSpecActions } from "@/components/shared/shared-spec-actions"
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
@@ -101,17 +102,6 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   }
 }
 
-function SharedSpecSkeleton() {
-  return (
-    <div className="flex items-center justify-center min-h-[400px]">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-        <p className="mt-4 text-muted-foreground">Loading specification...</p>
-      </div>
-    </div>
-  )
-}
-
 function InvalidShareLink() {
   return (
     <div className="container py-8 md:py-10">
@@ -166,6 +156,10 @@ async function ServerRenderedSpec({ dataParam }: { dataParam: string }) {
     return <InvalidShareLink />
   }
 
+  // Generate the spec server-side
+  const specInput = convertToSpecInput(decoded)
+  const { markdown } = generateGrowthSpec(specInput)
+
   const specTitle = decoded.productType && decoded.primaryObject
     ? `${decoded.productType} - ${decoded.primaryObject} Growth Spec`
     : "Growth OS Specification"
@@ -173,7 +167,7 @@ async function ServerRenderedSpec({ dataParam }: { dataParam: string }) {
   return (
     <div className="container py-8 md:py-10">
       <div className="mx-auto max-w-screen-xl">
-        {/* Header - Server Rendered */}
+        {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-4">
             <Button variant="ghost" size="sm" asChild>
@@ -189,74 +183,68 @@ async function ServerRenderedSpec({ dataParam }: { dataParam: string }) {
           </p>
         </div>
 
-        {/* Configuration Summary - Server Rendered */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle>Configuration Summary</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-              {decoded.productType && (
-                <div>
-                  <p className="font-medium">Product Type</p>
-                  <p className="text-muted-foreground">{decoded.productType}</p>
-                </div>
-              )}
-              {decoded.primaryObject && (
-                <div>
-                  <p className="font-medium">Primary Object</p>
-                  <p className="text-muted-foreground">{decoded.primaryObject}</p>
-                </div>
-              )}
-              {decoded.valueAction && (
-                <div>
-                  <p className="font-medium">Value Action</p>
-                  <p className="text-muted-foreground">{decoded.valueAction}</p>
-                </div>
-              )}
-              {decoded.ttvMinutes && (
-                <div>
-                  <p className="font-medium">Time-to-Value</p>
-                  <p className="text-muted-foreground">{decoded.ttvMinutes} minutes</p>
-                </div>
-              )}
-              {decoded.pricingModel && (
-                <div>
-                  <p className="font-medium">Pricing Model</p>
-                  <p className="text-muted-foreground">{decoded.pricingModel}</p>
-                </div>
-              )}
-              {decoded.activationEventName && (
-                <div>
-                  <p className="font-medium">Activation Event</p>
-                  <p className="text-muted-foreground">{decoded.activationEventName}</p>
-                </div>
-              )}
-            </div>
+        {/* Action Buttons - Client Component for interactivity */}
+        <SharedSpecActions initialData={decoded} markdown={markdown} dataParam={dataParam} />
 
-            {/* Activation Rules */}
-            {decoded.activationRules && decoded.activationRules.length > 0 && (
-              <div className="mt-4 pt-4 border-t">
-                <p className="font-medium mb-2">Activation Rules</p>
-                <div className="flex flex-wrap gap-2">
-                  {decoded.activationRules.map((rule) => (
-                    <span key={rule} className="px-2 py-1 text-xs bg-primary/10 text-primary rounded">
-                      {rule.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
-                    </span>
-                  ))}
+        {/* KPI Tree Section */}
+        <Card className="mb-6 printable" id="kpi-tree">
+          <CardHeader>
+            <CardTitle>
+              <h2 className="text-xl font-semibold">KPI Tree</h2>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* North Star Metric */}
+            {specInput.northStarMetric && (
+              <div>
+                <h3 className="text-lg font-medium mb-2">North Star Metric</h3>
+                <div className="bg-muted/50 rounded-lg p-4">
+                  <p className="font-semibold text-primary">{specInput.northStarMetric.name}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{specInput.northStarMetric.description}</p>
+                  {specInput.northStarMetric.formula && (
+                    <code className="block mt-2 text-xs bg-background p-2 rounded border">{specInput.northStarMetric.formula}</code>
+                  )}
                 </div>
               </div>
             )}
 
-            {/* Core Events */}
-            {decoded.coreEvents && decoded.coreEvents.length > 0 && (
-              <div className="mt-4 pt-4 border-t">
-                <p className="font-medium mb-2">Tracked Events</p>
-                <div className="flex flex-wrap gap-2">
-                  {decoded.coreEvents.map((event) => (
-                    <span key={event} className="px-2 py-1 text-xs bg-muted rounded">
-                      {event.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
-                    </span>
+            {/* Activation Rate */}
+            {specInput.activationRate && (
+              <div>
+                <h3 className="text-lg font-medium mb-2">Activation Rate</h3>
+                <div className="bg-muted/50 rounded-lg p-4">
+                  <p className="font-semibold">{specInput.activationRate.name}</p>
+                  <p className="text-sm text-muted-foreground mt-1">{specInput.activationRate.description}</p>
+                  {specInput.activationRate.formula && (
+                    <code className="block mt-2 text-xs bg-background p-2 rounded border">{specInput.activationRate.formula}</code>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Time to Value */}
+            {specInput.timeToValue && (
+              <div>
+                <h3 className="text-lg font-medium mb-2">Time to Value</h3>
+                <div className="bg-muted/50 rounded-lg p-4">
+                  <p className="font-semibold">{specInput.timeToValue.value} {specInput.timeToValue.unit}</p>
+                  {specInput.timeToValue.description && (
+                    <p className="text-sm text-muted-foreground mt-1">{specInput.timeToValue.description}</p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Guardrails */}
+            {specInput.guardrails && specInput.guardrails.length > 0 && (
+              <div>
+                <h3 className="text-lg font-medium mb-2">Guardrails</h3>
+                <div className="grid gap-2">
+                  {specInput.guardrails.map((guardrail, idx) => (
+                    <div key={idx} className="bg-muted/50 rounded-lg p-3 flex items-start gap-3">
+                      <span className="font-medium">{guardrail.name}:</span>
+                      <span className="text-muted-foreground">{guardrail.threshold}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -264,10 +252,168 @@ async function ServerRenderedSpec({ dataParam }: { dataParam: string }) {
           </CardContent>
         </Card>
 
-        {/* Interactive Content - Client Component */}
-        <Suspense fallback={<SharedSpecSkeleton />}>
-          <SharedSpecContent initialData={decoded} />
-        </Suspense>
+        {/* Activation Definition Section */}
+        {specInput.activationDefinition && (
+          <Card className="mb-6 printable" id="activation-definition">
+            <CardHeader>
+              <CardTitle>
+                <h2 className="text-xl font-semibold">Activation Definition</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <p className="text-sm text-muted-foreground">Event Name</p>
+                <p className="font-semibold">{specInput.activationDefinition.event}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">Activation Rules</p>
+                <ul className="space-y-2">
+                  {specInput.activationDefinition.rules.map((rule, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-primary">•</span>
+                      <span>{rule}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Formula</p>
+                <code className="block mt-1 text-sm bg-muted p-2 rounded">{specInput.activationDefinition.formula}</code>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Tracking Plan Section */}
+        {specInput.coreEvents && specInput.coreEvents.length > 0 && (
+          <Card className="mb-6 printable" id="tracking-plan">
+            <CardHeader>
+              <CardTitle>
+                <h2 className="text-xl font-semibold">Tracking Plan</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {specInput.coreEvents.map((event, idx) => (
+                  <div key={idx} className="border-b last:border-0 pb-4 last:pb-0">
+                    <h3 className="font-medium">{event.name}</h3>
+                    <p className="text-sm text-muted-foreground">{event.description}</p>
+                    {event.trigger && (
+                      <p className="text-xs text-muted-foreground mt-1">Trigger: {event.trigger}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Property Dictionary */}
+              {specInput.propertyDictionary && specInput.propertyDictionary.length > 0 && (
+                <div className="mt-6 pt-6 border-t">
+                  <h3 className="font-medium mb-3">Property Dictionary</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b">
+                          <th className="text-left py-2 pr-4 font-medium">Property</th>
+                          <th className="text-left py-2 pr-4 font-medium">Type</th>
+                          <th className="text-left py-2 pr-4 font-medium">Description</th>
+                          <th className="text-left py-2 font-medium">Example</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {specInput.propertyDictionary.map((prop, idx) => (
+                          <tr key={idx} className="border-b last:border-0">
+                            <td className="py-2 pr-4 font-mono text-xs">{prop.property}</td>
+                            <td className="py-2 pr-4 text-muted-foreground">{prop.type}</td>
+                            <td className="py-2 pr-4">{prop.description}</td>
+                            <td className="py-2 font-mono text-xs text-muted-foreground">{prop.example || '-'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Dashboard Pack Section */}
+        {specInput.dashboardPack && specInput.dashboardPack.length > 0 && (
+          <Card className="mb-6 printable" id="dashboard-pack">
+            <CardHeader>
+              <CardTitle>
+                <h2 className="text-xl font-semibold">Dashboard Pack</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {specInput.dashboardPack.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-2">
+                    <span className="text-primary">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Experiment Card Example */}
+        {specInput.experimentExample && (
+          <Card className="mb-6 printable" id="experiment-card">
+            <CardHeader>
+              <CardTitle>
+                <h2 className="text-xl font-semibold">Example Experiment</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div>
+                <p className="text-sm text-muted-foreground">Hypothesis</p>
+                <p>{specInput.experimentExample.hypothesis}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-muted-foreground">Primary Metric</p>
+                  <p className="font-medium">{specInput.experimentExample.metric}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Duration</p>
+                  <p className="font-medium">{specInput.experimentExample.duration}</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Audience</p>
+                <p>{specInput.experimentExample.audience}</p>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground mb-1">Variants</p>
+                <ul className="space-y-1">
+                  {specInput.experimentExample.variants.map((variant, idx) => (
+                    <li key={idx} className="text-sm">• {variant}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Success Criteria</p>
+                <p>{specInput.experimentExample.successCriteria}</p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Raw Markdown - collapsible */}
+        <Card className="printable">
+          <CardHeader>
+            <CardTitle>
+              <h2 className="text-xl font-semibold">Raw Markdown</h2>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="bg-muted rounded-lg p-4 max-h-[400px] overflow-auto">
+              <pre className="text-sm whitespace-pre-wrap font-mono">{markdown}</pre>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
