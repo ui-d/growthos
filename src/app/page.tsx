@@ -2,52 +2,120 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { SectionHeader } from "@/components/ui/section-header"
+import { OutputPreview } from "@/components/marketing/output-preview"
 import {
   ArrowRight,
   Target,
   Zap,
   FileText,
   BarChart3,
-  Settings,
-  Users,
   Code2,
   Building,
-  Rocket
+  Users,
+  Rocket,
+  AlertTriangle,
+  CheckCircle2,
+  Hammer
 } from "lucide-react"
 
 export default function HomePage() {
   return (
     <>
-      {/* Hero Section */}
+      {/* Hero Section - 2 Column Layout */}
       <section className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-background dark:via-background dark:to-background section-spacing">
         <div className="absolute inset-0 bg-grid-slate-100 dark:bg-grid-slate-800/25 bg-[size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,white,transparent_75%)]" />
         <div className="relative container-wide">
-          <div className="text-center max-w-4xl mx-auto">
-            <Badge variant="outline" className="mb-6">
-              <Rocket className="mr-2 h-3 w-3" />
-              Activation system for PLG SaaS
-            </Badge>
-            <h1 className="heading-primary mb-6 text-foreground">
-              Growth OS — Activation system for
-              <span className="gradient-text"> PLG SaaS</span>
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 text-balance max-w-3xl mx-auto">
-              A builder + templates for KPI trees, activation specs, tracking plans, and dashboard packs.
-              Less chaos, faster time-to-value.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild className="group">
-                <Link href="/builder">
-                  <Settings className="mr-2 h-5 w-5" />
-                  Open Builder
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/modules">
-                  View Modules
-                </Link>
-              </Button>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Column - Copy */}
+            <div className="text-center lg:text-left">
+              <Badge variant="outline" className="mb-6">
+                <Rocket className="mr-2 h-3 w-3" />
+                Activation system for PLG SaaS
+              </Badge>
+              <h1 className="heading-primary mb-6 text-foreground">
+                Growth OS — Activation system for
+                <span className="gradient-text"> PLG SaaS</span>
+              </h1>
+              <p className="text-xl text-muted-foreground mb-8 text-balance max-w-xl mx-auto lg:mx-0">
+                Define activation as value delivery. Generate an engineering-ready tracking plan in 60 seconds.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <Button size="lg" asChild className="group">
+                  <Link href="/builder">
+                    Open Builder
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link href="/examples">
+                    View Examples
+                  </Link>
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground mt-4">
+                No signup. Generate in ~60 seconds.
+              </p>
+            </div>
+
+            {/* Right Column - Output Preview */}
+            <div className="lg:pl-8">
+              <OutputPreview />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* This Solves Section */}
+      <section className="section-spacing-sm bg-muted/30 border-y border-border/50">
+        <div className="container-wide">
+          <h2 className="text-2xl font-bold mb-8 text-center">This solves</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex gap-4">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center">
+                  <AlertTriangle className="h-5 w-5 text-destructive" />
+                </div>
+              </div>
+              <div>
+                <p className="font-medium mb-1">Activation definitions differ across teams</p>
+                <p className="text-sm text-muted-foreground mb-2">Results do not compound when everyone measures differently.</p>
+                <p className="text-sm text-primary flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  One shared activation spec everyone can reference.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center">
+                  <AlertTriangle className="h-5 w-5 text-destructive" />
+                </div>
+              </div>
+              <div>
+                <p className="font-medium mb-1">Tracking drifts over time</p>
+                <p className="text-sm text-muted-foreground mb-2">Duplicate events, inconsistent properties, mystery metrics.</p>
+                <p className="text-sm text-primary flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  Tracking plan with event contracts engineers can ship.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-4">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center">
+                  <AlertTriangle className="h-5 w-5 text-destructive" />
+                </div>
+              </div>
+              <div>
+                <p className="font-medium mb-1">Dashboards do not match definitions</p>
+                <p className="text-sm text-muted-foreground mb-2">Decisions become opinions when metrics are ambiguous.</p>
+                <p className="text-sm text-primary flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  Dashboard pack tied to your KPI tree.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -57,8 +125,8 @@ export default function HomePage() {
       <section className="section-spacing">
         <div className="container-wide">
           <SectionHeader
-            title="Your activation toolkit"
-            subtitle="Four interconnected components that transform how you measure and drive user activation"
+            title="What you get"
+            subtitle="Four interconnected outputs that form a complete activation system"
             centered
           />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -70,8 +138,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">KPI Tree + North Star</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Build a hierarchical metrics framework with your North Star at the top.
-                  Create guardrails that prevent gaming while driving the right behaviors.
+                  One source of truth for metrics and guardrails. Align teams around what matters.
                 </p>
               </div>
             </div>
@@ -84,8 +151,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Activation Spec</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Define activation as real value delivery, not vanity metrics.
-                  Measure Time-to-Value precisely and identify exactly when users succeed.
+                  Define activation as value (not logins) and measure Time-to-Value precisely.
                 </p>
               </div>
             </div>
@@ -98,8 +164,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Tracking Plan</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Get a developer-ready event contract with properties, types, and triggers.
-                  Ship analytics instrumentation faster with clear specifications.
+                  An event + properties contract engineers can ship. No ambiguity, no drift.
                 </p>
               </div>
             </div>
@@ -112,8 +177,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Dashboard Pack</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Pre-configured dashboards for activation, retention, adoption, and revenue.
-                  Stop building from scratch—start with proven templates.
+                  Standard boards for activation, retention, adoption, and revenue. Ready to build.
                 </p>
               </div>
             </div>
@@ -121,8 +185,73 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* Examples Teaser Section */}
       <section className="section-spacing bg-gradient-to-b from-muted/40 to-transparent">
+        <div className="container-wide">
+          <SectionHeader
+            title="See it in action"
+            subtitle="Real examples for different product types and activation patterns"
+            centered
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <Link href="/examples?category=B2B" className="group block">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-blue-500/10 to-blue-500/5 p-6 hover:shadow-lg transition-all duration-300 border border-blue-500/20">
+                <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative">
+                  <div className="w-12 h-12 mb-4 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                    <Code2 className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <h3 className="font-semibold mb-2">Devtool: First Deploy</h3>
+                  <p className="text-sm text-muted-foreground">
+                    PLG activation for developer tools focused on first successful deployment.
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/examples?category=SaaS" className="group block">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-purple-500/10 to-purple-500/5 p-6 hover:shadow-lg transition-all duration-300 border border-purple-500/20">
+                <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative">
+                  <div className="w-12 h-12 mb-4 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                    <Building className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <h3 className="font-semibold mb-2">B2B SaaS: Invite & Share</h3>
+                  <p className="text-sm text-muted-foreground">
+                    PLG activation through collaborative project sharing and team invitations.
+                  </p>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/examples?category=SaaS" className="group block">
+              <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-green-500/10 to-green-500/5 p-6 hover:shadow-lg transition-all duration-300 border border-green-500/20">
+                <div className="absolute inset-0 bg-gradient-to-b from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="relative">
+                  <div className="w-12 h-12 mb-4 rounded-xl bg-green-500/20 flex items-center justify-center">
+                    <BarChart3 className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <h3 className="font-semibold mb-2">Analytics: Publish Dashboard</h3>
+                  <p className="text-sm text-muted-foreground">
+                    PLG activation through dashboard creation and publishing workflows.
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="text-center">
+            <Button variant="outline" size="lg" asChild className="group">
+              <Link href="/examples">
+                View all examples
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="section-spacing">
         <div className="container-wide">
           <SectionHeader
             title="Three steps to clarity"
@@ -160,7 +289,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Export and implement</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Export to Markdown and JSON, share via link, or use Print to PDF for your team
+                  Export to Markdown or JSON, share via link, or Print to PDF for your team
                 </p>
               </div>
             </div>
@@ -169,7 +298,7 @@ export default function HomePage() {
       </section>
 
       {/* Built For Section */}
-      <section className="section-spacing">
+      <section className="section-spacing bg-muted/30 border-y border-border/50">
         <div className="container-wide">
           <SectionHeader
             title="Built for PLG teams"
@@ -177,7 +306,7 @@ export default function HomePage() {
             centered
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/50 to-muted/20 p-8 text-center hover:shadow-lg transition-all duration-300">
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-card to-card/50 p-8 text-center hover:shadow-lg transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-500/5 flex items-center justify-center">
@@ -190,7 +319,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/50 to-muted/20 p-8 text-center hover:shadow-lg transition-all duration-300">
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-card to-card/50 p-8 text-center hover:shadow-lg transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 flex items-center justify-center">
@@ -203,7 +332,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/50 to-muted/20 p-8 text-center hover:shadow-lg transition-all duration-300">
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-card to-card/50 p-8 text-center hover:shadow-lg transition-all duration-300">
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-green-500/20 to-green-500/5 flex items-center justify-center">
@@ -228,18 +357,26 @@ export default function HomePage() {
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
 
             <div className="relative p-12 md:p-16 text-center">
+              <Hammer className="h-12 w-12 text-white/90 mx-auto mb-4" />
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-                Build your activation system in 60 seconds
+                Build your activation system
               </h2>
               <p className="text-lg md:text-xl mb-10 text-white/90 max-w-2xl mx-auto">
                 Stop guessing at metrics. Start with a complete framework tailored to your product.
               </p>
-              <Button size="lg" variant="secondary" asChild className="group text-base px-8 py-6 shadow-lg hover:shadow-xl transition-shadow">
-                <Link href="/builder">
-                  Open Builder
-                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" variant="secondary" asChild className="group text-base px-8 py-6 shadow-lg hover:shadow-xl transition-shadow">
+                  <Link href="/builder">
+                    Open Builder
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild className="text-base px-8 py-6 bg-white/10 border-white/20 text-white hover:bg-white/20">
+                  <Link href="/examples">
+                    View Examples
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
