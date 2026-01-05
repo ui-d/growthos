@@ -1,56 +1,45 @@
 ---
-title: Experiments
-description: Run rigorous A/B tests to validate ideas before shipping
+title: "Experiment System"
+description: "Run measurable experiments tied to the KPI tree, with clear decisions."
 order: 5
 ---
 
 ## Why it matters
-
-Opinions don't scale. Experiments do. Testing culture removes ego from decisions and ensures you only ship what actually works.
+Without a system, your backlog becomes wishful thinking. A consistent experiment template + scoring makes trade-offs explicit and turns learning into an asset.
 
 ## Template
+### Experiment card
+**Hypothesis**
+If we **[change]**, then **[metric]** will **[move]**, because **[mechanism]**.
 
-**Experiment Doc:**
-```markdown
-Hypothesis: [If we do X, Y will increase by Z%]
-Metric: [Primary success metric]
-Duration: [Test length for significance]
-Traffic: [% of users in test]
-MDE: [Minimum detectable effect]
-Success Criteria: [Statistical significance + practical significance]
-```
+**Primary KPI:**
+**Guardrails:**
+**Segment:**
+**Duration:**
+**Owner:**
 
-**Statistical Requirements:**
-- Sample size calculation
-- Power analysis (80%+)
-- Significance level (95%+)
-- Multiple comparison correction
+**Design**
+- What exactly changes?
+- Who is impacted?
+- How do we measure success?
+- Which events/properties must exist?
+
+**Decision log**
+- Ship / Iterate / Rollback
+- Key learnings
+
+### Scoring (RICE)
+- **Reach**: how many users/workspaces it touches
+- **Impact**: expected KPI impact (1–3)
+- **Confidence**: 0.5 / 0.8 / 1.0
+- **Effort**: person-days
+
+Score = (R * I * C) / E
 
 ## Common mistakes
-
-1. **Peeking early** - Stopping tests before statistical significance
-2. **Testing everything** - Low-impact changes waste cycles
-3. **Ignoring segments** - Winners for some, losers for others
-4. **No learning doc** - Same mistakes repeated
+- Running experiments without instrumentation.
+- No guardrails (breaking quality).
+- No decision log (no compounding learning).
 
 ## Example output
-
-**Netflix Thumbnail Test:**
-```yaml
-Hypothesis: Personalized artwork increases play rate by 10%
-Test Design:
-  Control: Single artwork per title
-  Variant: ML-selected artwork per user
-
-Results:
-  Play Rate: +27% (p<0.001)
-  Watch Time: +5% (p<0.05)
-  Segments:
-    - New users: +35%
-    - Power users: +18%
-
-Decision: Ship globally
-Learning: Visual preferences cluster by viewing history
-```
-
-Test velocity: 100+ experiments per quarter.
+Experiment: reduce onboarding steps + prefill integrations → goal: -20% TTV, +8pp activation rate.

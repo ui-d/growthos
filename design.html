@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Documentation Page</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#F97316", // Orange color from buttons and accents
+                        "primary-hover": "#EA580C",
+                        "background-light": "#FFFFFF",
+                        "background-dark": "#111827",
+                        "surface-light": "#F9FAFB",
+                        "surface-dark": "#1F2937",
+                        "border-light": "#E5E7EB",
+                        "border-dark": "#374151",
+                        "text-main-light": "#111827",
+                        "text-main-dark": "#F9FAFB",
+                        "text-secondary-light": "#4B5563",
+                        "text-secondary-dark": "#9CA3AF",
+                        "code-bg-light": "#F3F4F6",
+                        "code-bg-dark": "#1F2937",
+                    },
+                    fontFamily: {
+                        sans: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.375rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: rgba(156, 163, 175, 0.5);
+            border-radius: 20px;
+        }
+        .code-syntax-tag { color: #22863a; }
+        .dark .code-syntax-tag { color: #7ee787; }
+        .code-syntax-attr { color: #6f42c1; }
+        .dark .code-syntax-attr { color: #d2a8ff; }
+        .code-syntax-string { color: #032f62; }
+        .dark .code-syntax-string { color: #a5d6ff; }
+        .code-syntax-keyword { color: #d73a49; }
+        .dark .code-syntax-keyword { color: #ff7b72; }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-background-dark text-text-main-light dark:text-text-main-dark font-sans antialiased">
+<header class="sticky top-0 z-50 w-full bg-background-light dark:bg-background-dark border-b border-border-light dark:border-border-dark shadow-sm">
+<div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 font-bold text-xl tracking-tight text-gray-900 dark:text-white">
+<span class="material-icons-outlined text-primary text-2xl">menu_book</span>
+                        Documentify
+                    </div>
+<div class="relative hidden sm:block">
+<button class="flex items-center gap-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                            Version 1.0
+                            <span class="material-icons-outlined text-[14px]">expand_more</span>
+</button>
+</div>
+</div>
+<div class="hidden md:flex flex-1 max-w-lg mx-8 relative group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-icons-outlined text-gray-400 dark:text-gray-500">search</span>
+</div>
+<input class="block w-full pl-10 pr-12 py-2 border border-border-light dark:border-border-dark rounded-md leading-5 bg-white dark:bg-surface-dark placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm transition ease-in-out duration-150" placeholder="Search" type="text"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<span class="text-gray-400 dark:text-gray-500 text-xs border border-gray-200 dark:border-gray-600 rounded px-1.5 py-0.5 bg-gray-50 dark:bg-gray-800">⌘K</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<a class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary transition hidden lg:block" href="#">Log In</a>
+<a class="bg-primary hover:bg-primary-hover text-white px-4 py-2 rounded-md text-sm font-medium transition flex items-center gap-1 shadow-sm" href="#">
+                        Create Account
+                        <span class="material-icons-outlined text-sm">arrow_forward</span>
+</a>
+<button class="p-1 rounded-md text-gray-500 hover:text-gray-900 dark:hover:text-white focus:outline-none transition">
+<span class="material-icons-outlined text-xl">light_mode</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<div class="bg-background-light dark:bg-background-dark border-b border-border-light dark:border-border-dark hidden md:block">
+<div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between py-3">
+<nav class="flex space-x-6">
+<a class="bg-primary/10 text-primary px-3 py-1.5 rounded-md text-sm font-semibold" href="#">Overview</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-md text-sm font-medium transition" href="#">About</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-md text-sm font-medium transition" href="#">FAQs</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-md text-sm font-medium transition" href="#">API</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-md text-sm font-medium transition" href="#">Blogs</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-md text-sm font-medium transition" href="#">Contribute</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white px-3 py-1.5 rounded-md text-sm font-medium transition" href="#">Support</a>
+</nav>
+<div class="flex items-center space-x-4 text-gray-400">
+<a class="hover:text-gray-600 dark:hover:text-gray-300 transition" href="#"><i class="text-xl">📷</i></a> 
+<a class="hover:text-gray-600 dark:hover:text-gray-300 transition" href="#"><i class="text-xl">💼</i></a>
+<a class="hover:text-gray-600 dark:hover:text-gray-300 transition" href="#"><i class="text-xl">📘</i></a>
+<a class="hover:text-gray-600 dark:hover:text-gray-300 transition" href="#"><i class="text-xl">🐦</i></a>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex min-h-screen">
+<aside class="hidden lg:block w-64 pt-10 pb-20 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto pr-4 border-r border-transparent">
+<div class="mb-8">
+<h3 class="font-bold text-gray-900 dark:text-white mb-3">Introduction</h3>
+<ul class="space-y-1">
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">info</span>
+                            Getting Started
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">rocket_launch</span>
+                            Quick Start
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">category</span>
+                            Concepts
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">alt_route</span>
+                            Roadmap
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">groups</span>
+                            Community
+                        </a>
+</li>
+</ul>
+</div>
+<div class="mb-8">
+<h3 class="font-bold text-gray-900 dark:text-white mb-3">Setup Tutorials</h3>
+<ul class="space-y-1">
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">article</span>
+                            Overview
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">email</span>
+                            Sign Up with Email
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">verified_user</span>
+                            Server-side Verification
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">lock_reset</span>
+                            Account Recovery
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">download</span>
+                            Installation
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">update</span>
+                            Upgrade Guide
+                        </a>
+</li>
+</ul>
+</div>
+<div class="mb-8">
+<h3 class="font-bold text-gray-900 dark:text-white mb-3">Customizations</h3>
+<ul class="space-y-1">
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">web</span>
+                            Design Tutorial
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">palette</span>
+                            Themes &amp; Settings
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">code</span>
+                            Custom CSS
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-gray-400 group-hover:text-primary">view_quilt</span>
+                            Layout
+                        </a>
+</li>
+<li>
+<a class="group flex items-center px-2 py-1.5 text-sm font-medium text-primary bg-orange-50 dark:bg-orange-900/20 rounded-md" href="#">
+<span class="material-icons-outlined text-lg mr-2 text-primary">straighten</span>
+                            Basic Sizing
+                        </a>
+</li>
+</ul>
+</div>
+</aside>
+<main class="flex-1 min-w-0 py-10 px-4 sm:px-6 lg:px-12">
+<nav aria-label="Breadcrumb" class="flex mb-6">
+<ol class="flex items-center space-x-2 border border-orange-200 dark:border-orange-900/50 rounded-full px-4 py-1 w-fit bg-orange-50 dark:bg-orange-900/10">
+<li>
+<div class="flex items-center">
+<a class="text-xs font-medium text-primary hover:text-primary-hover" href="#">Overview</a>
+</div>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-icons-outlined text-primary text-[10px] mx-1">chevron_right</span>
+<a class="text-xs font-medium text-primary hover:text-primary-hover" href="#">Customizations</a>
+</div>
+</li>
+<li>
+<div class="flex items-center">
+<span class="material-icons-outlined text-primary text-[10px] mx-1">chevron_right</span>
+<a aria-current="page" class="text-xs font-medium text-primary hover:text-primary-hover" href="#">Basic Sizing</a>
+</div>
+</li>
+</ol>
+</nav>
+<div class="prose dark:prose-invert max-w-4xl">
+<h1 class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">Basic Width, Height &amp; Size</h1>
+<p class="text-lg text-gray-600 dark:text-gray-400 mb-10">Customizations for setting the width and height of an element at the same time.</p>
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-orange-500 to-red-600 mb-12 shadow-lg group">
+<div class="absolute inset-0 opacity-80 mix-blend-multiply">
+<img alt="Abstract fluid gradient background in orange and red tones" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ2iSBoGc5vAwJlwJ_zQo8s0kogPNQkfphnMdrLcCyKpsQ0zJOapXkiC8k8PznsnnW3JTgXLU6UfqCVdtMLejRAf23XCbzTLkoLKg_sPkHLBM-72eKnVxyHIl3plIxYyasn5C-geTiJMeV15LVRZaigjB5K4Gq9l1R_TcWLPppLMFMGOxLZ03L7D7zkJjdYu8qOzXDcaZyQTFkZOtqaPofoVxIv4MpN0pJm-DvOjkMeKhx9-U5vBamkYYtkB9rgN9Aa9fzcbB1Cf0"/>
+</div>
+<div class="relative p-8 md:p-12 flex items-center justify-center">
+<div class="bg-white dark:bg-[#1E1E1E] rounded-lg shadow-2xl overflow-hidden w-full max-w-lg border border-gray-200 dark:border-gray-700">
+<div class="flex items-center px-4 py-2 border-b border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-[#252526]">
+<span class="text-xs font-mono text-orange-600 dark:text-orange-400 font-semibold">percentage-widths</span>
+</div>
+<div class="p-6 font-mono text-sm leading-relaxed overflow-x-auto">
+<div class="text-gray-800 dark:text-gray-300">
+<span class="text-purple-600 dark:text-purple-400">&lt;div</span> <span class="text-blue-600 dark:text-blue-400">class</span>=<span class="text-green-600 dark:text-green-400">"flex ..."</span><span class="text-purple-600 dark:text-purple-400">&gt;</span><br/>
+                                      <span class="text-purple-600 dark:text-purple-400">&lt;div</span> <span class="text-blue-600 dark:text-blue-400">class</span>=<span class="text-green-600 dark:text-green-400">"w-1/2 ..."</span><span class="text-purple-600 dark:text-purple-400">&gt;</span>w-1/2<span class="text-purple-600 dark:text-purple-400">&lt;/div&gt;</span><br/>
+                                      <span class="text-purple-600 dark:text-purple-400">&lt;div</span> <span class="text-blue-600 dark:text-blue-400">class</span>=<span class="text-green-600 dark:text-green-400">"w-1/2 ..."</span><span class="text-purple-600 dark:text-purple-400">&gt;</span>w-1/2<span class="text-purple-600 dark:text-purple-400">&lt;/div&gt;</span><br/>
+<span class="text-purple-600 dark:text-purple-400">&lt;/div&gt;</span><br/>
+<span class="text-purple-600 dark:text-purple-400">&lt;div</span> <span class="text-blue-600 dark:text-blue-400">class</span>=<span class="text-green-600 dark:text-green-400">"flex ..."</span><span class="text-purple-600 dark:text-purple-400">&gt;</span><br/>
+                                      <span class="text-purple-600 dark:text-purple-400">&lt;div</span> <span class="text-blue-600 dark:text-blue-400">class</span>=<span class="text-green-600 dark:text-green-400">"w-2/5 ..."</span><span class="text-purple-600 dark:text-purple-400">&gt;</span>w-2/5<span class="text-purple-600 dark:text-purple-400">&lt;/div&gt;</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mb-12">
+<h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">How to set an element to a width?</h2>
+<p class="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                        The CSS width property sets the width of the element. By default it sets the width of the content area, but if box-size is set to border-box it sets the width of the border area.
+                    </p>
+<p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+                        Use <code class="text-primary font-mono bg-orange-50 dark:bg-orange-900/30 px-1 py-0.5 rounded">w-{number}</code> or <code class="text-primary font-mono bg-orange-50 dark:bg-orange-900/30 px-1 py-0.5 rounded">w-px</code> to set an element to a fixed width:
+                    </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-surface-dark">
+<div class="bg-gray-50 dark:bg-gray-800 p-6 border-b border-gray-200 dark:border-gray-700">
+<div class="bg-white dark:bg-surface-dark rounded border border-gray-200 dark:border-gray-700 p-3 shadow-sm w-3/4 mx-auto mb-2">
+<div class="h-2 w-full bg-orange-100 dark:bg-orange-900/40 rounded"></div>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-medium text-gray-900 dark:text-white mb-2">Basic Usage of Fixed Width #1</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Use w-{number} inside your class to set an element to a fixed width.</p>
+<div class="bg-gray-50 dark:bg-gray-900 rounded p-3 font-mono text-xs overflow-x-auto text-gray-700 dark:text-gray-300">
+<div class="whitespace-nowrap">
+                                        &lt;div class="<span class="text-blue-600 dark:text-blue-400">w-96</span> ..."&gt;w-96&lt;/div&gt;<br/>
+                                        &lt;div class="<span class="text-blue-600 dark:text-blue-400">w-80</span> ..."&gt;w-80&lt;/div&gt;<br/>
+                                        &lt;div class="<span class="text-blue-600 dark:text-blue-400">w-72</span> ..."&gt;w-72&lt;/div&gt;
+                                    </div>
+</div>
+</div>
+</div>
+<div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-surface-dark">
+<div class="bg-gray-50 dark:bg-gray-800 p-6 border-b border-gray-200 dark:border-gray-700">
+<div class="bg-white dark:bg-surface-dark rounded border border-gray-200 dark:border-gray-700 p-3 shadow-sm w-1/2 mx-auto mb-2">
+<div class="h-2 w-full bg-orange-100 dark:bg-orange-900/40 rounded"></div>
+</div>
+</div>
+<div class="p-6">
+<h3 class="font-medium text-gray-900 dark:text-white mb-2">Basic Usage of Fixed Width #2</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Use another w-px inside your class to set an element to a fixed width.</p>
+<div class="bg-gray-50 dark:bg-gray-900 rounded p-3 font-mono text-xs overflow-x-auto text-gray-700 dark:text-gray-300">
+<div class="whitespace-nowrap">
+                                        &lt;div class="<span class="text-blue-600 dark:text-blue-400">w-[32rem]</span> ..."&gt;w-[32rem]&lt;/div&gt;<br/>
+                                        &lt;div class="<span class="text-blue-600 dark:text-blue-400">w-[36rem]</span> ..."&gt;w-[36rem]&lt;/div&gt;<br/>
+                                        &lt;div class="<span class="text-blue-600 dark:text-blue-400">w-[40rem]</span> ..."&gt;w-[40rem]&lt;/div&gt;
+                                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<aside class="hidden xl:block w-72 pt-10 pb-20 sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto pl-6">
+<h4 class="text-sm font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wider">On this page</h4>
+<nav class="space-y-6">
+<div>
+<h5 class="text-sm font-semibold text-primary mb-3">How to set an element to a width?</h5>
+<ul class="space-y-2 border-l border-gray-200 dark:border-gray-700 ml-1">
+<li><a class="block pl-4 py-1 text-sm font-medium text-primary border-l-2 border-primary -ml-[2px]" href="#">Fixed widths</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Percentage widths</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Resetting the width</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Min-Width</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Max-Width</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">How to set an element to a height?</h5>
+<ul class="space-y-2 border-l border-gray-200 dark:border-gray-700 ml-1">
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Fixed heights</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Percentage heights</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Resetting the heights</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Min-Height</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Max-Heights</a></li>
+</ul>
+</div>
+<div>
+<h5 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">How to set an element to a size?</h5>
+<ul class="space-y-2 border-l border-gray-200 dark:border-gray-700 ml-1">
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Class &amp; properties</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Fixed sizes</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Percentage sizes</a></li>
+<li><a class="block pl-4 py-1 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition" href="#">Resetting the size</a></li>
+</ul>
+</div>
+</nav>
+</aside>
+</div>
+
+</body></html>

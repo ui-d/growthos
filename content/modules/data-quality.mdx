@@ -1,56 +1,33 @@
 ---
-title: Data Quality
-description: Monitor and maintain trustworthy data for confident decisions
+title: "Data Quality & Governance"
+description: "Keep trust in data: schema, alerts, environments, regressions."
 order: 7
 ---
 
 ## Why it matters
-
-Bad data kills companies slowly. You make wrong decisions, lose trust, and waste months debating numbers instead of growing. Good data quality = faster decisions.
+The most expensive growth is growth built on bad data. Governance keeps your tracking spec enforceable and your dashboards trustworthy.
 
 ## Template
+### Monthly audit (15â€“30 min)
+- Core event coverage (did anything drop?)
+- Duplicate events/properties
+- ID integrity (`user_id`, `workspace_id`)
+- Environment consistency
 
-**Quality Scorecard:**
-```
-Completeness: [% of required fields populated]
-Accuracy: [% matching source of truth]
-Consistency: [% following naming conventions]
-Timeliness: [% updated within SLA]
-Uniqueness: [% without duplicates]
-```
+### Alerts (minimum)
+- sudden drop in `signup_completed`
+- sudden drop in `workspace_created`
+- sudden drop in `activation_completed`
+- spikes in null/unknown for key properties
 
-**Monitoring Setup:**
-- Volume checks (±20% threshold)
-- Freshness alerts (<24hr delay)
-- Schema validation (type/format)
-- Business logic tests
-- Anomaly detection
+### Implementation rules
+- Critical events: prefer server-side when feasible
+- New event requires: spec update + review
 
 ## Common mistakes
-
-1. **No ownership** - "Someone else will fix it"
-2. **Manual checks only** - Humans miss patterns
-3. **Fixing symptoms** - Not addressing root causes
-4. **No documentation** - Same issues repeatedly
+- No environment separation.
+- Hotfix tracking without updating the spec.
+- A tracking plan that exists but isn't enforced.
 
 ## Example output
-
-**Uber's Data Quality Dashboard:**
-```
-Trip Data Health: 94%  
-
-Issues Detected (Last 24h):
-=4 GPS coordinates missing (2.3% of trips)
-=á Duplicate trip IDs (0.1%)
-=á Future timestamps (47 events)
-=â Payment data complete (99.9%)
-
-Automated Actions:
-- Null GPS ’ Use driver's last known location
-- Duplicates ’ Dedupe keeping latest
-- Future dates ’ Queue for reprocessing
-
-MTTR: 2.4 hours (target: <4h)
-```
-
-Result: 99.9% data reliability for critical metrics.
+Audit checklist + 4 alerts + a simple "new event requires review" process.

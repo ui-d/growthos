@@ -20,7 +20,7 @@ import { ShareLinkDialog } from "./share-link-dialog"
 import { getDraftInput, saveDraftInputDebounced, clearDraft } from "@/lib/growth-os/storage"
 import { decodeShareableInput } from "@/lib/growth-os/share"
 import { getExampleWizardData } from "@/lib/growth-os/example-wizard-data"
-import { RotateCcw, AlertCircle } from "lucide-react"
+import { RotateCcw, AlertCircle, Check, ChevronRight, Sparkles } from "lucide-react"
 import { toast } from "sonner"
 import { z } from "zod"
 import { analytics } from "@/lib/analytics"
@@ -41,6 +41,12 @@ const CORE_EVENTS: { value: CoreEvent; label: string }[] = [
   { value: 'feature_used', label: 'Feature Used' },
   { value: 'integration_connected', label: 'Integration Connected' },
   { value: 'team_member_invited', label: 'Team Member Invited' },
+]
+
+const STEPS = [
+  { id: 1, name: "Product", description: "Define your product basics" },
+  { id: 2, name: "Activation", description: "Set activation rules" },
+  { id: 3, name: "Tracking", description: "Choose events to track" },
 ]
 
 export function BuilderWizard() {
@@ -290,77 +296,34 @@ export function BuilderWizard() {
 
   if (isInitializing) {
     return (
-      <div className="space-y-6">
-        {/* Loading skeleton for top action bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
-            <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
-            <div className="h-8 w-24 bg-muted animate-pulse rounded"></div>
-          </div>
-          <div className="h-4 w-32 bg-muted animate-pulse rounded"></div>
+      <div className="space-y-8">
+        {/* Step indicator skeleton */}
+        <div className="flex items-center justify-center gap-4">
+          {[1, 2, 3].map((step) => (
+            <div key={step} className="flex items-center gap-2">
+              <div className="h-10 w-10 rounded-full bg-muted animate-pulse"></div>
+              <div className="hidden sm:block h-4 w-16 bg-muted animate-pulse rounded"></div>
+              {step < 3 && <div className="h-0.5 w-8 bg-muted animate-pulse rounded"></div>}
+            </div>
+          ))}
         </div>
 
-        {/* Loading skeleton for load example section */}
-        <Card className="p-4">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <div className="h-5 w-24 bg-muted animate-pulse rounded mb-1"></div>
-              <div className="h-4 w-48 bg-muted animate-pulse rounded"></div>
-            </div>
+        {/* Main content skeleton */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left sidebar - Quick Actions */}
+          <div className="lg:col-span-3 space-y-4">
+            <div className="h-32 bg-muted animate-pulse rounded-xl"></div>
+            <div className="h-48 bg-muted animate-pulse rounded-xl"></div>
           </div>
-          <div className="flex gap-2">
-            <div className="h-8 w-16 bg-muted animate-pulse rounded"></div>
-            <div className="h-8 w-20 bg-muted animate-pulse rounded"></div>
-            <div className="h-8 w-18 bg-muted animate-pulse rounded"></div>
+
+          {/* Center - Wizard */}
+          <div className="lg:col-span-5">
+            <div className="h-[500px] bg-muted animate-pulse rounded-xl"></div>
           </div>
-        </Card>
 
-        {/* Loading skeleton for main content */}
-        <div className="space-y-6">
-          {/* Wizard Card skeleton - full width */}
-          <Card className="w-full">
-            <CardHeader>
-              <div className="h-6 w-32 bg-muted animate-pulse rounded mb-2"></div>
-              <div className="h-4 w-64 bg-muted animate-pulse rounded"></div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                {Array.from({ length: 4 }).map((_, i) => (
-                  <div key={i} className="space-y-2">
-                    <div className="h-4 w-24 bg-muted animate-pulse rounded"></div>
-                    <div className="h-10 w-full bg-muted animate-pulse rounded"></div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
-            <CardFooter className="flex justify-between">
-              <div className="h-9 w-20 bg-muted animate-pulse rounded"></div>
-              <div className="h-9 w-16 bg-muted animate-pulse rounded"></div>
-            </CardFooter>
-          </Card>
-
-          {/* Secondary content skeleton - responsive layout */}
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-            {/* Recents skeleton */}
-            <div className="order-2 xl:order-1">
-              <Card className="p-4">
-                <div className="h-5 w-20 bg-muted animate-pulse rounded mb-4"></div>
-                <div className="space-y-2">
-                  {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="h-12 w-full bg-muted animate-pulse rounded"></div>
-                  ))}
-                </div>
-              </Card>
-            </div>
-
-            {/* Output preview skeleton */}
-            <div className="order-1 xl:order-2">
-              <Card className="p-4">
-                <div className="h-5 w-24 bg-muted animate-pulse rounded mb-4"></div>
-                <div className="h-64 w-full bg-muted animate-pulse rounded"></div>
-              </Card>
-            </div>
+          {/* Right - Preview */}
+          <div className="lg:col-span-4">
+            <div className="h-[500px] bg-muted animate-pulse rounded-xl"></div>
           </div>
         </div>
       </div>
@@ -368,249 +331,347 @@ export function BuilderWizard() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Top action bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <SaveSpecDialog wizardData={wizardData} onSaved={handleSaveComplete} />
-          <ShareLinkDialog wizardData={wizardData} />
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleReset}
-          >
-            <RotateCcw className="h-4 w-4 mr-2" />
-            Reset Form
-          </Button>
-        </div>
-        {getDraftInput() && (
-          <p className="text-sm text-muted-foreground whitespace-nowrap">
-            Draft saved automatically
-          </p>
-        )}
-      </div>
-
-      {/* Load example section */}
-      <Card className="p-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h3 className="text-sm font-medium">Load Example</h3>
-            <p className="text-xs text-muted-foreground">Start with a preset to see instant value</p>
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-2 mt-3">
-          {GROWTH_PRESETS.map((preset) => (
-            <Button
-              key={preset.name}
-              variant="outline"
-              size="sm"
-              onClick={() => handleLoadPreset(preset.input)}
-              className="text-xs flex-shrink-0"
-            >
-              {preset.name}
-            </Button>
+    <div className="space-y-8">
+      {/* Step Indicator */}
+      <nav aria-label="Progress" className="mb-8">
+        <ol className="flex items-center justify-center">
+          {STEPS.map((step, stepIdx) => (
+            <li key={step.name} className={`relative ${stepIdx !== STEPS.length - 1 ? 'pr-8 sm:pr-20' : ''}`}>
+              {stepIdx !== STEPS.length - 1 && (
+                <div className="absolute top-4 left-7 -ml-px mt-0.5 h-0.5 w-full bg-border" aria-hidden="true">
+                  <div
+                    className="h-0.5 bg-primary transition-all duration-300"
+                    style={{ width: currentStep > step.id ? '100%' : '0%' }}
+                  />
+                </div>
+              )}
+              <button
+                onClick={() => {
+                  if (step.id < currentStep) {
+                    setCurrentStep(step.id)
+                  } else if (step.id === currentStep + 1 && validateCurrentStep()) {
+                    setCurrentStep(step.id)
+                  }
+                }}
+                className="group relative flex flex-col items-center focus:outline-none"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 transition-colors duration-200 bg-background relative z-10">
+                  {currentStep > step.id ? (
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                      <Check className="h-4 w-4" />
+                    </span>
+                  ) : currentStep === step.id ? (
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary bg-primary/10 text-primary font-semibold text-sm">
+                      {step.id}
+                    </span>
+                  ) : (
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-muted text-muted-foreground text-sm">
+                      {step.id}
+                    </span>
+                  )}
+                </span>
+                <span className={`mt-2 text-xs font-medium transition-colors ${
+                  currentStep >= step.id ? 'text-primary' : 'text-muted-foreground'
+                }`}>
+                  {step.name}
+                </span>
+              </button>
+            </li>
           ))}
-        </div>
-      </Card>
+        </ol>
+      </nav>
 
-      {/* Main content - responsive layout */}
-      <div className="space-y-6">
-        {/* Wizard Card - full width on all screens */}
-        <Card className="w-full">
-        <CardHeader>
-          <CardTitle>
-            {currentStep === 1 && "Product Basics"}
-            {currentStep === 2 && "Activation Rules"}
-            {currentStep === 3 && "Tracking"}
-          </CardTitle>
-          <CardDescription>
-            {currentStep === 1 && "Define your core product and value moment"}
-            {currentStep === 2 && "Set what must happen within the time-to-value window"}
-            {currentStep === 3 && "Choose events to track user behavior and growth metrics"}
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {currentStep === 1 && (
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="product-type">Product Type</Label>
-                <Select value={wizardData.productType} onValueChange={(value: ProductType) => updateData({ productType: value })}>
-                  <SelectTrigger id="product-type" className={showValidation && validationErrors.productType ? "border-destructive" : ""}>
-                    <SelectValue placeholder="Select product type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="B2B SaaS">B2B SaaS</SelectItem>
-                    <SelectItem value="Devtool">Devtool</SelectItem>
-                  </SelectContent>
-                </Select>
-                {renderFieldError('productType')}
+      {/* Main 3-column layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8">
+        {/* Left sidebar - Quick Actions & Recents */}
+        <div className="lg:col-span-3 space-y-6 order-3 lg:order-1">
+          {/* Quick Actions Card */}
+          <Card className="border-dashed">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                Quick Actions
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <div className="flex flex-col gap-2">
+                <SaveSpecDialog wizardData={wizardData} onSaved={handleSaveComplete} />
+                <ShareLinkDialog wizardData={wizardData} />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleReset}
+                  className="w-full justify-start"
+                >
+                  <RotateCcw className="h-4 w-4 mr-2" />
+                  Reset Form
+                </Button>
               </div>
+              {getDraftInput() && (
+                <p className="text-xs text-muted-foreground pt-2 border-t">
+                  Draft saved automatically
+                </p>
+              )}
+            </CardContent>
+          </Card>
 
-              <div className="space-y-2">
-                <Label htmlFor="primary-object">Primary object</Label>
-                <Input
-                  id="primary-object"
-                  placeholder="e.g., Project, Workspace, Dashboard"
-                  value={wizardData.primaryObject}
-                  onChange={(e) => updateData({ primaryObject: e.target.value })}
-                  className={showValidation && validationErrors.primaryObject ? "border-destructive" : ""}
-                />
-                {renderFieldError('primaryObject')}
+          {/* Templates Card */}
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm font-medium">Templates</CardTitle>
+              <CardDescription className="text-xs">
+                Start with a preset configuration
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-1.5">
+                {GROWTH_PRESETS.map((preset) => (
+                  <Button
+                    key={preset.name}
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleLoadPreset(preset.input)}
+                    className="justify-start text-xs h-8 px-2"
+                  >
+                    <ChevronRight className="h-3 w-3 mr-1.5 text-muted-foreground" />
+                    {preset.name}
+                  </Button>
+                ))}
               </div>
+            </CardContent>
+          </Card>
 
-              <div className="space-y-2">
-                <Label htmlFor="value-action">Value action</Label>
-                <Input
-                  id="value-action"
-                  placeholder="e.g., Deploy, Analyze, Send"
-                  value={wizardData.valueAction}
-                  onChange={(e) => updateData({ valueAction: e.target.value })}
-                  className={showValidation && validationErrors.valueAction ? "border-destructive" : ""}
-                />
-                {renderFieldError('valueAction')}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="pricing-model">Pricing Model</Label>
-                <Select value={wizardData.pricingModel} onValueChange={(value: PricingModel) => updateData({ pricingModel: value })}>
-                  <SelectTrigger id="pricing-model" className={showValidation && validationErrors.pricingModel ? "border-destructive" : ""}>
-                    <SelectValue placeholder="Select pricing model" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Subscription">Subscription</SelectItem>
-                    <SelectItem value="Usage-based">Usage-based</SelectItem>
-                    <SelectItem value="Hybrid">Hybrid</SelectItem>
-                    <SelectItem value="One-time">One-time</SelectItem>
-                  </SelectContent>
-                </Select>
-                {renderFieldError('pricingModel')}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="ttv-minutes">Time-to-Value (TTV)</Label>
-                <Input
-                  id="ttv-minutes"
-                  type="number"
-                  placeholder="Minutes (e.g., 5, 10, 30)"
-                  value={wizardData.ttvMinutes}
-                  onChange={(e) => updateData({ ttvMinutes: e.target.value })}
-                  className={showValidation && validationErrors.ttvMinutes ? "border-destructive" : ""}
-                />
-                {renderFieldError('ttvMinutes')}
-              </div>
-            </div>
-          )}
-
-          {currentStep === 2 && (
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="activation-event">Activation Event Name</Label>
-                <Input
-                  id="activation-event"
-                  placeholder="e.g., First Deployment, Setup Complete"
-                  value={wizardData.activationEventName}
-                  onChange={(e) => updateData({ activationEventName: e.target.value })}
-                  className={showValidation && validationErrors.activationEventName ? "border-destructive" : ""}
-                />
-                {renderFieldError('activationEventName')}
-              </div>
-
-              <div className="space-y-2">
-                <Label>Activation rules</Label>
-                <div className="space-y-3">
-                  {ACTIVATION_RULES.map((rule) => (
-                    <div key={rule.value} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={rule.value}
-                        checked={wizardData.activationRules.includes(rule.value)}
-                        onCheckedChange={(checked) => handleActivationRuleToggle(rule.value, checked as boolean)}
-                      />
-                      <Label
-                        htmlFor={rule.value}
-                        className="text-sm font-normal cursor-pointer"
-                      >
-                        {rule.label}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-                {renderFieldError('activationRules')}
-              </div>
-            </div>
-          )}
-
-          {currentStep === 3 && (
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <Label>Core Events</Label>
-                <div className="space-y-3">
-                  {CORE_EVENTS.map((event) => (
-                    <div key={event.value} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={event.value}
-                        checked={wizardData.coreEvents.includes(event.value)}
-                        onCheckedChange={(checked) => handleCoreEventToggle(event.value, checked as boolean)}
-                      />
-                      <Label
-                        htmlFor={event.value}
-                        className="text-sm font-normal cursor-pointer"
-                      >
-                        {event.label}
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-                {renderFieldError('coreEvents')}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="custom-events">Custom Events (one per line)</Label>
-                <Textarea
-                  id="custom-events"
-                  placeholder="payment_completed&#10;subscription_upgraded&#10;feature_enabled"
-                  rows={4}
-                  value={wizardData.customEvents.join('\n')}
-                  onChange={(e) => handleCustomEventsChange(e.target.value)}
-                  className={showValidation && validationErrors.customEvents ? "border-destructive" : ""}
-                />
-                {renderFieldError('customEvents')}
-              </div>
-            </div>
-          )}
-        </CardContent>
-        <CardFooter className="flex justify-between">
-          <Button
-            variant="outline"
-            onClick={handlePrevious}
-            disabled={currentStep === 1}
-          >
-            Previous
-          </Button>
-          <Button
-            onClick={handleNext}
-            disabled={
-              (currentStep === 1 && !isStep1Valid()) ||
-              (currentStep === 2 && !isStep2Valid()) ||
-              currentStep === 3
-            }
-          >
-            {currentStep === 3 ? 'Complete' : 'Next'}
-          </Button>
-        </CardFooter>
-        </Card>
-
-        {/* Secondary content - responsive layout */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-          {/* Recents Panel */}
-          <div className="order-2 xl:order-1">
+          {/* Recent Specs - Hidden on mobile, shown on desktop */}
+          <div className="hidden lg:block">
             <RecentsPanel key={recentsPanelKey} onLoadSpec={handleLoadSpec} />
           </div>
+        </div>
 
-          {/* Output Preview - full width on mobile, half width on desktop */}
-          <div className="order-1 xl:order-2">
+        {/* Center - Wizard Form */}
+        <div className="lg:col-span-5 order-1 lg:order-2">
+          <Card className="border-2 shadow-sm">
+            <CardHeader className="border-b bg-muted/30">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg">
+                    {currentStep === 1 && "Product Basics"}
+                    {currentStep === 2 && "Activation Rules"}
+                    {currentStep === 3 && "Event Tracking"}
+                  </CardTitle>
+                  <CardDescription className="mt-1">
+                    {currentStep === 1 && "Define your core product and value moment"}
+                    {currentStep === 2 && "Set what must happen within the time-to-value window"}
+                    {currentStep === 3 && "Choose events to track user behavior and growth metrics"}
+                  </CardDescription>
+                </div>
+                <div className="text-xs font-medium text-muted-foreground bg-background px-2 py-1 rounded-md border">
+                  Step {currentStep} of 3
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-6">
+              {currentStep === 1 && (
+                <div className="space-y-5">
+                  <div className="space-y-2">
+                    <Label htmlFor="product-type" className="text-sm font-medium">Product Type</Label>
+                    <Select value={wizardData.productType} onValueChange={(value: ProductType) => updateData({ productType: value })}>
+                      <SelectTrigger id="product-type" className={`h-11 ${showValidation && validationErrors.productType ? "border-destructive ring-destructive/20 ring-2" : ""}`}>
+                        <SelectValue placeholder="Select product type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="B2B SaaS">B2B SaaS</SelectItem>
+                        <SelectItem value="Devtool">Devtool</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {renderFieldError('productType')}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="primary-object" className="text-sm font-medium">Primary Object</Label>
+                    <Input
+                      id="primary-object"
+                      placeholder="e.g., Project, Workspace, Dashboard"
+                      value={wizardData.primaryObject}
+                      onChange={(e) => updateData({ primaryObject: e.target.value })}
+                      className={`h-11 ${showValidation && validationErrors.primaryObject ? "border-destructive ring-destructive/20 ring-2" : ""}`}
+                    />
+                    {renderFieldError('primaryObject')}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="value-action" className="text-sm font-medium">Value Action</Label>
+                    <Input
+                      id="value-action"
+                      placeholder="e.g., Deploy, Analyze, Send"
+                      value={wizardData.valueAction}
+                      onChange={(e) => updateData({ valueAction: e.target.value })}
+                      className={`h-11 ${showValidation && validationErrors.valueAction ? "border-destructive ring-destructive/20 ring-2" : ""}`}
+                    />
+                    {renderFieldError('valueAction')}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="pricing-model" className="text-sm font-medium">Pricing Model</Label>
+                    <Select value={wizardData.pricingModel} onValueChange={(value: PricingModel) => updateData({ pricingModel: value })}>
+                      <SelectTrigger id="pricing-model" className={`h-11 ${showValidation && validationErrors.pricingModel ? "border-destructive ring-destructive/20 ring-2" : ""}`}>
+                        <SelectValue placeholder="Select pricing model" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Subscription">Subscription</SelectItem>
+                        <SelectItem value="Usage-based">Usage-based</SelectItem>
+                        <SelectItem value="Hybrid">Hybrid</SelectItem>
+                        <SelectItem value="One-time">One-time</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {renderFieldError('pricingModel')}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="ttv-minutes" className="text-sm font-medium">Time-to-Value (TTV)</Label>
+                    <div className="relative">
+                      <Input
+                        id="ttv-minutes"
+                        type="number"
+                        placeholder="e.g., 5, 10, 30"
+                        value={wizardData.ttvMinutes}
+                        onChange={(e) => updateData({ ttvMinutes: e.target.value })}
+                        className={`h-11 pr-16 ${showValidation && validationErrors.ttvMinutes ? "border-destructive ring-destructive/20 ring-2" : ""}`}
+                      />
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                        minutes
+                      </span>
+                    </div>
+                    {renderFieldError('ttvMinutes')}
+                  </div>
+                </div>
+              )}
+
+              {currentStep === 2 && (
+                <div className="space-y-5">
+                  <div className="space-y-2">
+                    <Label htmlFor="activation-event" className="text-sm font-medium">Activation Event Name</Label>
+                    <Input
+                      id="activation-event"
+                      placeholder="e.g., First Deployment, Setup Complete"
+                      value={wizardData.activationEventName}
+                      onChange={(e) => updateData({ activationEventName: e.target.value })}
+                      className={`h-11 ${showValidation && validationErrors.activationEventName ? "border-destructive ring-destructive/20 ring-2" : ""}`}
+                    />
+                    {renderFieldError('activationEventName')}
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium">Activation Rules</Label>
+                    <div className="grid gap-3 pt-1">
+                      {ACTIVATION_RULES.map((rule) => (
+                        <div
+                          key={rule.value}
+                          className={`flex items-center space-x-3 p-3 rounded-lg border transition-colors cursor-pointer hover:bg-accent/50 ${
+                            wizardData.activationRules.includes(rule.value) ? 'border-primary bg-primary/5' : ''
+                          }`}
+                          onClick={() => handleActivationRuleToggle(rule.value, !wizardData.activationRules.includes(rule.value))}
+                        >
+                          <Checkbox
+                            id={rule.value}
+                            checked={wizardData.activationRules.includes(rule.value)}
+                            onCheckedChange={(checked) => handleActivationRuleToggle(rule.value, checked as boolean)}
+                          />
+                          <Label
+                            htmlFor={rule.value}
+                            className="text-sm font-normal cursor-pointer flex-1"
+                          >
+                            {rule.label}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                    {renderFieldError('activationRules')}
+                  </div>
+                </div>
+              )}
+
+              {currentStep === 3 && (
+                <div className="space-y-5">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium">Core Events</Label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                      {CORE_EVENTS.map((event) => (
+                        <div
+                          key={event.value}
+                          className={`flex items-center space-x-3 p-3 rounded-lg border transition-colors cursor-pointer hover:bg-accent/50 ${
+                            wizardData.coreEvents.includes(event.value) ? 'border-primary bg-primary/5' : ''
+                          }`}
+                          onClick={() => handleCoreEventToggle(event.value, !wizardData.coreEvents.includes(event.value))}
+                        >
+                          <Checkbox
+                            id={event.value}
+                            checked={wizardData.coreEvents.includes(event.value)}
+                            onCheckedChange={(checked) => handleCoreEventToggle(event.value, checked as boolean)}
+                          />
+                          <Label
+                            htmlFor={event.value}
+                            className="text-sm font-normal cursor-pointer"
+                          >
+                            {event.label}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                    {renderFieldError('coreEvents')}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="custom-events" className="text-sm font-medium">Custom Events</Label>
+                    <p className="text-xs text-muted-foreground">Add custom events, one per line</p>
+                    <Textarea
+                      id="custom-events"
+                      placeholder="payment_completed&#10;subscription_upgraded&#10;feature_enabled"
+                      rows={4}
+                      value={wizardData.customEvents.join('\n')}
+                      onChange={(e) => handleCustomEventsChange(e.target.value)}
+                      className={`resize-none ${showValidation && validationErrors.customEvents ? "border-destructive ring-destructive/20 ring-2" : ""}`}
+                    />
+                    {renderFieldError('customEvents')}
+                  </div>
+                </div>
+              )}
+            </CardContent>
+            <CardFooter className="flex justify-between border-t bg-muted/30 mt-6">
+              <Button
+                variant="ghost"
+                onClick={handlePrevious}
+                disabled={currentStep === 1}
+                className="gap-2"
+              >
+                Previous
+              </Button>
+              <Button
+                onClick={handleNext}
+                disabled={
+                  (currentStep === 1 && !isStep1Valid()) ||
+                  (currentStep === 2 && !isStep2Valid()) ||
+                  currentStep === 3
+                }
+                className="gap-2"
+              >
+                {currentStep === 3 ? 'Complete' : 'Next'}
+                {currentStep < 3 && <ChevronRight className="h-4 w-4" />}
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+
+        {/* Right - Live Preview */}
+        <div className="lg:col-span-4 order-2 lg:order-3">
+          <div className="lg:sticky lg:top-24">
             <OutputPreview data={wizardData} />
           </div>
         </div>
+      </div>
+
+      {/* Mobile-only Recent Specs */}
+      <div className="lg:hidden">
+        <RecentsPanel key={recentsPanelKey} onLoadSpec={handleLoadSpec} />
       </div>
     </div>
   )

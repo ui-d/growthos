@@ -25,18 +25,18 @@ export const CoreEventSchema = z.enum([
 export const GrowthSpecInputSchema = z.object({
   // Step 1: Product Basics
   productType: ProductTypeSchema.or(z.literal('')),
-  primaryObject: z.string().min(1, "Primary object is required").max(50, "Primary object must be less than 50 characters"),
-  valueAction: z.string().min(1, "Value action is required").max(50, "Value action must be less than 50 characters"),
+  primaryObject: z.string().min(1, "Enter your primary object").max(50, "Keep under 50 characters"),
+  valueAction: z.string().min(1, "Enter your value action").max(50, "Keep under 50 characters"),
   pricingModel: PricingModelSchema.or(z.literal('')),
-  ttvMinutes: z.string().min(1, "Time to value is required").regex(/^\d+$/, "Must be a valid number"),
+  ttvMinutes: z.string().min(1, "Enter time-to-value in minutes").regex(/^\d+$/, "Enter a valid number"),
 
   // Step 2: Activation
-  activationEventName: z.string().min(1, "Activation event name is required").max(100, "Activation event name must be less than 100 characters"),
-  activationRules: z.array(ActivationRuleSchema).min(1, "At least one activation rule is required"),
+  activationEventName: z.string().min(1, "Enter your activation event name").max(100, "Keep under 100 characters"),
+  activationRules: z.array(ActivationRuleSchema).min(1, "Select at least one activation rule"),
 
   // Step 3: Tracking
-  coreEvents: z.array(CoreEventSchema).min(1, "At least one core event is required"),
-  customEvents: z.array(z.string().min(1).max(100)).max(20, "Maximum 20 custom events allowed")
+  coreEvents: z.array(CoreEventSchema).min(1, "Select at least one core event"),
+  customEvents: z.array(z.string().min(1).max(100)).max(20, "Maximum 20 custom events")
 })
 
 export type GrowthSpecInput = z.infer<typeof GrowthSpecInputSchema>
@@ -51,7 +51,7 @@ export const Step1Schema = GrowthSpecInputSchema.pick({
 }).refine(
   (data) => data.productType !== '' && data.pricingModel !== '',
   {
-    message: "Product type and pricing model are required",
+    message: "Select product type and pricing model",
     path: ["productType"]
   }
 )

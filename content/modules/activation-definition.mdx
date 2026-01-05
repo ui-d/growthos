@@ -1,46 +1,32 @@
 ---
-title: Activation Definition
-description: Define the "aha moment" when users experience core value
-order: 3
+title: "Activation Definition"
+description: "Define activation as the first measurable moment of value — and optimize TTV."
+order: 2
 ---
 
 ## Why it matters
-
-Most users quit before experiencing value. A clear activation metric identifies who "gets it" so you can optimize the journey for everyone else.
+Activation is not "logged in." It's the **first measurable moment of value** that correlates with retention. A strong definition makes onboarding measurable and turns "improve activation" into an engineering-ready spec.
 
 ## Template
+### Activation definition
+- **Activation event:** `activation_completed`
+- **Window:** 24h from `signup_completed` (use 7d for longer setups)
+- **Rules (workspace-level):**
+  1) `workspace_created`
+  2) `primary_object_created` (project/app/dashboard)
+  3) `key_feature_used(feature="X")` **or** `integration_connected`
 
-**Activation Formula:**
-```
-Activated User =
-  Performed [key action(s)]
-  Within [time period]
-  [frequency] times
-```
+### Metrics
+- **Activation Rate:** activated_workspaces / signup_completed_workspaces
+- **TTV:** median(signup_completed → activation_completed)
 
-**Research Process:**
-1. Analyze cohort retention curves
-2. Identify inflection point behaviors
-3. Validate with user interviews
-4. Test predictive power
+### Funnel breakdown
+- Step completion: onboarding step conversion + time per step
 
 ## Common mistakes
+- Too easy (doesn't represent value).
+- Too hard (too many steps → drop-off).
+- No segmentation (source/plan/role) → you can't diagnose what works.
 
-1. **Too complex** - "Do 5 things in 3 different features"
-2. **Too simple** - "Logged in once"
-3. **Wrong timing** - Measuring at 30 days when churn happens at day 7
-4. **Feature-focused** - "Used feature X" vs "achieved outcome Y"
-
-## Example output
-
-**Slack's Activation:**
-- **Metric**: Team sends 2,000+ messages
-- **Timing**: Within first 30 days
-- **Why it works**: Shows team adoption, not just individual usage
-- **Result**: 93% of activated teams convert to paid
-
-**Facebook's 7 Friends in 10 Days:**
-- Simple to understand
-- Easy to influence through product
-- Strong correlation with long-term retention
-- Became north star for growth team
+## Example output (Devtool)
+Activation = workspace created + app created + first deploy/publish **or** integration connected + teammate invited.

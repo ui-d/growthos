@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { BuilderWizardState } from "@/lib/growth-os/types"
 import { generateGrowthSpec } from "@/lib/growth-os/generate"
 import { convertToSpecInput } from "@/lib/growth-os/converter"
-import { Copy, Download, Check } from "lucide-react"
+import { Copy, Download, Check, FileCode } from "lucide-react"
 import { PrintButton } from "@/components/ui/print-button"
 import { analytics } from "@/lib/analytics"
 
@@ -168,48 +168,48 @@ export function OutputPreview({ data }: OutputPreviewProps) {
   const hasContent = data.productType || data.primaryObject || data.valueAction
 
   return (
-    <Card className="h-full">
-      <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <CardTitle>Output Preview</CardTitle>
-        {hasContent && (
-          <div className="flex flex-wrap gap-2 w-full sm:w-auto">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleCopyToClipboard}
-              className="gap-2 flex-1 sm:flex-none"
-            >
-              {copiedToClipboard ? (
-                <>
-                  <Check className="h-4 w-4" />
-                  Copied
-                </>
-              ) : (
-                <>
+    <Card className="h-full border-2">
+      <CardHeader className="border-b bg-muted/30 pb-4">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-sm font-medium flex items-center gap-2">
+            <FileCode className="h-4 w-4 text-primary" />
+            Live Preview
+          </CardTitle>
+          {hasContent && (
+            <div className="flex items-center gap-1">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleCopyToClipboard}
+                className="h-8 px-2"
+              >
+                {copiedToClipboard ? (
+                  <Check className="h-4 w-4 text-green-500" />
+                ) : (
                   <Copy className="h-4 w-4" />
-                  Copy
-                </>
-              )}
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleDownload}
-              className="gap-2 flex-1 sm:flex-none"
-            >
-              <Download className="h-4 w-4" />
-              Download
-            </Button>
-            <div className="flex-1 sm:flex-none">
+                )}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleDownload}
+                className="h-8 px-2"
+              >
+                <Download className="h-4 w-4" />
+              </Button>
               <PrintButton />
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </CardHeader>
-      <CardContent>
-        <div className="bg-muted rounded-lg p-4 min-h-[500px] max-h-[70vh] overflow-auto printable">
-          <pre className="text-sm whitespace-pre-wrap font-mono leading-relaxed">
-            {generateMarkdown() || "Fill in the wizard to see the generated configuration..."}
+      <CardContent className="p-0">
+        <div className="bg-muted/50 min-h-[400px] lg:min-h-[500px] max-h-[60vh] lg:max-h-[70vh] overflow-auto printable">
+          <pre className="text-xs leading-relaxed font-mono p-4 whitespace-pre-wrap">
+            {generateMarkdown() || (
+              <span className="text-muted-foreground italic">
+                Fill in the wizard to see your generated Growth OS configuration...
+              </span>
+            )}
           </pre>
         </div>
       </CardContent>

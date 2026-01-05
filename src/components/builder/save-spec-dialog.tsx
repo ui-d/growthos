@@ -50,7 +50,7 @@ export function SaveSpecDialog({ wizardData, onSaved }: SaveSpecDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" className="w-full justify-start">
           <Save className="h-4 w-4 mr-2" />
           Save to Recents
         </Button>

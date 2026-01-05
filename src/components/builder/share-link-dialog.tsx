@@ -77,6 +77,7 @@ export function ShareLinkDialog({ wizardData, disabled }: ShareLinkDialogProps) 
           size="sm"
           onClick={handleGenerateLink}
           disabled={disabled || !isValid()}
+          className="w-full justify-start"
         >
           <Share2 className="h-4 w-4 mr-2" />
           Share Link
@@ -123,9 +124,9 @@ export function ShareLinkDialog({ wizardData, disabled }: ShareLinkDialogProps) 
               <p className="font-medium">Configuration includes:</p>
               <ul className="list-disc list-inside space-y-1 text-muted-foreground">
                 {wizardData.productType && <li>Product Type: {wizardData.productType}</li>}
-                {wizardData.primaryObject && <li>Primary Object: {wizardData.primaryObject}</li>}
-                {wizardData.valueAction && <li>Value Action: {wizardData.valueAction}</li>}
-                {wizardData.activationEventName && <li>Activation Event: {wizardData.activationEventName}</li>}
+                {wizardData.primaryObject && <li>Primary object: {wizardData.primaryObject}</li>}
+                {wizardData.valueAction && <li>Value action: {wizardData.valueAction}</li>}
+                {wizardData.activationEventName && <li>Activation event: {wizardData.activationEventName}</li>}
                 {wizardData.coreEvents.length > 0 && <li>{wizardData.coreEvents.length} Core Events</li>}
                 {wizardData.customEvents.length > 0 && <li>{wizardData.customEvents.length} Custom Events</li>}
               </ul>

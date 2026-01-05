@@ -1,51 +1,46 @@
 ---
-title: KPI Tree
-description: Map your metrics hierarchy from North Star to leading indicators
+title: "KPI Tree & North Star"
+description: "A single source of truth: North Star, input metrics, and guardrails."
 order: 1
 ---
 
 ## Why it matters
-
-Without a KPI tree, teams track vanity metrics that don't drive business outcomes. This framework connects every metric to your ultimate goal, creating accountability and focus.
+Without a KPI tree, teams optimize different things at the same time: marketing pushes volume, product ships features, revenue discounts — and nobody owns the system. A KPI tree aligns the company around **value → behaviors → revenue**, with clear guardrails.
 
 ## Template
+### 1) North Star Metric (NSM)
+For PLG B2B, prefer **account/workspace** metrics:
+- **NSM:** Weekly Activated Workspaces (WAW)
+- **Definition:** number of workspaces that fired `activation_completed` in the last 7 days
 
-```
-North Star Metric
-├── Input Metric 1
-│   ├── Leading Indicator 1.1
-│   └── Leading Indicator 1.2
-└── Input Metric 2
-    ├── Leading Indicator 2.1
-    └── Leading Indicator 2.2
-```
+### 2) Input metrics (layers)
+**Acquisition**
+- Visits → Signup Started → Signup Completed
+- Signup conversion rate
 
-Key components:
-- **North Star**: Single metric that captures value delivered
-- **Input Metrics**: 3-5 drivers that directly influence North Star
-- **Leading Indicators**: Early signals that predict input metrics
+**Activation**
+- Activation Rate = activated_workspaces / signup_completed_workspaces
+- **Time-to-Value (TTV)** = median(signup_completed → activation_completed)
+
+**Retention**
+- W1 / W4 retention (workspace + user)
+- Repeat usage rate (e.g., ≥2 sessions/week)
+
+**Revenue**
+- Trial → Paid conversion
+- Expansion (seat growth), GRR/NRR (if applicable)
+
+### 3) Guardrails
+- Refund rate
+- Support tickets per active workspace
+- Abuse/spam signals
 
 ## Common mistakes
-
-1. **Too many metrics** - More than 5 input metrics dilutes focus
-2. **Missing connections** - Each metric must mathematically relate to parent
-3. **Lagging only** - No early warning signals for course correction
-4. **Team misalignment** - Metrics not mapped to team ownership
+- Using user-level NSM when monetization is workspace/account-level.
+- Metrics without definitions (who counts, in what window, for which segment).
+- Optimizing activation while hurting quality (missing guardrails).
 
 ## Example output
-
-**Spotify's KPI Tree:**
-```
-Monthly Active Users (MAU)
-├── New User Acquisition
-│   ├── App Store Rankings
-│   └── Viral Coefficient
-├── User Retention
-│   ├── Day 1 Retention
-│   └── Weekly Active %
-└── Resurrection Rate
-    ├── Push Notification CTR
-    └── Email Re-engagement
-```
-
-Each team owns specific branches, creating clear accountability.
+**NSM:** Weekly Activated Workspaces
+**Activation:** workspace created + primary object created + key feature used within 24h
+**TTV target:** ≤ 15 minutes

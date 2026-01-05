@@ -26,23 +26,32 @@ export const metadata: Metadata = {
 
 function BuilderFallback() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50/50 via-background to-red-50/50 dark:from-background dark:via-background dark:to-background">
-      <div className="container-wide section-spacing-sm">
-        <div className="text-center mb-12">
-          <span className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium bg-primary/10 text-primary rounded-full">
+    <div className="min-h-screen bg-background">
+      <div className="container-full section-spacing-sm">
+        {/* Hero Section */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
             Interactive Configuration Tool
-          </span>
-          <h1 className="heading-primary mb-4">Growth OS Builder</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Define your activation metrics, configure retention targets, and generate complete implementation guides for your growth strategy.
+          </div>
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+            Growth OS Builder
+          </h1>
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Define your activation metrics, configure retention targets, and generate complete implementation guides.
           </p>
         </div>
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center justify-center min-h-[400px]">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-              <p className="mt-4 text-muted-foreground">Loading builder...</p>
+
+        {/* Loading state */}
+        <div className="flex items-center justify-center min-h-[500px]">
+          <div className="text-center">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-10 w-10 border-2 border-muted border-t-primary mx-auto"></div>
             </div>
+            <p className="mt-4 text-sm text-muted-foreground">Loading builder...</p>
           </div>
         </div>
       </div>
@@ -53,20 +62,27 @@ function BuilderFallback() {
 export default function BuilderPage() {
   return (
     <Suspense fallback={<BuilderFallback />}>
-      <div className="min-h-screen bg-gradient-to-br from-orange-50/50 via-background to-red-50/50 dark:from-background dark:via-background dark:to-background">
-        <div className="container-wide section-spacing-sm">
-          <div className="text-center mb-12">
-            <span className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium bg-primary/10 text-primary rounded-full">
+      <div className="min-h-screen bg-background">
+        <div className="container-full section-spacing-sm">
+          {/* Hero Section */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 text-xs font-medium bg-primary/10 text-primary rounded-full border border-primary/20">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
               Interactive Configuration Tool
-            </span>
-            <h1 className="heading-primary mb-4">Growth OS Builder</h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Define your activation metrics, configure retention targets, and generate complete implementation guides for your growth strategy.
+            </div>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+              Growth OS Builder
+            </h1>
+            <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+              Define your activation metrics, configure retention targets, and generate complete implementation guides.
             </p>
           </div>
-          <div className="max-w-5xl mx-auto">
-            <BuilderWizard />
-          </div>
+
+          {/* Builder Content */}
+          <BuilderWizard />
         </div>
       </div>
     </Suspense>

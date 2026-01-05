@@ -26,7 +26,7 @@ export function SharedSpecViewer() {
       const dataParam = searchParams.get('d')
 
       if (!dataParam) {
-        setError("No data parameter found in URL")
+        setError("Invalid share link")
         setLoading(false)
         return
       }
@@ -48,7 +48,7 @@ export function SharedSpecViewer() {
         setLoading(false)
       } catch (err) {
         console.error('Failed to decode shared data:', err)
-        setError("Failed to load shared configuration")
+        setError("Invalid share link")
         setLoading(false)
       }
     }
@@ -168,19 +168,19 @@ export function SharedSpecViewer() {
                 )}
                 {wizardData.primaryObject && (
                   <div>
-                    <p className="font-medium">Primary Object</p>
+                    <p className="font-medium">Primary object</p>
                     <p className="text-muted-foreground">{wizardData.primaryObject}</p>
                   </div>
                 )}
                 {wizardData.valueAction && (
                   <div>
-                    <p className="font-medium">Value Action</p>
+                    <p className="font-medium">Value action</p>
                     <p className="text-muted-foreground">{wizardData.valueAction}</p>
                   </div>
                 )}
                 {wizardData.ttvMinutes && (
                   <div>
-                    <p className="font-medium">Time to Value</p>
+                    <p className="font-medium">Time-to-Value (TTV)</p>
                     <p className="text-muted-foreground">{wizardData.ttvMinutes} minutes</p>
                   </div>
                 )}

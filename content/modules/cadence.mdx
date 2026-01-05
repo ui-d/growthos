@@ -1,69 +1,29 @@
 ---
-title: Cadence
-description: Establish rhythms for reviewing metrics and making decisions
+title: "Cadence: How Growth OS runs"
+description: "Weekly review + monthly instrumentation review to keep the system alive."
 order: 8
 ---
 
 ## Why it matters
-
-Random check-ins = random results. A disciplined cadence creates accountability, catches problems early, and builds a culture of continuous improvement.
+A system only works when it's used. Cadence is the minimal set of rituals that keeps KPI definitions, tracking, and experiments in sync.
 
 ## Template
+### Weekly Growth Review (30–45 min)
+1) Snapshot: NSM, activation rate, TTV, W1 retention
+2) Top 3 changes this week
+3) Segment view: source/plan/role
+4) Decisions: 1–2 experiments for next week
+5) Instrumentation/data-quality blockers
 
-**Growth Cadence Stack:**
-```
-Daily:
-- Automated alerts (5 min)
-- Key metrics check (10 min)
-
-Weekly:
-- Experiment reviews (30 min)
-- Metrics deep-dive (1 hr)
-- Growth team sync (45 min)
-
-Monthly:
-- Board review (2 hrs)
-- Quarterly planning (4 hrs)
-- Post-mortems (1 hr)
-```
-
-**Meeting Format:**
-1. Metrics review (what happened?)
-2. Root cause analysis (why?)
-3. Action items (what next?)
-4. Owner + deadline (who + when?)
+### Monthly Instrumentation Review (30 min)
+- What changed? is it in the spec?
+- Do events and dashboards match definitions?
+- Are owners assigned?
 
 ## Common mistakes
-
-1. **Meetings without data** - Opinions dominate facts
-2. **No follow-up** - Same discussions every week
-3. **Wrong frequency** - Daily reviews of monthly metrics
-4. **Too many attendees** - Decision paralysis
+- Weekly meeting with no decisions.
+- Nobody owns metric definitions.
+- No "ship/rollback" decisions after experiments.
 
 ## Example output
-
-**Amazon's Weekly Business Review:**
-```
-Format: 6-page narrative memo
-Duration: 60 minutes sharp
-
-Agenda:
-0-20min: Silent reading of memo
-20-50min: Deep dive on exceptions
-50-60min: Decisions and actions
-
-Rules:
-- No PowerPoints
-- Data > Anecdotes
-- Written commitments
-- Public scorecard
-
-Output Example:
-"Prime cancellations up 3% in Germany
-Root cause: Delivery delays from new FC
-Action: Reroute 30% volume to FC-Berlin
-Owner: Hans M.
-Deadline: EOD Thursday"
-```
-
-Result: 10x faster decision velocity.
+A steady rhythm: ~4 experiments/month, 1 tracking iteration/month, zero mystery metrics.

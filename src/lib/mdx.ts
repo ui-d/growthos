@@ -80,3 +80,28 @@ export async function getAdjacentModules(currentSlug: string): Promise<{
     next: currentIndex < modules.length - 1 ? modules[currentIndex + 1] : null,
   };
 }
+
+export interface TocHeading {
+  id: string;
+  text: string;
+  level: number;
+}
+
+export function extractHeadings(content: string): TocHeading[] {
+  const headingRegex = /^(#{2,3})\s+(.+)$/gm;
+  const headings: TocHeading[] = [];
+  let match;
+
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = match[1].length;
+    const text = match[2].trim();
+    const id = text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-');
+
+    headings.push({ id, text, level });
+  }
+
+  return headings;
+}

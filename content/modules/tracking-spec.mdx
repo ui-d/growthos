@@ -1,64 +1,40 @@
 ---
-title: Tracking Spec
-description: Document every event, property, and trigger for consistent analytics
-order: 2
+title: "Tracking Spec (Event Taxonomy)"
+description: "A tracking plan as a contract: events, properties, naming, governance."
+order: 3
 ---
 
 ## Why it matters
-
-Bad tracking = bad decisions. A tracking spec ensures everyone captures data the same way, preventing the "which number is right?" debates that kill momentum.
+Product data rots fast without taxonomy: duplicate events, random properties, "mystery metrics." A tracking spec is the contract between product, engineering, and analytics.
 
 ## Template
+### Naming convention (pick one and enforce it)
+**Option A (dev-friendly):**
+- events: `snake_case` + past tense (e.g., `workspace_created`)
+- properties: `snake_case`
 
-**Event Structure:**
-```json
-{
-  "event_name": "checkout_completed",
-  "properties": {
-    "revenue": 99.99,
-    "currency": "USD",
-    "items_count": 3,
-    "payment_method": "card"
-  },
-  "user_properties": {
-    "user_id": "u123",
-    "plan_type": "premium"
-  }
-}
-```
+**Option B (Title Case events):**
+- events: Title Case
+- properties: `snake_case`
 
-**Documentation Format:**
-- **Trigger**: When exactly does this fire?
-- **Purpose**: Why do we track this?
-- **Properties**: Required vs optional fields
-- **Owner**: Who maintains this event?
+### Tracking plan table
+| Event | Trigger | Required properties | Owner | Notes |
+|------|---------|---------------------|-------|------|
+| signup_completed | successful registration | source, plan, landing_path | Growth | prefer server-side |
+| workspace_created | workspace created | workspace_id, role | Product | |
+| primary_object_created | core object created | object_type, object_id | Eng | |
+| key_feature_used | key action performed | feature | Product | |
+
+### Standard properties (always)
+- `user_id`, `workspace_id`, `plan`, `role`
+- `source`, `utm_*`, `landing_path`, `referrer_domain`
+- `environment` (prod/stage), `app_version`
 
 ## Common mistakes
-
-1. **Inconsistent naming** - `signUp` vs `sign_up` vs `user_signup`
-2. **Missing context** - Events without user/session data
-3. **Over-tracking** - Capturing everything "just in case"
-4. **No versioning** - Breaking changes without migration plan
+- Overloaded events (one event tries to represent multiple actions).
+- No property dictionary (same meaning, different keys).
+- Missing `environment` (staging pollutes prod).
+- No governance (who approves new events?).
 
 ## Example output
-
-**Airbnb Booking Flow:**
-```yaml
-Search Events:
-  - search_initiated
-    properties: [destination, dates, guests]
-  - results_viewed
-    properties: [results_count, filters_applied]
-  - listing_clicked
-    properties: [listing_id, position, price]
-
-Booking Events:
-  - booking_started
-    properties: [listing_id, nights, total_price]
-  - payment_submitted
-    properties: [payment_type, coupon_used]
-  - booking_confirmed
-    properties: [booking_id, host_response_time]
-```
-
-Every PM and engineer uses the same events.
+A single tracking plan table + property dictionary + naming rules on one page.

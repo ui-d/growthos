@@ -1,59 +1,38 @@
 ---
-title: Funnels
-description: Visualize and optimize user journeys from entry to conversion
+title: "Funnels & Time-to-Value"
+description: "Funnels that answer: what blocks activation, where, and for which segment."
 order: 4
 ---
 
 ## Why it matters
-
-You can't fix what you can't see. Funnels reveal exactly where users drop off, turning vague problems ("conversion is low") into specific fixes ("step 3 kills 67% of users").
+Funnels are not just conversion rates â€” they reveal drop-offs, time delays, and segment-specific friction. TTV turns funnels into an onboarding performance metric.
 
 ## Template
+### The 3 core funnels
+1) **Signup funnel**
+- page_viewed â†’ signup_started â†’ signup_completed
 
-**Core Funnel Structure:**
-```
-Acquisition ’ Activation ’ Revenue ’ Retention ’ Referral
+2) **Onboarding funnel**
+- onboarding_started â†’ onboarding_step_completed (xN) â†’ onboarding_completed
 
-Example E-commerce:
-Visit Site (100%)
-  “
-View Product (45%)
-  “
-Add to Cart (12%)
-  “
-Begin Checkout (8%)
-  “
-Complete Purchase (3%)
-```
+3) **Activation funnel**
+- signup_completed â†’ workspace_created â†’ primary_object_created â†’ key_feature_used â†’ activation_completed
 
-**Analysis Framework:**
-- **Drop-off rates** between each step
-- **Time between steps** (velocity)
-- **Segmentation** by source, device, user type
-- **Conversion rate** end-to-end
+### Conversion windows
+- Signup: 30â€“60 minutes
+- Activation: 24h (or 7d for longer setups)
+- Retention: 7d / 28d cohorts
+
+### Segmentation (must-have)
+- `source` / `utm_campaign`
+- `plan` (free/trial/pro)
+- `role` (owner/admin/member)
+- `country`, `device_type`
 
 ## Common mistakes
-
-1. **Too many steps** - Include only critical actions
-2. **Wrong order** - Users don't always follow your ideal path
-3. **No segmentation** - Averaging hides insights
-4. **Ignoring time** - Not all conversions happen immediately
+- Using page/screen views instead of value events.
+- No conversion windows (indefinite funnels).
+- Too many steps (funnel becomes a world map, not a diagnostic tool).
 
 ## Example output
-
-**Dropbox's Referral Funnel:**
-```
-Sees Referral Prompt (100%)
-    “ 25% click
-Visits Referral Page (25%)
-    “ 60% start
-Enters Friend's Email (15%)
-    “ 80% send
-Sends Invitation (12%)
-    “ 35% accept
-Friend Signs Up (4.2%)
-    “ 90% qualify
-Both Get Reward (3.8%)
-```
-
-Identified: Email entry was biggest friction. Solution: Social sharing options increased completion 2.5x.
+Activation funnel + TTV breakdown showing where users lose time (integrations, setup, inviting teammates).
