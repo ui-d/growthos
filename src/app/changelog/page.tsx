@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { History, Sparkles, Wrench, Bug } from "lucide-react"
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://growthos.com"
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
 export const metadata: Metadata = {
   title: "Changelog - Growth OS",

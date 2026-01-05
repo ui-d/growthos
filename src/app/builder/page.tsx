@@ -3,7 +3,7 @@ import { Suspense } from "react"
 import { BuilderWizard } from "@/components/builder/builder-wizard"
 import Link from "next/link"
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://growthos.com"
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
 export const metadata: Metadata = {
   title: "Growth OS Builder - Configure Your Growth Strategy",

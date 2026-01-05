@@ -142,14 +142,15 @@ export function BuilderWizard() {
         }
       }
 
-      // Then try to load from URL parameters (shared link)
+      // Then try to load from URL parameters (shared link - supports both 'd' and 'load' params)
       if (!initialState) {
-        const loadParam = searchParams.get('load')
-        if (loadParam) {
+        const dataParam = searchParams.get('d') || searchParams.get('load')
+        if (dataParam) {
           try {
-            const decoded = decodeShareableInput(loadParam)
+            const decoded = decodeShareableInput(dataParam)
             if (decoded) {
               initialState = decoded
+              toast.success('Configuration loaded from shared link')
             }
           } catch (error) {
             console.error('Failed to load from URL:', error)

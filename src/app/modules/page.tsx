@@ -3,8 +3,9 @@ import Link from "next/link"
 import { getAllModules } from "@/lib/mdx"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { pluralize } from "@/lib/utils"
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://growthos.com"
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
 export const metadata: Metadata = {
   title: "Growth OS Modules - Growth Components",
@@ -52,7 +53,7 @@ export default async function ModulesPage() {
           <>
             <div className="flex items-center justify-between mb-8">
               <p className="text-sm text-muted-foreground">
-                {modules.length} module{modules.length !== 1 ? 's' : ''} available
+                {modules.length} {pluralize(modules.length, 'module')} available
               </p>
             </div>
 

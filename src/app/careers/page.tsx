@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Users, Heart, ArrowRight } from "lucide-react"
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://growthos.com"
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
 export const metadata: Metadata = {
   title: "Careers - Growth OS",

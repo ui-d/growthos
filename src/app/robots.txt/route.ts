@@ -1,5 +1,5 @@
 export function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://growthos.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.growthos.fyi'
 
   return new Response(`User-agent: *
 Allow: /
@@ -10,7 +10,7 @@ Allow: /library
 Allow: /modules
 
 # Block dynamic share pages from indexing
-Disallow: /s/
+Disallow: /s
 
 Sitemap: ${baseUrl}/sitemap.xml`, {
     headers: {

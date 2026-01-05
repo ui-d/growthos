@@ -1,5 +1,5 @@
 export function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://growthos.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.growthos.fyi'
 
   const routes = [
     // Main pages

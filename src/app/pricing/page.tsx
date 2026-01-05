@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Check, Sparkles } from "lucide-react"
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://growthos.com"
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
 export const metadata: Metadata = {
   title: "Pricing - Growth OS",
@@ -30,7 +30,7 @@ const features = [
   "Full access to the Builder tool",
   "All growth framework modules",
   "Pre-built examples and templates",
-  "Export to Markdown and JSON",
+  "Export to Markdown, JSON, and Print to PDF",
   "Share configurations via URL",
   "Community-driven updates",
 ]

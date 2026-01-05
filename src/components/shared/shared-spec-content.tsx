@@ -45,7 +45,7 @@ export function SharedSpecContent({ initialData }: SharedSpecContentProps) {
 
   const handleOpenInBuilder = () => {
     const encoded = encodeShareableInput(initialData)
-    router.push(`/builder?load=${encoded}`)
+    router.push(`/builder?d=${encoded}`)
   }
 
   return (

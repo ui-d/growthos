@@ -160,7 +160,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Export and implement</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Get your complete system as Markdown, shareable link, or PDF—ready for your team
+                  Export to Markdown and JSON, share via link, or use Print to PDF for your team
                 </p>
               </div>
             </div>

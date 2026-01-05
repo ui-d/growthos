@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { AlertCircle, ArrowLeft, Share2 } from "lucide-react"
 import Link from "next/link"
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://growthos.com"
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -21,6 +21,10 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     return {
       title: "Shared Growth Spec - Growth OS",
       description: "View a shared Growth OS configuration",
+      robots: {
+        index: false,
+        follow: true,
+      },
       openGraph: {
         title: "Shared Growth Spec - Growth OS",
         description: "View a shared Growth OS configuration",
@@ -49,6 +53,10 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
       return {
         title: `${title} - Growth OS`,
         description,
+        robots: {
+          index: false,
+          follow: true,
+        },
         openGraph: {
           title: `${title} - Growth OS`,
           description,
@@ -74,6 +82,10 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   return {
     title: "Shared Growth Spec - Growth OS",
     description: "View a shared Growth OS configuration",
+    robots: {
+      index: false,
+      follow: true,
+    },
     openGraph: {
       title: "Shared Growth Spec - Growth OS",
       description: "View a shared Growth OS configuration",

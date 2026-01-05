@@ -10,6 +10,7 @@ import { Copy, ExternalLink, Hammer, Rocket, Package, Briefcase, Building2, Spar
 import { examples, generateShareUrl, convertExampleToWizardState, type GrowthOSExample, getAllCategories } from '@/lib/growth-os/examples'
 import { encodeShareableInput } from '@/lib/growth-os/share'
 import { toast } from 'sonner'
+import { pluralize } from '@/lib/utils'
 
 const categoryIcons = {
   'SaaS': <Rocket className="h-4 w-4" />,
@@ -212,7 +213,7 @@ export default function ExamplesPage() {
                       <span className={categoryColors[category].split(' ')[1]}>{categoryIcons[category]}</span>
                       <span className="font-medium text-sm">{category}</span>
                     </div>
-                    <p className="text-xs text-muted-foreground">{count} example{count !== 1 ? 's' : ''}</p>
+                    <p className="text-xs text-muted-foreground">{count} {pluralize(count, 'example')}</p>
                   </button>
                 )
               })}
@@ -258,7 +259,7 @@ export default function ExamplesPage() {
 
         <div className="mb-6 flex items-center justify-between">
           <p className="text-sm text-muted-foreground">
-            Showing {filteredExamples.length} example{filteredExamples.length !== 1 ? 's' : ''}
+            Showing {filteredExamples.length} {pluralize(filteredExamples.length, 'example')}
             {selectedCategory !== 'all' && ` in ${selectedCategory}`}
           </p>
           {selectedCategory !== 'all' && (
