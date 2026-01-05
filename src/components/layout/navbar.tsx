@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Input } from "@/components/ui/input"
 import { ThemeToggle } from "./theme-toggle"
+import { SearchDialog } from "./search-dialog"
 
 const mainNavItems = [
   { href: "/", label: "Home" },
@@ -24,6 +25,20 @@ const mainNavItems = [
 export function Navbar() {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
+  const [searchOpen, setSearchOpen] = React.useState(false)
+
+  // Handle keyboard shortcut (Cmd+K / Ctrl+K)
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault()
+        setSearchOpen(true)
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [])
 
   return (
     <>
@@ -43,21 +58,22 @@ export function Navbar() {
             </div>
 
             {/* Search Bar */}
-            <div className="hidden lg:flex flex-1 max-w-md mx-8 relative group">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="hidden lg:flex flex-1 max-w-md mx-8 relative group items-center"
+            >
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                <Search className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
               </div>
-              <Input
-                className="pl-10 pr-12 transition-all focus:ring-2 focus:ring-primary/20"
-                placeholder="Search documentation..."
-                type="text"
-              />
+              <div className="w-full h-9 pl-10 pr-12 rounded-md border border-input bg-transparent text-sm text-muted-foreground text-left flex items-center transition-colors hover:border-primary/50 hover:bg-accent/50">
+                Search documentation...
+              </div>
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                 <kbd className="text-muted-foreground text-xs border border-border rounded px-1.5 py-0.5 bg-muted font-mono">
                   ⌘K
                 </kbd>
               </div>
-            </div>
+            </button>
 
             {/* Get Started and Theme */}
             <div className="flex items-center gap-4">
@@ -79,14 +95,18 @@ export function Navbar() {
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[280px]">
                   <div className="flex flex-col space-y-4 mt-4">
-                    <div className="relative">
-                      <Search className="h-4 w-4 absolute left-3 top-3 text-muted-foreground" />
-                      <Input
-                        className="pl-10"
-                        placeholder="Search"
-                        type="text"
-                      />
-                    </div>
+                    <button
+                      onClick={() => {
+                        setOpen(false)
+                        setSearchOpen(true)
+                      }}
+                      className="relative flex items-center"
+                    >
+                      <Search className="h-4 w-4 absolute left-3 text-muted-foreground" />
+                      <div className="w-full h-10 pl-10 rounded-md border border-input bg-transparent text-sm text-muted-foreground text-left flex items-center">
+                        Search...
+                      </div>
+                    </button>
                     <nav className="flex flex-col space-y-2">
                       {mainNavItems.map((item) => (
                         <Link
@@ -151,6 +171,9 @@ export function Navbar() {
           </div>
         </div>
       </nav>
+
+      {/* Search Dialog */}
+      <SearchDialog open={searchOpen} onOpenChange={setSearchOpen} />
     </>
   )
 }
