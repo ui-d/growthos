@@ -1,12 +1,12 @@
 'use client'
 
-import React, { useState, useMemo } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Copy, ExternalLink, Hammer, Rocket, Package, Briefcase, Building2, Sparkles, ArrowRight, Filter, Grid, List } from 'lucide-react'
+import { Copy, ExternalLink, Hammer, Rocket, Package, Briefcase, Building2, Sparkles, ArrowRight, Filter, Grid } from 'lucide-react'
 import { examples, generateShareUrl, convertExampleToWizardState, type GrowthOSExample, getAllCategories } from '@/lib/growth-os/examples'
 import { encodeShareableInput } from '@/lib/growth-os/share'
 import { toast } from 'sonner'
@@ -99,7 +99,7 @@ function ExampleCard({ example }: { example: GrowthOSExample }) {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex gap-2 pt-4 border-t">
+      <CardFooter className="flex gap-2 pt-4">
         <Button
           variant="default"
           size="sm"
@@ -177,15 +177,14 @@ export default function ExamplesPage() {
   const [selectedCategory, setSelectedCategory] = useState<GrowthOSExample['category'] | 'all'>('all')
   const categories = getAllCategories()
 
-  const filteredExamples = useMemo(() => {
-    if (selectedCategory === 'all') return examples
-    return examples.filter(e => e.category === selectedCategory)
-  }, [selectedCategory])
+  const filteredExamples = selectedCategory === 'all'
+    ? examples
+    : examples.filter(e => e.category === selectedCategory)
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-purple-50/50 via-background to-blue-50/50 dark:from-background dark:via-background dark:to-background border-b">
+      <section className="bg-gradient-to-br from-purple-50/50 via-background to-blue-50/50 dark:from-background dark:via-background dark:to-background">
         <div className="container-wide section-spacing-sm">
           <div className="text-center max-w-3xl mx-auto">
             <span className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium bg-primary/10 text-primary rounded-full">
@@ -203,10 +202,10 @@ export default function ExamplesPage() {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`p-3 rounded-lg border text-left transition-all hover:shadow-sm ${
+                    className={`p-3 rounded-xl text-left transition-all hover:shadow-md ${
                       selectedCategory === category
-                        ? 'border-primary bg-primary/5'
-                        : 'border-border hover:border-primary/50'
+                        ? 'ring-2 ring-primary bg-primary/5 shadow-sm'
+                        : 'bg-card shadow-sm hover:shadow-md ring-1 ring-border/50'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-1">
@@ -223,7 +222,7 @@ export default function ExamplesPage() {
       </section>
 
       {/* Filter Bar */}
-      <section className="border-b bg-background/80 backdrop-blur-sm sticky top-16 z-10">
+      <section className="bg-background/80 backdrop-blur-sm sticky top-16 z-10 shadow-sm">
         <div className="container-wide py-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-2">
@@ -287,16 +286,16 @@ export default function ExamplesPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="border-t bg-muted/30">
+      <section className="bg-muted/30">
         <div className="container-narrow section-spacing">
-          <Card className="bg-gradient-to-r from-primary/10 to-blue-500/10 border-2 border-primary/20">
+          <Card className="bg-gradient-to-r from-primary/10 to-blue-500/10 shadow-lg">
             <CardContent className="p-12 text-center">
               <Hammer className="h-12 w-12 text-primary mx-auto mb-4" />
               <h2 className="heading-tertiary mb-4">
                 Build Your Custom Growth OS
               </h2>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-                Can't find an example that fits your product? Use our interactive builder to create a growth system tailored to your specific business model and goals.
+                Can&apos;t find an example that fits your product? Use our interactive builder to create a growth system tailored to your specific business model and goals.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Button size="lg" asChild className="group">

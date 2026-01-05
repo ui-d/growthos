@@ -32,7 +32,7 @@ export default async function ModulesPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary/5 via-background to-purple-500/5 border-b">
+      <section className="bg-gradient-to-br from-primary/5 via-background to-purple-500/5">
         <div className="container-wide section-spacing-sm">
           <div className="text-center max-w-3xl mx-auto">
             <span className="inline-flex items-center px-3 py-1 mb-4 text-sm font-medium bg-primary/10 text-primary rounded-full">
@@ -59,7 +59,7 @@ export default async function ModulesPage() {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {modules.map((module) => (
                 <Link key={module.slug} href={`/modules/${module.slug}`} className="group">
-                  <Card className="h-full card-hover border-2 hover:border-primary/20">
+                  <Card className="h-full card-hover">
                     <CardHeader>
                       <div className="flex items-center justify-between mb-2">
                         <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded">

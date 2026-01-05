@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:routes": "node scripts/test-routes.js"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",

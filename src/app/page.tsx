@@ -1,6 +1,5 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { SectionHeader } from "@/components/ui/section-header"
 import {
@@ -58,121 +57,112 @@ export default function HomePage() {
       <section className="section-spacing">
         <div className="container-wide">
           <SectionHeader
-            title="What you get"
-            subtitle="Everything you need to build a comprehensive activation system"
+            title="Your activation toolkit"
+            subtitle="Four interconnected components that transform how you measure and drive user activation"
             centered
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card className="card-hover">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <Target className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">KPI Tree + North Star</CardTitle>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mb-6">
+                  <Target className="h-7 w-7 text-primary" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  One source of truth for metrics and guardrails.
+                <h3 className="text-xl font-semibold mb-3">KPI Tree + North Star</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Build a hierarchical metrics framework with your North Star at the top.
+                  Create guardrails that prevent gaming while driving the right behaviors.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="card-hover">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <Zap className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">Activation Spec</CardTitle>
-                  </div>
+            <div className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mb-6">
+                  <Zap className="h-7 w-7 text-primary" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Define activation as value (not logins) and measure TTV.
+                <h3 className="text-xl font-semibold mb-3">Activation Spec</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Define activation as real value delivery, not vanity metrics.
+                  Measure Time-to-Value precisely and identify exactly when users succeed.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="card-hover">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <FileText className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">Tracking Plan</CardTitle>
-                  </div>
+            <div className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mb-6">
+                  <FileText className="h-7 w-7 text-primary" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  A developer-friendly event + properties contract.
+                <h3 className="text-xl font-semibold mb-3">Tracking Plan</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Get a developer-ready event contract with properties, types, and triggers.
+                  Ship analytics instrumentation faster with clear specifications.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="card-hover">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <BarChart3 className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">Dashboard Pack</CardTitle>
-                  </div>
+            <div className="group relative bg-gradient-to-br from-card to-card/50 rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mb-6">
+                  <BarChart3 className="h-7 w-7 text-primary" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Standard boards for activation, retention, adoption, and revenue.
+                <h3 className="text-xl font-semibold mb-3">Dashboard Pack</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Pre-configured dashboards for activation, retention, adoption, and revenue.
+                  Stop building from scratch—start with proven templates.
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* How It Works Section */}
-      <section className="section-spacing bg-muted/30">
+      <section className="section-spacing bg-gradient-to-b from-muted/40 to-transparent">
         <div className="container-wide">
           <SectionHeader
-            title="How it works"
-            subtitle="Generate your activation system in three simple steps"
+            title="Three steps to clarity"
+            subtitle="Go from scattered metrics to a complete activation system in minutes"
             centered
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
-                1
+          <div className="relative">
+            {/* Connection line for desktop */}
+            <div className="hidden md:block absolute top-12 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+              <div className="relative text-center group">
+                <div className="relative z-10 w-20 h-20 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl font-bold shadow-lg shadow-primary/25 group-hover:scale-110 transition-transform duration-300">
+                  1
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Choose your product type</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Select your product category and define the primary object that delivers value to users
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Choose product type + primary object</h3>
-              <p className="text-muted-foreground">
-                Select your product category and define the core object users interact with to get value
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
-                2
+
+              <div className="relative text-center group">
+                <div className="relative z-10 w-20 h-20 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl font-bold shadow-lg shadow-primary/25 group-hover:scale-110 transition-transform duration-300">
+                  2
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Define your activation moment</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Set the specific criteria and key action that signals a user has experienced real value
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Define activation rules + key value action</h3>
-              <p className="text-muted-foreground">
-                Set the specific criteria that indicate a user has reached their first value moment
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
-                3
+
+              <div className="relative text-center group">
+                <div className="relative z-10 w-20 h-20 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground rounded-2xl flex items-center justify-center mx-auto mb-6 text-3xl font-bold shadow-lg shadow-primary/25 group-hover:scale-110 transition-transform duration-300">
+                  3
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Export and implement</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Get your complete system as Markdown, shareable link, or PDF—ready for your team
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Export Markdown, share link, and PDF</h3>
-              <p className="text-muted-foreground">
-                Get your complete activation system in multiple formats ready for implementation
-              </p>
             </div>
           </div>
         </div>
@@ -182,40 +172,49 @@ export default function HomePage() {
       <section className="section-spacing">
         <div className="container-wide">
           <SectionHeader
-            title="Built for"
-            subtitle="Designed specifically for modern product-led growth companies"
+            title="Built for PLG teams"
+            subtitle="Designed for companies where users find value before talking to sales"
             centered
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="card-hover text-center">
-              <CardContent className="pt-6">
-                <Code2 className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Devtool PLG</h3>
-                <p className="text-muted-foreground text-sm">
-                  Developer tools and platforms with code-first onboarding flows
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/50 to-muted/20 p-8 text-center hover:shadow-lg transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-500/5 flex items-center justify-center">
+                  <Code2 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                </div>
+                <h3 className="text-lg font-semibold mb-3">Developer Tools</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  API platforms, CLIs, SDKs, and infrastructure tools with code-first onboarding flows
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="card-hover text-center">
-              <CardContent className="pt-6">
-                <Building className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">B2B SaaS (workspace/account-level)</h3>
-                <p className="text-muted-foreground text-sm">
-                  Business software with team-based activation and collaboration features
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/50 to-muted/20 p-8 text-center hover:shadow-lg transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 flex items-center justify-center">
+                  <Building className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+                </div>
+                <h3 className="text-lg font-semibold mb-3">B2B SaaS</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Workspace and team-based products where activation happens at the account level
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
-            <Card className="card-hover text-center">
-              <CardContent className="pt-6">
-                <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Self-serve onboarding</h3>
-                <p className="text-muted-foreground text-sm">
-                  Products where users can experience value without sales intervention
+            <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-muted/50 to-muted/20 p-8 text-center hover:shadow-lg transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative">
+                <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-green-500/20 to-green-500/5 flex items-center justify-center">
+                  <Users className="h-8 w-8 text-green-600 dark:text-green-400" />
+                </div>
+                <h3 className="text-lg font-semibold mb-3">Self-Serve Products</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Products where users experience value independently before any sales contact
                 </p>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -223,22 +222,26 @@ export default function HomePage() {
       {/* Bottom CTA Section */}
       <section className="section-spacing">
         <div className="container-narrow">
-          <Card className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground border-0">
-            <div className="p-12 text-center">
-              <h2 className="heading-secondary mb-4 text-white">
-                Generate your first Growth OS spec in 60 seconds
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-orange-600 shadow-2xl shadow-primary/20">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
+
+            <div className="relative p-12 md:p-16 text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                Build your activation system in 60 seconds
               </h2>
-              <p className="text-lg mb-8 text-white/90 max-w-2xl mx-auto">
-                Start building your activation system today with our guided builder
+              <p className="text-lg md:text-xl mb-10 text-white/90 max-w-2xl mx-auto">
+                Stop guessing at metrics. Start with a complete framework tailored to your product.
               </p>
-              <Button size="lg" variant="secondary" asChild className="group">
+              <Button size="lg" variant="secondary" asChild className="group text-base px-8 py-6 shadow-lg hover:shadow-xl transition-shadow">
                 <Link href="/builder">
                   Open Builder
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
             </div>
-          </Card>
+          </div>
         </div>
       </section>
     </>
