@@ -50,7 +50,7 @@ const docSections = [
   },
   {
     title: "Examples",
-    description: "Real-world examples across different industries and use cases",
+    description: "Scenario templates across different industries and use cases",
     icon: Hammer,
     href: "/examples",
     cta: "View Examples",

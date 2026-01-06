@@ -192,7 +192,7 @@ export default function HomePage() {
         <div className="container-wide">
           <SectionHeader
             title="See it in action"
-            subtitle="Real examples for different product types and activation patterns"
+            subtitle="Reference templates for different product types and activation patterns"
             centered
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

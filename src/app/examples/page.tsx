@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Copy, ExternalLink, Hammer, Rocket, Package, Briefcase, Building2, Sparkles, ArrowRight, Filter, Grid } from 'lucide-react'
-import { examples, generateShareUrl, convertExampleToWizardState, type GrowthOSExample, getAllCategories } from '@/lib/growth-os/examples'
+import { Copy, ExternalLink, Hammer, Rocket, Package, Briefcase, Building2, Sparkles, ArrowRight, Filter, Grid, Lightbulb, Activity, BarChart3, Eye, Star } from 'lucide-react'
+import { examples, generateShareUrl, convertExampleToWizardState, type GrowthOSExample, getAllCategories, getFeaturedExamples, FEATURED_EXAMPLE_IDS } from '@/lib/growth-os/examples'
 import { encodeShareableInput } from '@/lib/growth-os/share'
 import { toast } from 'sonner'
 import { pluralize } from '@/lib/utils'
@@ -39,7 +39,7 @@ const categoryDescriptions = {
   'General': 'Productivity and utility tools for various use cases'
 }
 
-function ExampleCard({ example }: { example: GrowthOSExample }) {
+function ExampleCard({ example, featured = false }: { example: GrowthOSExample; featured?: boolean }) {
   const router = useRouter()
 
   const handleCopyLink = async () => {
@@ -63,9 +63,15 @@ function ExampleCard({ example }: { example: GrowthOSExample }) {
   const shareUrl = generateShareUrl(example)
 
   return (
-    <Card className="h-full flex flex-col group hover:shadow-md transition-shadow">
+    <Card className={`h-full flex flex-col group hover:shadow-md transition-shadow ${featured ? 'border-primary/30 bg-gradient-to-br from-primary/5 to-transparent' : ''}`}>
       <CardHeader>
         <div className="flex items-center gap-2 mb-2">
+          {featured && (
+            <Badge variant="default" className="bg-primary/90">
+              <Star className="mr-1 h-3 w-3" />
+              Featured
+            </Badge>
+          )}
           <Badge
             variant="secondary"
             className={`${categoryColors[example.category]} border-0`}
@@ -84,42 +90,67 @@ function ExampleCard({ example }: { example: GrowthOSExample }) {
           {example.description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-1">
-        <div className="space-y-3 text-sm text-muted-foreground">
-          <div className="line-clamp-2">
+      <CardContent className="flex-1 space-y-4">
+        {/* Rationale Section */}
+        <div className="p-3 bg-muted/50 rounded-lg space-y-3">
+          <div className="flex items-start gap-2">
+            <Lightbulb className="h-4 w-4 text-amber-500 mt-0.5 flex-shrink-0" />
+            <div className="text-sm">
+              <span className="font-medium text-foreground">Why this activation:</span>{' '}
+              <span className="text-muted-foreground">{example.rationale.why}</span>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <Activity className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0" />
+            <div className="text-sm">
+              <span className="font-medium text-foreground">Instrument:</span>{' '}
+              <span className="text-muted-foreground font-mono text-xs">
+                {example.rationale.instrument.slice(0, 2).join(', ')}
+                {example.rationale.instrument.length > 2 && '...'}
+              </span>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <BarChart3 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+            <div className="text-sm">
+              <span className="font-medium text-foreground">Watch:</span>{' '}
+              <span className="text-muted-foreground">{example.rationale.watch.join(', ')}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Original content - condensed */}
+        <div className="space-y-2 text-sm text-muted-foreground">
+          <div className="line-clamp-1">
             <span className="font-medium text-foreground">Product:</span>{' '}
             {example.input.product}
           </div>
-          <div className="line-clamp-2">
+          <div className="line-clamp-1">
             <span className="font-medium text-foreground">Target:</span>{' '}
             {example.input.target_market}
-          </div>
-          <div className="line-clamp-2">
-            <span className="font-medium text-foreground">Goal:</span>{' '}
-            {example.input.goals}
           </div>
         </div>
       </CardContent>
       <CardFooter className="flex gap-2 pt-4">
         <Button
-          variant="default"
+          variant="outline"
           size="sm"
           asChild
           className="flex-1"
         >
           <Link href={shareUrl}>
-            <ExternalLink className="mr-2 h-4 w-4" />
-            Open
+            <Eye className="mr-2 h-4 w-4" />
+            Open read-only
           </Link>
         </Button>
         <Button
-          variant="outline"
+          variant="default"
           size="sm"
           onClick={handleOpenInBuilder}
           className="flex-1"
         >
           <Hammer className="mr-2 h-4 w-4" />
-          Edit
+          Edit in Builder
         </Button>
         <Button
           variant="outline"
@@ -177,9 +208,11 @@ function CategoryFilter({
 export default function ExamplesPage() {
   const [selectedCategory, setSelectedCategory] = useState<GrowthOSExample['category'] | 'all'>('all')
   const categories = getAllCategories()
+  const featuredExamples = getFeaturedExamples()
 
+  // Filter out featured examples from main grid when showing all
   const filteredExamples = selectedCategory === 'all'
-    ? examples
+    ? examples.filter(e => !FEATURED_EXAMPLE_IDS.includes(e.id as typeof FEATURED_EXAMPLE_IDS[number]))
     : examples.filter(e => e.category === selectedCategory)
 
   return (
@@ -194,11 +227,31 @@ export default function ExamplesPage() {
             </span>
             <h1 className="heading-primary mb-4">Growth OS Examples</h1>
             <p className="text-lg text-muted-foreground">
-              Browse real-world growth system examples across different industries. Open any example to view the full spec, or load it into the builder to customize.
+              Browse scenario templates across different industries. Open any template to view the full spec, or load it into the builder to customize.
             </p>
           </div>
         </div>
       </section>
+
+      {/* Featured Examples Section */}
+      {selectedCategory === 'all' && (
+        <section className="container-wide py-8 border-b border-border/50">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 rounded-lg bg-primary/10">
+              <Star className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold">Featured Templates</h2>
+              <p className="text-sm text-muted-foreground">Start with these proven activation patterns</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {featuredExamples.map((example) => (
+              <ExampleCard key={example.id} example={example} featured />
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Filter Bar */}
       <section className="bg-background/80 backdrop-blur-sm sticky top-16 z-10 shadow-sm">
