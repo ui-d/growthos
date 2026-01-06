@@ -5,18 +5,20 @@ import { SectionHeader } from "@/components/ui/section-header"
 import { OutputPreview } from "@/components/marketing/output-preview"
 import {
   ArrowRight,
-  Target,
-  Zap,
-  FileText,
-  BarChart3,
-  Code2,
-  Briefcase,
-  Users,
   Rocket,
   AlertTriangle,
   CheckCircle2,
   Hammer
 } from "lucide-react"
+import {
+  KpiTreeIllustration,
+  ActivationIllustration,
+  TrackingPlanIllustration,
+  DashboardIllustration,
+  DevtoolIllustration,
+  B2bSaasIllustration,
+  SelfServeIllustration
+} from "@/components/illustrations/feature-illustrations"
 
 export default function HomePage() {
   return (
@@ -134,7 +136,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mb-6">
-                  <Target className="h-7 w-7 text-primary" />
+                  <KpiTreeIllustration className="h-7 w-7 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">KPI Tree + North Star</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -147,7 +149,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mb-6">
-                  <Zap className="h-7 w-7 text-primary" />
+                  <ActivationIllustration className="h-7 w-7 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Activation Spec</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -160,7 +162,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mb-6">
-                  <FileText className="h-7 w-7 text-primary" />
+                  <TrackingPlanIllustration className="h-7 w-7 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Tracking Plan</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -173,7 +175,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl flex items-center justify-center mb-6">
-                  <BarChart3 className="h-7 w-7 text-primary" />
+                  <DashboardIllustration className="h-7 w-7 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Dashboard Pack</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -199,7 +201,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative">
                   <div className="w-12 h-12 mb-4 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                    <Code2 className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                    <DevtoolIllustration className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                   </div>
                   <h3 className="font-semibold mb-2">Devtool: First Deploy</h3>
                   <p className="text-sm text-muted-foreground">
@@ -214,7 +216,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative">
                   <div className="w-12 h-12 mb-4 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                    <Briefcase className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                    <B2bSaasIllustration className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                   </div>
                   <h3 className="font-semibold mb-2">B2B SaaS: Invite & Share</h3>
                   <p className="text-sm text-muted-foreground">
@@ -229,7 +231,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-b from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative">
                   <div className="w-12 h-12 mb-4 rounded-xl bg-green-500/20 flex items-center justify-center">
-                    <BarChart3 className="h-6 w-6 text-green-600 dark:text-green-400" />
+                    <DashboardIllustration className="h-6 w-6 text-green-600 dark:text-green-400" />
                   </div>
                   <h3 className="font-semibold mb-2">Analytics: Publish Dashboard</h3>
                   <p className="text-sm text-muted-foreground">
@@ -310,7 +312,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-500/5 flex items-center justify-center">
-                  <Code2 className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                  <DevtoolIllustration className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 </div>
                 <h3 className="text-lg font-semibold mb-3">Developer Tools</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
@@ -323,7 +325,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 flex items-center justify-center">
-                  <Briefcase className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+                  <B2bSaasIllustration className="h-8 w-8 text-purple-600 dark:text-purple-400" />
                 </div>
                 <h3 className="text-lg font-semibold mb-3">B2B SaaS</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
@@ -336,7 +338,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-green-500/20 to-green-500/5 flex items-center justify-center">
-                  <Users className="h-8 w-8 text-green-600 dark:text-green-400" />
+                  <SelfServeIllustration className="h-8 w-8 text-green-600 dark:text-green-400" />
                 </div>
                 <h3 className="text-lg font-semibold mb-3">Self-Serve Products</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
