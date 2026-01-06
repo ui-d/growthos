@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Route, ArrowRight, BookOpen, Target, BarChart3, Beaker, Clock } from "lucide-react"
+import { Route, ArrowRight, BookOpen, Target, BarChart3, Beaker, Clock, Database, Code, LineChart } from "lucide-react"
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
@@ -25,6 +25,36 @@ export const metadata: Metadata = {
     canonical: `${baseUrl}/guides`,
   },
 }
+
+const implementationGuides = [
+  {
+    title: "Segment Tracking & Governance",
+    description: "Build a scalable tracking implementation with event dictionaries, environment management, spec review workflows, and governance best practices",
+    icon: Database,
+    readTime: "20 min",
+    level: "Intermediate",
+    href: "/guides/segment-tracking-governance",
+    cta: "Read Guide",
+  },
+  {
+    title: "Typed Event Tracking with TypeScript",
+    description: "Eliminate tracking bugs at compile time with type-safe analytics for Mixpanel, PostHog, or any provider using TypeScript",
+    icon: Code,
+    readTime: "18 min",
+    level: "Intermediate",
+    href: "/guides/typed-event-tracking",
+    cta: "Read Guide",
+  },
+  {
+    title: "Dashboard Pack Implementation",
+    description: "Build North Star and Activation dashboards with clear metric definitions, SQL queries, and alerting strategies",
+    icon: LineChart,
+    readTime: "25 min",
+    level: "Advanced",
+    href: "/guides/dashboard-pack-implementation",
+    cta: "Read Guide",
+  },
+]
 
 const guides = [
   {
@@ -90,8 +120,65 @@ export default function GuidesPage() {
         </div>
       </section>
 
-      {/* Guides List */}
+      {/* Implementation Guides */}
       <section className="container-wide section-spacing">
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold mb-2">Implementation Guides</h2>
+          <p className="text-muted-foreground">
+            Comprehensive, practical guides with code snippets, checklists, and real-world patterns.
+          </p>
+        </div>
+        <div className="space-y-4">
+          {implementationGuides.map((guide) => {
+            const Icon = guide.icon
+            return (
+              <Card key={guide.title} className="group hover:shadow-md transition-shadow border-primary/10">
+                <CardHeader>
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                    <div className="flex items-start gap-4">
+                      <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <CardTitle className="group-hover:text-primary transition-colors mb-2">
+                          {guide.title}
+                        </CardTitle>
+                        <CardDescription>{guide.description}</CardDescription>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 md:shrink-0">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${levelColors[guide.level]}`}>
+                        {guide.level}
+                      </span>
+                      <span className="flex items-center gap-1 text-sm text-muted-foreground">
+                        <Clock className="h-3 w-3" />
+                        {guide.readTime}
+                      </span>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="pt-0 pl-16 md:pl-16">
+                  <Button variant="default" size="sm" asChild className="group/btn">
+                    <Link href={guide.href}>
+                      {guide.cta}
+                      <ArrowRight className="ml-2 h-3 w-3 transition-transform group-hover/btn:translate-x-0.5" />
+                    </Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* Quick Start Guides */}
+      <section className="container-wide section-spacing-sm">
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold mb-2">Quick Start</h2>
+          <p className="text-muted-foreground">
+            Get started quickly with these introductory tutorials.
+          </p>
+        </div>
         <div className="space-y-4">
           {guides.map((guide) => {
             const Icon = guide.icon

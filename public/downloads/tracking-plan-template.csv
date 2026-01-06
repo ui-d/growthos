@@ -1,0 +1,19 @@
+event_name,event_category,description,trigger,properties,property_type,required,owner,status,notes
+user_signed_up,Acquisition,User completes signup form,Form submission with valid data,"user_id,email,signup_method,utm_source,utm_medium,utm_campaign,referrer","string,string,string,string,string,string,string",yes,Growth Team,Active,Core acquisition event
+page_viewed,Engagement,User views a page,Page load complete,"page_name,page_path,page_title,referrer,session_id","string,string,string,string,string",yes,Analytics Team,Active,Auto-tracked
+button_clicked,Engagement,User clicks a button,Click event,"button_name,button_location,page_name,element_id","string,string,string,string",yes,Product Team,Active,Generic click tracking
+feature_activated,Activation,User activates a key feature for the first time,First usage of feature,"feature_name,feature_category,time_to_activation_seconds,activation_path","string,string,number,string",yes,Growth Team,Active,Part of activation funnel
+onboarding_started,Activation,User begins onboarding flow,Onboarding screen loaded,"onboarding_version,entry_point,user_segment","string,string,string",yes,Product Team,Active,Funnel step
+onboarding_step_completed,Activation,User completes an onboarding step,Step completion,"step_number,step_name,time_spent_seconds,skipped","number,string,number,boolean",yes,Product Team,Active,Track each step
+onboarding_completed,Activation,User completes full onboarding,Final step completed,"total_time_seconds,steps_completed,steps_skipped","number,number,number",yes,Product Team,Active,Funnel completion
+subscription_started,Revenue,User starts a paid subscription,Payment successful,"plan_name,plan_interval,amount,currency,trial_period_days","string,string,number,string,number",yes,Revenue Team,Active,Revenue event
+subscription_cancelled,Revenue,User cancels subscription,Cancellation confirmed,"plan_name,cancellation_reason,days_subscribed,mrr_impact","string,string,number,number",yes,Revenue Team,Active,Churn tracking
+checkout_started,Revenue,User begins checkout process,Checkout page loaded,"cart_value,item_count,currency","number,number,string",yes,Revenue Team,Active,Conversion funnel
+checkout_completed,Revenue,User completes purchase,Payment confirmed,"order_id,order_value,items_purchased,payment_method,currency","string,number,number,string,string",yes,Revenue Team,Active,Revenue tracking
+experiment_viewed,Experimentation,User sees an experiment variant,Variant rendered,"experiment_id,experiment_name,variant_id,variant_name","string,string,string,string",yes,Growth Team,Active,A/B test tracking
+experiment_converted,Experimentation,User converts in an experiment,Conversion action completed,"experiment_id,experiment_name,variant_id,conversion_metric","string,string,string,string",yes,Growth Team,Active,Experiment results
+error_occurred,Technical,Application error encountered,Error thrown,"error_type,error_message,error_stack,page_name,user_action","string,string,string,string,string",yes,Engineering,Active,Error monitoring
+session_started,Engagement,New session begins,App/site load after inactivity,"session_id,is_new_user,platform,device_type,browser","string,boolean,string,string,string",yes,Analytics Team,Active,Session tracking
+search_performed,Engagement,User performs a search,Search submitted,"search_query,results_count,search_location,filters_applied","string,number,string,string",no,Product Team,Active,Search analytics
+invite_sent,Virality,User sends an invite,Invite action completed,"invite_method,recipient_count,invite_context","string,number,string",yes,Growth Team,Active,Viral loop tracking
+invite_accepted,Virality,Invited user signs up,Referred signup completed,"invite_id,inviter_user_id,days_since_invite","string,string,number",yes,Growth Team,Active,Referral tracking

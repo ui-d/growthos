@@ -13,400 +13,134 @@ import {
   Code2,
   Database,
   GitBranch,
-  Layers,
   BookOpen,
   FileSpreadsheet,
-  FileJson,
   ArrowRight,
   Copy,
   Check,
   ExternalLink,
-  Target,
-  TrendingUp,
-  Users,
-  Zap,
-  PieChart,
-  Activity,
-  LineChart,
-  Settings,
-  Workflow,
   TestTube,
-  Gauge,
-  Filter,
-  LayoutGrid
+  ClipboardCheck,
+  LayoutGrid,
+  FileCode
 } from "lucide-react"
 import { useState } from "react"
 
-const resources = {
-  templates: [
-    {
-      title: "Activation Tracking Spec",
-      description: "Complete template for defining and documenting activation events with stakeholder alignment framework",
-      icon: FileText,
-      format: "Google Docs",
-      category: "Activation",
-      downloadUrl: "#activation-spec",
-      previewContent: `# Activation Tracking Specification
+const downloadableAssets = [
+  {
+    title: "Tracking Plan Template",
+    description: "CSV template for documenting events, properties, and ownership in your analytics tracking plan.",
+    icon: FileSpreadsheet,
+    format: "CSV",
+    category: "Tracking",
+    fileName: "tracking-plan-template.csv",
+    downloadPath: "/downloads/tracking-plan-template.csv"
+  },
+  {
+    title: "Property Dictionary Template",
+    description: "CSV template for defining and standardizing event properties across your analytics implementation.",
+    icon: Database,
+    format: "CSV",
+    category: "Tracking",
+    fileName: "property-dictionary-template.csv",
+    downloadPath: "/downloads/property-dictionary-template.csv"
+  },
+  {
+    title: "Event Naming Conventions",
+    description: "Markdown guide for consistent event and property naming using object_action patterns.",
+    icon: FileCode,
+    format: "Markdown",
+    category: "Standards",
+    fileName: "event-naming-conventions.md",
+    downloadPath: "/downloads/event-naming-conventions.md"
+  },
+  {
+    title: "Dashboard Pack Checklist",
+    description: "Comprehensive checklist for building executive, acquisition, activation, and retention dashboards.",
+    icon: LayoutGrid,
+    format: "Markdown",
+    category: "Analytics",
+    fileName: "dashboard-pack-checklist.md",
+    downloadPath: "/downloads/dashboard-pack-checklist.md"
+  },
+  {
+    title: "Experiment Card Template",
+    description: "Template for documenting A/B test hypotheses, design, statistical parameters, and results.",
+    icon: TestTube,
+    format: "Markdown",
+    category: "Experimentation",
+    fileName: "experiment-card-template.md",
+    downloadPath: "/downloads/experiment-card-template.md"
+  },
+  {
+    title: "Data Quality Audit Checklist",
+    description: "Quarterly audit checklist covering event volume, property quality, identity, and schema compliance.",
+    icon: ClipboardCheck,
+    format: "Markdown",
+    category: "Data Quality",
+    fileName: "data-quality-audit-checklist.md",
+    downloadPath: "/downloads/data-quality-audit-checklist.md"
+  }
+]
 
-## Activation Definition
-- **Primary Object**: [Your core value unit]
-- **Value Action**: [Key action that delivers value]
-- **Time Boundary**: [Expected time to activation]
+const guides = [
+  {
+    title: "Implementing Segment Tracking",
+    description: "Step-by-step guide to implement Segment analytics with best practices for data governance",
+    icon: Code2,
+    readTime: "15 min",
+    level: "Intermediate",
+    href: "/modules/tracking-spec"
+  },
+  {
+    title: "Building Growth Loops",
+    description: "Framework for designing and implementing sustainable growth loops in your product",
+    icon: BarChart3,
+    readTime: "20 min",
+    level: "Advanced",
+    href: "/modules/funnels"
+  },
+  {
+    title: "Activation Metrics 101",
+    description: "How to identify, measure, and optimize your activation metrics for better retention",
+    icon: BookOpen,
+    readTime: "10 min",
+    level: "Beginner",
+    href: "/modules/activation-definition"
+  },
+  {
+    title: "Data Layer Architecture",
+    description: "Best practices for structuring your analytics data layer for scalability and accuracy",
+    icon: Database,
+    readTime: "25 min",
+    level: "Advanced",
+    href: "/modules/data-quality"
+  },
+  {
+    title: "KPI Tree Construction",
+    description: "How to build a metrics hierarchy that connects team efforts to business outcomes",
+    icon: GitBranch,
+    readTime: "18 min",
+    level: "Intermediate",
+    href: "/modules/kpi-tree"
+  },
+  {
+    title: "Running Effective Experiments",
+    description: "End-to-end guide to designing, running, and analyzing A/B tests and experiments",
+    icon: TestTube,
+    readTime: "22 min",
+    level: "Intermediate",
+    href: "/modules/experiments"
+  }
+]
 
-## Required Events
-1. user_signed_up
-2. onboarding_started
-3. core_action_completed
-4. activation_achieved
-
-## Properties to Track
-- user_id, timestamp, source, campaign`
-    },
-    {
-      title: "Growth Metrics Dashboard",
-      description: "Pre-built dashboard template with key growth metrics including acquisition, activation, retention, and revenue",
-      icon: BarChart3,
-      format: "Looker Studio",
-      category: "Analytics",
-      downloadUrl: "#growth-dashboard",
-      previewContent: `# Growth Metrics Dashboard Template
-
-## Key Metrics
-- DAU/WAU/MAU
-- Activation Rate
-- D1/D7/D30 Retention
-- Revenue per User
-
-## Dimensions
-- Acquisition Channel
-- User Segment
-- Time Period
-- Geography`
-    },
-    {
-      title: "Event Taxonomy",
-      description: "Structured naming convention for analytics events with object-action pattern and property standards",
-      icon: Database,
-      format: "Spreadsheet",
-      category: "Tracking",
-      downloadUrl: "#event-taxonomy",
-      previewContent: `# Event Taxonomy Template
-
-## Naming Convention
-[object]_[action]_[context]
-
-## Examples
-- page_viewed
-- button_clicked
-- form_submitted
-- feature_activated
-
-## Required Properties
-- event_id, timestamp, user_id, session_id`
-    },
-    {
-      title: "A/B Test Calculator",
-      description: "Statistical significance calculator for experiments with sample size estimation and confidence intervals",
-      icon: GitBranch,
-      format: "Spreadsheet",
-      category: "Experimentation",
-      downloadUrl: "#ab-calculator",
-      previewContent: `# A/B Test Calculator
-
-## Inputs
-- Baseline Conversion Rate
-- Minimum Detectable Effect
-- Statistical Significance (95%)
-- Statistical Power (80%)
-
-## Outputs
-- Required Sample Size
-- Test Duration Estimate
-- Confidence Interval`
-    },
-    {
-      title: "Retention Cohorts",
-      description: "Cohort analysis template for retention tracking with weekly and monthly views",
-      icon: Layers,
-      format: "SQL Template",
-      category: "Retention",
-      downloadUrl: "#retention-cohorts",
-      previewContent: `-- Retention Cohort Analysis
-WITH cohorts AS (
-  SELECT
-    user_id,
-    DATE_TRUNC('week', first_seen) as cohort_week
-  FROM users
-),
-activity AS (
-  SELECT DISTINCT
-    user_id,
-    DATE_TRUNC('week', event_time) as activity_week
-  FROM events
-)
-SELECT cohort_week, week_number, retention_rate
-FROM ...`
-    },
-    {
-      title: "Growth Model",
-      description: "Financial model template for growth projections with acquisition and retention assumptions",
-      icon: FileSpreadsheet,
-      format: "Excel/Sheets",
-      category: "Planning",
-      downloadUrl: "#growth-model",
-      previewContent: `# Growth Model Template
-
-## Inputs
-- Monthly New Users
-- Activation Rate
-- Retention Curves
-- ARPU
-
-## Outputs
-- Monthly Active Users
-- Revenue Projections
-- LTV Calculations
-- Payback Period`
-    },
-    {
-      title: "North Star Metric Framework",
-      description: "Template for defining and aligning on your North Star metric with input metrics hierarchy",
-      icon: Target,
-      format: "Notion Template",
-      category: "Strategy",
-      downloadUrl: "#north-star",
-      previewContent: `# North Star Metric Framework
-
-## North Star Definition
-- Metric Name: [e.g., Weekly Active Publishers]
-- Why it matters: [Value to customer & business]
-- How it's measured: [Exact definition]
-
-## Input Metrics
-1. Breadth: How many users?
-2. Depth: How engaged?
-3. Frequency: How often?
-4. Efficiency: How quickly?`
-    },
-    {
-      title: "Funnel Analysis Template",
-      description: "Step-by-step funnel breakdown with conversion rates and drop-off analysis",
-      icon: Filter,
-      format: "Spreadsheet",
-      category: "Analytics",
-      downloadUrl: "#funnel-template",
-      previewContent: `# Funnel Analysis Template
-
-## Funnel Steps
-1. Landing Page Visit → 100%
-2. Sign Up Started → 45%
-3. Sign Up Completed → 32%
-4. Onboarding Started → 28%
-5. Activation Achieved → 18%
-
-## Drop-off Analysis
-- Biggest drop: Step 1→2 (55% drop)
-- Root cause analysis template included`
-    },
-    {
-      title: "User Segmentation Matrix",
-      description: "Framework for segmenting users by behavior, value, and engagement level",
-      icon: Users,
-      format: "Spreadsheet",
-      category: "Analytics",
-      downloadUrl: "#segmentation",
-      previewContent: `# User Segmentation Matrix
-
-## Behavioral Segments
-- Power Users: Daily active, high engagement
-- Regular Users: Weekly active
-- Casual Users: Monthly active
-- At-Risk: Declining activity
-- Dormant: No recent activity
-
-## Value Segments
-- High LTV / Low LTV
-- Paid / Free
-- Enterprise / SMB / Individual`
-    },
-    {
-      title: "OKR Planning Template",
-      description: "Quarterly OKR planning template aligned with growth metrics and initiatives",
-      icon: Target,
-      format: "Notion Template",
-      category: "Planning",
-      downloadUrl: "#okr-template",
-      previewContent: `# OKR Planning Template
-
-## Objective
-Increase user activation and engagement
-
-## Key Results
-1. Improve activation rate from 35% to 50%
-2. Increase D7 retention from 25% to 35%
-3. Grow WAU by 40%
-
-## Initiatives
-- Redesign onboarding flow
-- Add in-app guidance
-- Implement email nurture sequence`
-    },
-    {
-      title: "Feature Adoption Tracker",
-      description: "Track feature discovery, adoption, and retention rates across your product",
-      icon: Zap,
-      format: "Spreadsheet",
-      category: "Activation",
-      downloadUrl: "#feature-adoption",
-      previewContent: `# Feature Adoption Tracker
-
-## Metrics per Feature
-- Discovery Rate: % who see feature
-- Trial Rate: % who try feature
-- Adoption Rate: % who use regularly
-- Feature Retention: % still using after 30d
-
-## Feature Health Score
-Composite score based on above metrics`
-    },
-    {
-      title: "Churn Analysis Framework",
-      description: "Framework for analyzing churn patterns, predicting at-risk users, and planning interventions",
-      icon: TrendingUp,
-      format: "Spreadsheet",
-      category: "Retention",
-      downloadUrl: "#churn-analysis",
-      previewContent: `# Churn Analysis Framework
-
-## Churn Indicators
-- Login frequency decline
-- Feature usage decline
-- Support ticket sentiment
-- Billing issues
-
-## Intervention Playbook
-- At-risk identification
-- Re-engagement campaigns
-- Success team outreach
-- Win-back offers`
-    }
-  ],
-  guides: [
-    {
-      title: "Implementing Segment Tracking",
-      description: "Step-by-step guide to implement Segment analytics with best practices for data governance",
-      icon: Code2,
-      readTime: "15 min",
-      level: "Intermediate",
-      href: "/modules/tracking-spec",
-      content: `Learn how to set up Segment for your analytics infrastructure, including:
-- Installing the Segment SDK
-- Configuring destinations
-- Implementing identify and track calls
-- Setting up data governance rules`
-    },
-    {
-      title: "Building Growth Loops",
-      description: "Framework for designing and implementing sustainable growth loops in your product",
-      icon: BarChart3,
-      readTime: "20 min",
-      level: "Advanced",
-      href: "/modules/funnels",
-      content: `Master the art of creating self-reinforcing growth mechanisms:
-- Understanding loop mechanics
-- Identifying your core loop
-- Optimizing loop efficiency
-- Measuring loop performance`
-    },
-    {
-      title: "Activation Metrics 101",
-      description: "How to identify, measure, and optimize your activation metrics for better retention",
-      icon: BookOpen,
-      readTime: "10 min",
-      level: "Beginner",
-      href: "/modules/activation-definition",
-      content: `Foundation guide for activation metrics:
-- What is activation?
-- Finding your aha moment
-- Measuring activation rate
-- Improving time to value`
-    },
-    {
-      title: "Data Layer Architecture",
-      description: "Best practices for structuring your analytics data layer for scalability and accuracy",
-      icon: Database,
-      readTime: "25 min",
-      level: "Advanced",
-      href: "/modules/data-quality",
-      content: `Build a robust analytics foundation:
-- Data layer design patterns
-- Event schema standards
-- Property normalization
-- Data validation strategies`
-    },
-    {
-      title: "KPI Tree Construction",
-      description: "How to build a metrics hierarchy that connects team efforts to business outcomes",
-      icon: GitBranch,
-      readTime: "18 min",
-      level: "Intermediate",
-      href: "/modules/kpi-tree",
-      content: `Create meaningful metric relationships:
-- Identifying your North Star
-- Breaking down into input metrics
-- Assigning metric ownership
-- Building dashboards from trees`
-    },
-    {
-      title: "Running Effective Experiments",
-      description: "End-to-end guide to designing, running, and analyzing A/B tests and experiments",
-      icon: TestTube,
-      readTime: "22 min",
-      level: "Intermediate",
-      href: "/modules/experiments",
-      content: `Master experimentation methodology:
-- Hypothesis formation
-- Sample size calculation
-- Test implementation
-- Statistical analysis
-- Decision frameworks`
-    },
-    {
-      title: "Dashboard Design Principles",
-      description: "Create actionable dashboards that drive decisions instead of just displaying data",
-      icon: LayoutGrid,
-      readTime: "15 min",
-      level: "Beginner",
-      href: "/modules/dashboards",
-      content: `Design dashboards that matter:
-- Choosing the right metrics
-- Visual hierarchy
-- Actionable insights
-- Alert configuration
-- Stakeholder alignment`
-    },
-    {
-      title: "Engagement Cadence Strategy",
-      description: "Design optimal user engagement patterns across email, push, and in-app channels",
-      icon: Activity,
-      readTime: "20 min",
-      level: "Advanced",
-      href: "/modules/cadence",
-      content: `Optimize user communication:
-- Channel selection
-- Timing optimization
-- Frequency management
-- Personalization strategies
-- Measuring effectiveness`
-    }
-  ],
-  codeSnippets: [
-    {
-      title: "React Analytics Hook",
-      description: "Custom React hook for tracking user events with automatic page views",
-      language: "TypeScript",
-      icon: FileJson,
-      code: `import { useEffect, useCallback } from 'react';
+const codeSnippets = [
+  {
+    title: "React Analytics Hook",
+    description: "Custom React hook for tracking user events with automatic page views",
+    language: "TypeScript",
+    icon: FileText,
+    code: `import { useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 
 interface EventProperties {
@@ -416,7 +150,6 @@ interface EventProperties {
 export function useAnalytics() {
   const pathname = usePathname();
 
-  // Track page views automatically
   useEffect(() => {
     trackEvent('page_viewed', { path: pathname });
   }, [pathname]);
@@ -425,7 +158,6 @@ export function useAnalytics() {
     eventName: string,
     properties?: EventProperties
   ) => {
-    // Replace with your analytics provider
     if (typeof window !== 'undefined' && window.analytics) {
       window.analytics.track(eventName, {
         ...properties,
@@ -445,59 +177,13 @@ export function useAnalytics() {
 
   return { trackEvent, identifyUser };
 }`
-    },
-    {
-      title: "Mixpanel Implementation",
-      description: "Complete Mixpanel setup with TypeScript types and utility functions",
-      language: "TypeScript",
-      icon: FileJson,
-      code: `import mixpanel from 'mixpanel-browser';
-
-// Initialize Mixpanel
-mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_TOKEN!, {
-  track_pageview: true,
-  persistence: 'localStorage',
-});
-
-// Type-safe event tracking
-type EventName =
-  | 'sign_up_started'
-  | 'sign_up_completed'
-  | 'feature_activated'
-  | 'subscription_started';
-
-interface BaseProperties {
-  source?: string;
-  campaign?: string;
-}
-
-export function track<T extends BaseProperties>(
-  event: EventName,
-  properties?: T
-) {
-  mixpanel.track(event, {
-    ...properties,
-    $current_url: window.location.href,
-  });
-}
-
-export function identify(userId: string, traits?: Record<string, any>) {
-  mixpanel.identify(userId);
-  if (traits) {
-    mixpanel.people.set(traits);
-  }
-}
-
-export function reset() {
-  mixpanel.reset();
-}`
-    },
-    {
-      title: "Retention Cohort SQL",
-      description: "SQL query for calculating weekly retention cohorts",
-      language: "SQL",
-      icon: Database,
-      code: `-- Weekly Retention Cohort Analysis
+  },
+  {
+    title: "Retention Cohort SQL",
+    description: "SQL query for calculating weekly retention cohorts",
+    language: "SQL",
+    icon: Database,
+    code: `-- Weekly Retention Cohort Analysis
 WITH user_cohorts AS (
   SELECT
     user_id,
@@ -518,96 +204,26 @@ cohort_size AS (
     COUNT(DISTINCT user_id) AS num_users
   FROM user_cohorts
   GROUP BY cohort_week
-),
-retention_data AS (
-  SELECT
-    c.cohort_week,
-    DATEDIFF('week', c.cohort_week, a.activity_week) AS week_number,
-    COUNT(DISTINCT c.user_id) AS retained_users
-  FROM user_cohorts c
-  LEFT JOIN user_activity a ON c.user_id = a.user_id
-  WHERE a.activity_week >= c.cohort_week
-  GROUP BY c.cohort_week, week_number
 )
 SELECT
   r.cohort_week,
   r.week_number,
-  r.retained_users,
-  s.num_users AS cohort_size,
   ROUND(100.0 * r.retained_users / s.num_users, 2) AS retention_rate
 FROM retention_data r
 JOIN cohort_size s ON r.cohort_week = s.cohort_week
 ORDER BY r.cohort_week, r.week_number;`
-    },
-    {
-      title: "Event Tracking Utils",
-      description: "Utility functions for consistent event tracking across your application",
-      language: "JavaScript",
-      icon: Code2,
-      code: `// Standardized event tracking utilities
-const EventTracker = {
-  // Generate consistent event names
-  formatEventName(object, action, context = null) {
-    const parts = [object, action];
-    if (context) parts.push(context);
-    return parts.join('_').toLowerCase();
   },
-
-  // Track with automatic enrichment
-  track(eventName, properties = {}) {
-    const enrichedProps = {
-      ...properties,
-      timestamp: new Date().toISOString(),
-      page_url: window.location.href,
-      page_path: window.location.pathname,
-      referrer: document.referrer,
-      user_agent: navigator.userAgent,
-      screen_width: window.innerWidth,
-      session_id: this.getSessionId(),
-    };
-
-    // Send to your analytics provider
-    window.analytics?.track(eventName, enrichedProps);
-  },
-
-  // Session management
-  getSessionId() {
-    let sessionId = sessionStorage.getItem('session_id');
-    if (!sessionId) {
-      sessionId = 'sess_' + Math.random().toString(36).substr(2, 9);
-      sessionStorage.setItem('session_id', sessionId);
-    }
-    return sessionId;
-  },
-
-  // Timing helper for measuring durations
-  startTimer(name) {
-    this.timers = this.timers || {};
-    this.timers[name] = performance.now();
-  },
-
-  endTimer(name) {
-    if (this.timers?.[name]) {
-      return Math.round(performance.now() - this.timers[name]);
-    }
-    return null;
-  }
-};
-
-export default EventTracker;`
-    },
-    {
-      title: "Activation Rate Query",
-      description: "SQL query to calculate activation rate by cohort and source",
-      language: "SQL",
-      icon: Database,
-      code: `-- Activation Rate by Signup Cohort and Source
+  {
+    title: "Activation Rate Query",
+    description: "SQL query to calculate activation rate by cohort and source",
+    language: "SQL",
+    icon: Database,
+    code: `-- Activation Rate by Signup Cohort and Source
 WITH signups AS (
   SELECT
     user_id,
     DATE_TRUNC('week', created_at) AS signup_week,
-    acquisition_source,
-    acquisition_campaign
+    acquisition_source
   FROM users
   WHERE created_at >= CURRENT_DATE - INTERVAL '90 days'
 ),
@@ -629,172 +245,50 @@ FROM signups s
 LEFT JOIN activations a ON s.user_id = a.user_id
 GROUP BY s.signup_week, s.acquisition_source
 ORDER BY s.signup_week DESC, activation_rate DESC;`
-    },
-    {
-      title: "Segment Middleware",
-      description: "Next.js middleware for automatic page tracking with Segment",
-      language: "TypeScript",
-      icon: Code2,
-      code: `// middleware.ts - Automatic page tracking
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+  },
+  {
+    title: "Event Tracking Utils",
+    description: "Utility functions for consistent event tracking across your application",
+    language: "JavaScript",
+    icon: Code2,
+    code: `const EventTracker = {
+  formatEventName(object, action, context = null) {
+    const parts = [object, action];
+    if (context) parts.push(context);
+    return parts.join('_').toLowerCase();
+  },
 
-export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
+  track(eventName, properties = {}) {
+    const enrichedProps = {
+      ...properties,
+      timestamp: new Date().toISOString(),
+      page_url: window.location.href,
+      page_path: window.location.pathname,
+      session_id: this.getSessionId(),
+    };
+    window.analytics?.track(eventName, enrichedProps);
+  },
 
-  // Add tracking headers for server-side analytics
-  const trackingData = {
-    path: request.nextUrl.pathname,
-    search: request.nextUrl.search,
-    referrer: request.headers.get('referer') || '',
-    userAgent: request.headers.get('user-agent') || '',
-    timestamp: new Date().toISOString(),
-  };
-
-  // Pass tracking data to the page
-  response.headers.set(
-    'x-tracking-data',
-    JSON.stringify(trackingData)
-  );
-
-  return response;
-}
-
-export const config = {
-  matcher: [
-    // Match all paths except static files
-    '/((?!_next/static|_next/image|favicon.ico).*)',
-  ],
-};`
-    },
-    {
-      title: "Funnel Analysis Query",
-      description: "SQL query to analyze conversion funnel with step-by-step drop-off",
-      language: "SQL",
-      icon: PieChart,
-      code: `-- Funnel Analysis with Drop-off Rates
-WITH funnel_events AS (
-  SELECT
-    user_id,
-    event_name,
-    MIN(event_timestamp) AS first_occurrence
-  FROM events
-  WHERE event_name IN (
-    'signup_page_viewed',
-    'signup_started',
-    'signup_completed',
-    'onboarding_started',
-    'activation_completed'
-  )
-  AND event_timestamp >= CURRENT_DATE - INTERVAL '30 days'
-  GROUP BY user_id, event_name
-),
-funnel_steps AS (
-  SELECT
-    event_name,
-    COUNT(DISTINCT user_id) AS users,
-    CASE event_name
-      WHEN 'signup_page_viewed' THEN 1
-      WHEN 'signup_started' THEN 2
-      WHEN 'signup_completed' THEN 3
-      WHEN 'onboarding_started' THEN 4
-      WHEN 'activation_completed' THEN 5
-    END AS step_order
-  FROM funnel_events
-  GROUP BY event_name
-)
-SELECT
-  step_order,
-  event_name AS step_name,
-  users,
-  FIRST_VALUE(users) OVER (ORDER BY step_order) AS top_of_funnel,
-  ROUND(100.0 * users / FIRST_VALUE(users) OVER (ORDER BY step_order), 2) AS conversion_from_top,
-  LAG(users) OVER (ORDER BY step_order) AS previous_step_users,
-  ROUND(100.0 * users / LAG(users) OVER (ORDER BY step_order), 2) AS step_conversion
-FROM funnel_steps
-ORDER BY step_order;`
-    },
-    {
-      title: "A/B Test Results Calculator",
-      description: "JavaScript function to calculate A/B test statistical significance",
-      language: "JavaScript",
-      icon: TestTube,
-      code: `// A/B Test Statistical Significance Calculator
-function calculateABTestResults(control, variant) {
-  const { visitors: nA, conversions: xA } = control;
-  const { visitors: nB, conversions: xB } = variant;
-
-  // Conversion rates
-  const pA = xA / nA;
-  const pB = xB / nB;
-
-  // Pooled probability
-  const pPooled = (xA + xB) / (nA + nB);
-
-  // Standard error
-  const se = Math.sqrt(
-    pPooled * (1 - pPooled) * (1/nA + 1/nB)
-  );
-
-  // Z-score
-  const zScore = (pB - pA) / se;
-
-  // P-value (two-tailed)
-  const pValue = 2 * (1 - normalCDF(Math.abs(zScore)));
-
-  // Confidence interval (95%)
-  const lift = ((pB - pA) / pA) * 100;
-  const marginOfError = 1.96 * se * 100 / pA;
-
-  return {
-    controlRate: (pA * 100).toFixed(2) + '%',
-    variantRate: (pB * 100).toFixed(2) + '%',
-    relativeLift: lift.toFixed(2) + '%',
-    pValue: pValue.toFixed(4),
-    isSignificant: pValue < 0.05,
-    confidenceInterval: {
-      lower: (lift - marginOfError).toFixed(2) + '%',
-      upper: (lift + marginOfError).toFixed(2) + '%'
+  getSessionId() {
+    let sessionId = sessionStorage.getItem('session_id');
+    if (!sessionId) {
+      sessionId = 'sess_' + Math.random().toString(36).substr(2, 9);
+      sessionStorage.setItem('session_id', sessionId);
     }
-  };
-}
+    return sessionId;
+  }
+};
 
-// Normal CDF approximation
-function normalCDF(x) {
-  const a1 =  0.254829592;
-  const a2 = -0.284496736;
-  const a3 =  1.421413741;
-  const a4 = -1.453152027;
-  const a5 =  1.061405429;
-  const p  =  0.3275911;
-
-  const sign = x < 0 ? -1 : 1;
-  x = Math.abs(x) / Math.sqrt(2);
-
-  const t = 1.0 / (1.0 + p * x);
-  const y = 1.0 - (((((a5*t + a4)*t) + a3)*t + a2)*t + a1)*t * Math.exp(-x*x);
-
-  return 0.5 * (1.0 + sign * y);
-}
-
-// Usage example:
-const results = calculateABTestResults(
-  { visitors: 10000, conversions: 350 },  // Control
-  { visitors: 10000, conversions: 420 }   // Variant
-);
-console.log(results);`
-    }
-  ]
-}
+export default EventTracker;`
+  }
+]
 
 const categoryColors: Record<string, string> = {
-  Activation: "bg-green-500/10 text-green-600 dark:text-green-400",
-  Analytics: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
   Tracking: "bg-purple-500/10 text-purple-600 dark:text-purple-400",
+  Standards: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
+  Analytics: "bg-green-500/10 text-green-600 dark:text-green-400",
   Experimentation: "bg-orange-500/10 text-orange-600 dark:text-orange-400",
-  Retention: "bg-pink-500/10 text-pink-600 dark:text-pink-400",
-  Planning: "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400",
-  Strategy: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400"
+  "Data Quality": "bg-pink-500/10 text-pink-600 dark:text-pink-400"
 }
 
 const levelColors: Record<string, string> = {
@@ -803,7 +297,7 @@ const levelColors: Record<string, string> = {
   Advanced: "bg-red-500/10 text-red-600 dark:text-red-400"
 }
 
-function CodePreviewModal({
+function ContentPreviewModal({
   isOpen,
   onClose,
   title,
@@ -868,6 +362,15 @@ export default function LibraryPage() {
     setTimeout(() => setCopiedSnippet(null), 2000)
   }
 
+  const handleDownload = (downloadPath: string, fileName: string) => {
+    const link = document.createElement('a')
+    link.href = downloadPath
+    link.download = fileName
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -880,35 +383,38 @@ export default function LibraryPage() {
             </span>
             <h1 className="heading-primary mb-4">Resource Library</h1>
             <p className="text-lg text-muted-foreground">
-              Templates, guides, and code snippets to accelerate your growth engineering implementation. All resources are free and ready to use.
+              Starter templates and code snippets to accelerate your growth engineering implementation. All resources are free to download and adapt to your stack.
             </p>
             <div className="flex items-center justify-center gap-6 mt-6 text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
-                <FileText className="h-4 w-4" />
-                {resources.templates.length} Templates
+                <Download className="h-4 w-4" />
+                {downloadableAssets.length} Downloads
               </span>
               <span className="flex items-center gap-1">
                 <BookOpen className="h-4 w-4" />
-                {resources.guides.length} Guides
+                {guides.length} Guides
               </span>
               <span className="flex items-center gap-1">
                 <Code2 className="h-4 w-4" />
-                {resources.codeSnippets.length} Code Snippets
+                {codeSnippets.length} Code Snippets
               </span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Templates Section */}
+      {/* Downloadable Assets Section */}
       <section className="container-wide section-spacing">
         <SectionHeader
-          title="Templates & Tools"
-          subtitle="Ready-to-use templates for implementing growth systems"
+          title="Downloadable Templates"
+          subtitle="Ready-to-use templates for your analytics and experimentation workflows"
         />
+        <p className="text-sm text-muted-foreground mb-8 -mt-4">
+          These are starter templates. Adapt them to your specific stack and requirements.
+        </p>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {resources.templates.map((template, idx) => {
-            const Icon = template.icon
+          {downloadableAssets.map((asset, idx) => {
+            const Icon = asset.icon
             return (
               <Card key={idx} className="card-hover group">
                 <CardHeader>
@@ -916,42 +422,24 @@ export default function LibraryPage() {
                     <div className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
                       <Icon className="h-5 w-5 text-primary" />
                     </div>
-                    <Badge variant="secondary" className={categoryColors[template.category] || ""}>
-                      {template.category}
+                    <Badge variant="secondary" className={categoryColors[asset.category] || ""}>
+                      {asset.category}
                     </Badge>
                   </div>
-                  <CardTitle className="mt-4">{template.title}</CardTitle>
-                  <CardDescription>{template.description}</CardDescription>
+                  <CardTitle className="mt-4">{asset.title}</CardTitle>
+                  <CardDescription>{asset.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">{template.format}</span>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8"
-                        onClick={() => setPreviewModal({
-                          isOpen: true,
-                          title: template.title,
-                          content: template.previewContent,
-                          language: template.format
-                        })}
-                      >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8"
-                        onClick={() => {
-                          navigator.clipboard.writeText(template.previewContent)
-                          alert(`${template.title} content copied to clipboard!`)
-                        }}
-                      >
-                        <Download className="h-4 w-4" />
-                      </Button>
-                    </div>
+                    <span className="text-sm text-muted-foreground">{asset.format}</span>
+                    <Button
+                      variant="default"
+                      size="sm"
+                      onClick={() => handleDownload(asset.downloadPath, asset.fileName)}
+                    >
+                      <Download className="h-4 w-4 mr-1" />
+                      Download
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
@@ -968,7 +456,7 @@ export default function LibraryPage() {
             subtitle="In-depth tutorials and best practices"
           />
           <div className="grid gap-6 md:grid-cols-2">
-            {resources.guides.map((guide, idx) => {
+            {guides.map((guide, idx) => {
               const Icon = guide.icon
               return (
                 <Card key={idx} className="card-hover group">
@@ -993,19 +481,6 @@ export default function LibraryPage() {
                               <ArrowRight className="ml-1 h-3 w-3" />
                             </Link>
                           </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="h-auto p-1"
-                            onClick={() => setPreviewModal({
-                              isOpen: true,
-                              title: guide.title,
-                              content: guide.content,
-                            })}
-                          >
-                            <Eye className="h-3 w-3 mr-1" />
-                            Preview
-                          </Button>
                         </div>
                       </div>
                     </div>
@@ -1024,7 +499,7 @@ export default function LibraryPage() {
           subtitle="Copy-paste ready code for common growth implementations"
         />
         <div className="grid gap-4 md:grid-cols-2">
-          {resources.codeSnippets.map((snippet, idx) => {
+          {codeSnippets.map((snippet, idx) => {
             const Icon = snippet.icon
             const isCopied = copiedSnippet === snippet.title
             return (
@@ -1087,7 +562,7 @@ export default function LibraryPage() {
         <div className="container-narrow section-spacing-sm">
           <Card className="bg-gradient-to-r from-primary/10 to-purple-500/10 border-2 border-primary/20">
             <CardContent className="p-8 text-center">
-              <h2 className="heading-tertiary mb-4">Need a Custom Template?</h2>
+              <h2 className="heading-tertiary mb-4">Need a Custom Tracking Spec?</h2>
               <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
                 Use our Growth OS Builder to generate custom tracking specs and implementation guides tailored to your product.
               </p>
@@ -1111,7 +586,7 @@ export default function LibraryPage() {
       </section>
 
       {/* Preview Modal */}
-      <CodePreviewModal
+      <ContentPreviewModal
         isOpen={previewModal.isOpen}
         onClose={() => setPreviewModal({ ...previewModal, isOpen: false })}
         title={previewModal.title}

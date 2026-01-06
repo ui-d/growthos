@@ -1,0 +1,32 @@
+property_name,data_type,description,example_value,events_used_in,required,pii,notes
+user_id,string,Unique identifier for the user,usr_abc123def456,All user events,yes,yes,Primary user key
+session_id,string,Unique identifier for the session,sess_xyz789ghi012,session_started page_viewed,yes,no,Generated on session start
+timestamp,datetime,ISO 8601 timestamp of the event,2024-01-15T14:30:00Z,All events,yes,no,Auto-captured
+event_id,string,Unique identifier for this event instance,evt_mno345pqr678,All events,yes,no,For deduplication
+email,string,User email address,user@example.com,user_signed_up,yes,yes,Hash before storing in warehouse
+page_name,string,Human-readable page name,Dashboard,page_viewed,yes,no,Consistent naming required
+page_path,string,URL path of the page,/dashboard/overview,page_viewed,yes,no,Excludes query params
+page_title,string,HTML title of the page,Overview - Dashboard,page_viewed,no,no,From document.title
+referrer,string,Previous page URL,https://google.com/search,page_viewed user_signed_up,no,no,External or internal
+utm_source,string,UTM source parameter,google,user_signed_up,no,no,Campaign tracking
+utm_medium,string,UTM medium parameter,cpc,user_signed_up,no,no,Campaign tracking
+utm_campaign,string,UTM campaign parameter,spring_promo_2024,user_signed_up,no,no,Campaign tracking
+platform,string,Platform type,web ios android,session_started,yes,no,Enum values
+device_type,string,Device category,desktop mobile tablet,session_started,yes,no,Enum values
+browser,string,Browser name and version,Chrome 120.0,session_started,no,no,User agent parsed
+os,string,Operating system,macOS 14.2,session_started,no,no,User agent parsed
+screen_width,number,Screen width in pixels,1920,session_started,no,no,Viewport detection
+screen_height,number,Screen height in pixels,1080,session_started,no,no,Viewport detection
+plan_name,string,Subscription plan name,Pro Monthly,subscription_started subscription_cancelled,yes,no,Match billing system
+plan_interval,string,Billing interval,monthly annual,subscription_started,yes,no,Enum values
+amount,number,Transaction amount in cents,4999,subscription_started checkout_completed,yes,no,Always use cents
+currency,string,ISO currency code,USD EUR GBP,subscription_started checkout_completed,yes,no,ISO 4217
+feature_name,string,Name of product feature,ai_assistant,feature_activated,yes,no,Consistent naming
+time_to_activation_seconds,number,Seconds from signup to activation,3600,feature_activated,no,no,Computed on backend
+experiment_id,string,Unique experiment identifier,exp_winter_cta_test,experiment_viewed experiment_converted,yes,no,From experiment platform
+variant_id,string,Variant identifier within experiment,control treatment_a,experiment_viewed experiment_converted,yes,no,Match experiment config
+error_type,string,Category of error,network validation runtime,error_occurred,yes,no,Standardized types
+error_message,string,Error message text,Failed to fetch user data,error_occurred,yes,no,Truncate if long
+is_new_user,boolean,Whether user is new this session,true false,session_started,yes,no,First session detection
+search_query,string,User search query text,how to export data,search_performed,yes,yes,May contain PII
+results_count,number,Number of search results,42,search_performed,yes,no,Zero if no results
