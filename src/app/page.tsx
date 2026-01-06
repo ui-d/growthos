@@ -10,7 +10,7 @@ import {
   FileText,
   BarChart3,
   Code2,
-  Building,
+  Briefcase,
   Users,
   Rocket,
   AlertTriangle,
@@ -25,7 +25,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-background dark:via-background dark:to-background section-spacing">
         <div className="absolute inset-0 bg-grid-slate-100 dark:bg-grid-slate-800/25 bg-[size:20px_20px] [mask-image:radial-gradient(ellipse_at_center,white,transparent_75%)]" />
         <div className="relative container-wide">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-10 items-center">
             {/* Left Column - Copy */}
             <div className="text-center lg:text-left">
               <Badge variant="outline" className="mb-6">
@@ -58,7 +58,7 @@ export default function HomePage() {
             </div>
 
             {/* Right Column - Output Preview */}
-            <div className="lg:pl-8">
+            <div>
               <OutputPreview />
             </div>
           </div>
@@ -214,7 +214,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative">
                   <div className="w-12 h-12 mb-4 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                    <Building className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                    <Briefcase className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                   </div>
                   <h3 className="font-semibold mb-2">B2B SaaS: Invite & Share</h3>
                   <p className="text-sm text-muted-foreground">
@@ -323,7 +323,7 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative">
                 <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 flex items-center justify-center">
-                  <Building className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+                  <Briefcase className="h-8 w-8 text-purple-600 dark:text-purple-400" />
                 </div>
                 <h3 className="text-lg font-semibold mb-3">B2B SaaS</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">

@@ -193,31 +193,9 @@ export default function ExamplesPage() {
               {examples.length} Pre-built Templates
             </span>
             <h1 className="heading-primary mb-4">Growth OS Examples</h1>
-            <p className="text-lg text-muted-foreground mb-6">
+            <p className="text-lg text-muted-foreground">
               Browse real-world growth system examples across different industries. Open any example to view the full spec, or load it into the builder to customize.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-8">
-              {categories.map((category) => {
-                const count = examples.filter(e => e.category === category).length
-                return (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`p-3 rounded-xl text-left transition-all hover:shadow-md ${
-                      selectedCategory === category
-                        ? 'ring-2 ring-primary bg-primary/5 shadow-sm'
-                        : 'bg-card shadow-sm hover:shadow-md ring-1 ring-border/50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className={categoryColors[category].split(' ')[1]}>{categoryIcons[category]}</span>
-                      <span className="font-medium text-sm">{category}</span>
-                    </div>
-                    <p className="text-xs text-muted-foreground">{count} {pluralize(count, 'example')}</p>
-                  </button>
-                )
-              })}
-            </div>
           </div>
         </div>
       </section>
