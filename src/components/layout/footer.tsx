@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { BookOpen, ArrowRight, Github, Twitter, Linkedin, Youtube } from "lucide-react"
+import { BookOpen, ArrowRight, Github, Linkedin, Youtube } from "lucide-react"
 
 const footerLinks = {
   product: [
@@ -34,10 +34,9 @@ const footerLinks = {
 }
 
 const socialLinks = [
-  { label: "GitHub", href: "https://github.com", icon: Github },
-  { label: "Twitter", href: "https://twitter.com", icon: Twitter },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: Linkedin },
-  { label: "YouTube", href: "https://youtube.com", icon: Youtube },
+  { label: "GitHub", href: "https://github.com/ui-d", icon: Github },
+  { label: "LinkedIn", href: "https://linkedin.com/in/dawid-nawrocki", icon: Linkedin },
+  { label: "YouTube", href: "https://youtube.com/uideveloper", icon: Youtube },
 ]
 
 export function Footer() {
