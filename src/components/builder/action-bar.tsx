@@ -147,10 +147,10 @@ export function ActionBar({ wizardData }: ActionBarProps) {
               onClick={handleDownloadMd}
               disabled={!isValid}
               className="gap-2"
-              title={isValid ? "Download .md" : "Fill required fields first"}
+              title={isValid ? "Download Markdown" : "Fill required fields first"}
             >
               <Download className="h-4 w-4" />
-              <span className="hidden sm:inline">.md</span>
+              <span className="hidden sm:inline">Download MD</span>
             </Button>
             <Button
               variant="outline"
@@ -161,7 +161,7 @@ export function ActionBar({ wizardData }: ActionBarProps) {
               title={isValid ? "Download JSON" : "Fill required fields first"}
             >
               <FileJson className="h-4 w-4" />
-              <span className="hidden sm:inline">JSON</span>
+              <span className="hidden sm:inline">Download JSON</span>
             </Button>
             <Button
               variant="outline"

@@ -127,27 +127,6 @@ export default function BuilderPage() {
           </p>
         </div>
 
-        {/* Builder Steps Overview - Rendered Server-Side for SEO */}
-        <div className="max-w-3xl mx-auto mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-            <div className="p-4 rounded-lg bg-muted/50">
-              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary font-semibold flex items-center justify-center mx-auto mb-2">1</div>
-              <h3 className="font-medium mb-1">Product Basics</h3>
-              <p className="text-sm text-muted-foreground">Define your product type, primary object, and pricing model</p>
-            </div>
-            <div className="p-4 rounded-lg bg-muted/50">
-              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary font-semibold flex items-center justify-center mx-auto mb-2">2</div>
-              <h3 className="font-medium mb-1">Activation Rules</h3>
-              <p className="text-sm text-muted-foreground">Set up activation events and time-to-value targets</p>
-            </div>
-            <div className="p-4 rounded-lg bg-muted/50">
-              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary font-semibold flex items-center justify-center mx-auto mb-2">3</div>
-              <h3 className="font-medium mb-1">Event Tracking</h3>
-              <p className="text-sm text-muted-foreground">Choose core events and custom tracking for your product</p>
-            </div>
-          </div>
-        </div>
-
         {/* Builder Content - Client-Side Interactive */}
         <Suspense fallback={<BuilderSkeleton />}>
           <BuilderWizard />

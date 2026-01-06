@@ -9,7 +9,6 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { BuilderWizardState, ProductType, PricingModel, ActivationRule, CoreEvent, SavedSpec } from "@/lib/growth-os/types"
 import { Step1Schema, Step2Schema, Step3Schema } from "@/lib/growth-os/schema"
@@ -206,12 +205,10 @@ export function BuilderWizard() {
   const renderFieldError = (fieldPath: string) => {
     if (showValidation && validationErrors[fieldPath]) {
       return (
-        <Alert variant="destructive" className="mt-2">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>
-            {validationErrors[fieldPath]}
-          </AlertDescription>
-        </Alert>
+        <p className="text-xs text-destructive mt-1.5 flex items-center gap-1">
+          <AlertCircle className="h-3 w-3" />
+          {validationErrors[fieldPath]}
+        </p>
       )
     }
     return null
@@ -423,22 +420,17 @@ export function BuilderWizard() {
           <div>
             <Card className="border-2 shadow-sm">
               <CardHeader className="border-b bg-muted/30">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <CardTitle className="text-lg">
-                      {currentStep === 1 && "Product Basics"}
-                      {currentStep === 2 && "Activation Rules"}
-                      {currentStep === 3 && "Event Tracking"}
-                    </CardTitle>
-                    <CardDescription className="mt-1">
-                      {currentStep === 1 && "Define your core product and value moment"}
-                      {currentStep === 2 && "Set what must happen within the time-to-value window"}
-                      {currentStep === 3 && "Choose events to track user behavior and growth metrics"}
-                    </CardDescription>
-                  </div>
-                  <div className="text-xs font-medium text-muted-foreground bg-background px-2 py-1 rounded-md border">
-                    Step {currentStep} of 3
-                  </div>
+                <div>
+                  <CardTitle className="text-lg">
+                    {currentStep === 1 && "Product Basics"}
+                    {currentStep === 2 && "Activation Rules"}
+                    {currentStep === 3 && "Event Tracking"}
+                  </CardTitle>
+                  <CardDescription className="mt-1">
+                    {currentStep === 1 && "Define your core product and value moment"}
+                    {currentStep === 2 && "Set what must happen within the time-to-value window"}
+                    {currentStep === 3 && "Choose events to track user behavior and growth metrics"}
+                  </CardDescription>
                 </div>
               </CardHeader>
               <CardContent className="pt-6">

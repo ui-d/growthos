@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { BookOpen, ArrowRight, Github, Twitter, Linkedin, Youtube } from "lucide-react"
@@ -38,31 +41,36 @@ const socialLinks = [
 ]
 
 export function Footer() {
+  const pathname = usePathname()
+  const hideNewsletter = pathname === "/builder"
+
   return (
     <footer className="border-t bg-background">
       <div className="container-full">
-        {/* Newsletter Section */}
-        <div className="border-b py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="text-2xl font-bold mb-2">Stay in the loop</h3>
-              <p className="text-muted-foreground">
-                Get the latest growth engineering insights delivered to your inbox.
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1"
-              />
-              <Button className="group">
-                Subscribe
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Button>
+        {/* Newsletter Section - Hidden on /builder */}
+        {!hideNewsletter && (
+          <div className="border-b py-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div>
+                <h3 className="text-2xl font-bold mb-2">Stay in the loop</h3>
+                <p className="text-muted-foreground">
+                  Get the latest growth engineering insights delivered to your inbox.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1"
+                />
+                <Button className="group">
+                  Subscribe
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* Main Footer Content */}
         <div className="py-12 lg:py-16">
