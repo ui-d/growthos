@@ -282,32 +282,36 @@ export function BuilderWizard() {
   if (isInitializing) {
     return (
       <div className="space-y-6">
-        {/* Step indicator skeleton */}
+        {/* Step indicator skeleton - Modern Pill Style */}
         <nav aria-label="Progress" className="mb-8">
-          <ol className="flex items-center justify-center">
-            {STEPS.map((step, idx) => (
-              <li key={step.id} className={`relative ${idx !== STEPS.length - 1 ? 'pr-8 sm:pr-20' : ''}`}>
-                {idx !== STEPS.length - 1 && (
-                  <div className="absolute top-4 left-7 -ml-px mt-0.5 h-0.5 w-full bg-border" aria-hidden="true" />
-                )}
-                <div className="group relative flex flex-col items-center">
-                  <span className={`flex h-8 w-8 items-center justify-center rounded-full border-2 bg-background relative z-10 ${
-                    step.id === 1 ? 'border-primary bg-primary/10 text-primary font-semibold' : 'border-muted text-muted-foreground'
+          <div className="flex items-center justify-center">
+            <div className="inline-flex items-center bg-muted/50 rounded-full p-1 gap-1">
+              {STEPS.map((step) => (
+                <div
+                  key={step.id}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${
+                    step.id === 1
+                      ? 'bg-background text-foreground shadow-sm'
+                      : 'text-muted-foreground'
+                  }`}
+                >
+                  <span className={`flex h-5 w-5 items-center justify-center rounded-full text-xs font-semibold ${
+                    step.id === 1
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground'
                   }`}>
                     {step.id}
                   </span>
-                  <span className={`mt-2 text-xs font-medium ${step.id === 1 ? 'text-primary' : 'text-muted-foreground'}`}>
-                    {step.name}
-                  </span>
+                  <span className="hidden sm:inline">{step.name}</span>
                 </div>
-              </li>
-            ))}
-          </ol>
+              ))}
+            </div>
+          </div>
         </nav>
 
         {/* Two-pane skeleton */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="rounded-xl border-2 bg-card p-6 space-y-4">
+          <div className="rounded-2xl border border-border/40 bg-background shadow-sm p-6 space-y-4">
             {[1, 2, 3, 4, 5].map((i) => (
               <div key={i} className="space-y-2">
                 <div className="h-5 w-28 bg-muted rounded animate-pulse"></div>
@@ -316,13 +320,13 @@ export function BuilderWizard() {
             ))}
           </div>
           <div className="lg:sticky lg:top-24">
-            <div className="rounded-xl border-2 bg-card overflow-hidden">
-              <div className="border-b bg-muted/30 p-4">
+            <div className="rounded-2xl border border-border/40 bg-background shadow-md overflow-hidden">
+              <div className="border-b border-border/30 bg-muted/20 p-4">
                 <div className="h-5 w-24 bg-muted rounded animate-pulse"></div>
               </div>
-              <div className="bg-muted/50 min-h-[400px] p-4 space-y-3">
+              <div className="bg-muted/30 min-h-[400px] p-4 space-y-3">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className={`h-4 bg-muted/70 rounded animate-pulse`} style={{ width: `${60 + Math.random() * 40}%` }}></div>
+                  <div key={i} className={`h-4 bg-muted/50 rounded animate-pulse`} style={{ width: `${60 + Math.random() * 40}%` }}></div>
                 ))}
               </div>
             </div>
@@ -365,20 +369,13 @@ export function BuilderWizard() {
           </div>
         </div>
 
-        {/* Step Indicator */}
-        <nav aria-label="Progress" className="mb-6">
-          <ol className="flex items-center justify-center">
-            {STEPS.map((step, stepIdx) => (
-              <li key={step.name} className={`relative ${stepIdx !== STEPS.length - 1 ? 'pr-8 sm:pr-20' : ''}`}>
-                {stepIdx !== STEPS.length - 1 && (
-                  <div className="absolute top-4 left-7 -ml-px mt-0.5 h-0.5 w-full bg-border" aria-hidden="true">
-                    <div
-                      className="h-0.5 bg-primary transition-all duration-300"
-                      style={{ width: currentStep > step.id ? '100%' : '0%' }}
-                    />
-                  </div>
-                )}
+        {/* Step Indicator - Modern Pill Style */}
+        <nav aria-label="Progress" className="mb-8">
+          <div className="flex items-center justify-center">
+            <div className="inline-flex items-center bg-muted/50 rounded-full p-1 gap-1">
+              {STEPS.map((step) => (
                 <button
+                  key={step.name}
                   onClick={() => {
                     if (step.id < currentStep) {
                       setCurrentStep(step.id)
@@ -386,47 +383,48 @@ export function BuilderWizard() {
                       setCurrentStep(step.id)
                     }
                   }}
-                  className="group relative flex flex-col items-center focus:outline-none"
+                  aria-current={currentStep === step.id ? "step" : undefined}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${
+                    currentStep === step.id
+                      ? 'bg-background text-foreground shadow-sm'
+                      : currentStep > step.id
+                      ? 'text-foreground/70 hover:text-foreground'
+                      : 'text-muted-foreground hover:text-foreground/70'
+                  }`}
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 transition-colors duration-200 bg-background relative z-10">
-                    {currentStep > step.id ? (
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                        <Check className="h-4 w-4" />
-                      </span>
-                    ) : currentStep === step.id ? (
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary bg-primary/10 text-primary font-semibold text-sm">
-                        {step.id}
-                      </span>
-                    ) : (
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-muted text-muted-foreground text-sm">
-                        {step.id}
-                      </span>
-                    )}
-                  </span>
-                  <span className={`mt-2 text-xs font-medium transition-colors ${
-                    currentStep >= step.id ? 'text-primary' : 'text-muted-foreground'
-                  }`}>
-                    {step.name}
-                  </span>
+                  {currentStep > step.id ? (
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                      <Check className="h-3 w-3" />
+                    </span>
+                  ) : (
+                    <span className={`flex h-5 w-5 items-center justify-center rounded-full text-xs font-semibold ${
+                      currentStep === step.id
+                        ? 'bg-primary text-primary-foreground'
+                        : 'bg-muted text-muted-foreground'
+                    }`}>
+                      {step.id}
+                    </span>
+                  )}
+                  <span className="hidden sm:inline">{step.name}</span>
                 </button>
-              </li>
-            ))}
-          </ol>
+              ))}
+            </div>
+          </div>
         </nav>
 
         {/* Main 2-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Left - Wizard Form */}
           <div>
-            <Card className="border-2 shadow-sm">
-              <CardHeader className="border-b bg-muted/30">
+            <Card className="border border-border/40 shadow-sm rounded-2xl bg-background">
+              <CardHeader className="border-b border-border/30 bg-muted/20 rounded-t-2xl">
                 <div>
-                  <CardTitle className="text-lg">
+                  <CardTitle className="text-base font-semibold text-foreground">
                     {currentStep === 1 && "Product Basics"}
                     {currentStep === 2 && "Activation Rules"}
                     {currentStep === 3 && "Event Tracking"}
                   </CardTitle>
-                  <CardDescription className="mt-1">
+                  <CardDescription className="mt-1 text-muted-foreground">
                     {currentStep === 1 && "Define your core product and value moment"}
                     {currentStep === 2 && "Set what must happen within the time-to-value window"}
                     {currentStep === 3 && "Choose events to track user behavior and growth metrics"}
@@ -437,7 +435,7 @@ export function BuilderWizard() {
                 {currentStep === 1 && (
                   <div className="space-y-5">
                     <div className="space-y-2">
-                      <Label htmlFor="product-type" className="text-sm font-medium">Product Type</Label>
+                      <Label htmlFor="product-type" className="text-sm font-medium text-foreground">Product Type</Label>
                       <Select value={wizardData.productType} onValueChange={(value: ProductType) => updateData({ productType: value })}>
                         <SelectTrigger id="product-type" className={`h-11 ${showValidation && validationErrors.productType ? "border-destructive ring-destructive/20 ring-2" : ""}`}>
                           <SelectValue placeholder="Select product type" />
@@ -451,7 +449,7 @@ export function BuilderWizard() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="primary-object" className="text-sm font-medium">Primary Object</Label>
+                      <Label htmlFor="primary-object" className="text-sm font-medium text-foreground">Primary Object</Label>
                       <Input
                         id="primary-object"
                         placeholder="e.g., Project, Workspace, Dashboard"
@@ -463,7 +461,7 @@ export function BuilderWizard() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="value-action" className="text-sm font-medium">Value Action</Label>
+                      <Label htmlFor="value-action" className="text-sm font-medium text-foreground">Value Action</Label>
                       <Input
                         id="value-action"
                         placeholder="e.g., Deploy, Analyze, Send"
@@ -475,7 +473,7 @@ export function BuilderWizard() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="pricing-model" className="text-sm font-medium">Pricing Model</Label>
+                      <Label htmlFor="pricing-model" className="text-sm font-medium text-foreground">Pricing Model</Label>
                       <Select value={wizardData.pricingModel} onValueChange={(value: PricingModel) => updateData({ pricingModel: value })}>
                         <SelectTrigger id="pricing-model" className={`h-11 ${showValidation && validationErrors.pricingModel ? "border-destructive ring-destructive/20 ring-2" : ""}`}>
                           <SelectValue placeholder="Select pricing model" />
@@ -491,7 +489,7 @@ export function BuilderWizard() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="ttv-minutes" className="text-sm font-medium">Time-to-Value (TTV)</Label>
+                      <Label htmlFor="ttv-minutes" className="text-sm font-medium text-foreground">Time-to-Value (TTV)</Label>
                       <div className="relative">
                         <Input
                           id="ttv-minutes"
@@ -513,7 +511,7 @@ export function BuilderWizard() {
                 {currentStep === 2 && (
                   <div className="space-y-5">
                     <div className="space-y-2">
-                      <Label htmlFor="activation-event" className="text-sm font-medium">Activation Event Name</Label>
+                      <Label htmlFor="activation-event" className="text-sm font-medium text-foreground">Activation Event Name</Label>
                       <Input
                         id="activation-event"
                         placeholder="e.g., First Deployment, Setup Complete"
@@ -525,7 +523,7 @@ export function BuilderWizard() {
                     </div>
 
                     <div className="space-y-3">
-                      <Label className="text-sm font-medium">Activation Rules</Label>
+                      <Label className="text-sm font-medium text-foreground">Activation Rules</Label>
                       <div className="grid gap-3 pt-1">
                         {ACTIVATION_RULES.map((rule) => (
                           <div
@@ -557,7 +555,7 @@ export function BuilderWizard() {
                 {currentStep === 3 && (
                   <div className="space-y-5">
                     <div className="space-y-3">
-                      <Label className="text-sm font-medium">Core Events</Label>
+                      <Label className="text-sm font-medium text-foreground">Core Events</Label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                         {CORE_EVENTS.map((event) => (
                           <div
@@ -585,7 +583,7 @@ export function BuilderWizard() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="custom-events" className="text-sm font-medium">Custom Events</Label>
+                      <Label htmlFor="custom-events" className="text-sm font-medium text-foreground">Custom Events</Label>
                       <p className="text-xs text-muted-foreground">Add custom events, one per line</p>
                       <Textarea
                         id="custom-events"
@@ -600,7 +598,7 @@ export function BuilderWizard() {
                   </div>
                 )}
               </CardContent>
-              <CardFooter className="flex justify-between border-t bg-muted/30 mt-6">
+              <CardFooter className="flex justify-between border-t border-border/30 bg-muted/20 mt-6 rounded-b-2xl">
                 <Button
                   variant="ghost"
                   onClick={handlePrevious}

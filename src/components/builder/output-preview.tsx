@@ -119,19 +119,19 @@ export function OutputPreview({ data }: OutputPreviewProps) {
   }
 
   return (
-    <Card className="h-full border-2">
-      <CardHeader className="border-b bg-muted/30 pb-3">
+    <Card className="h-full border border-border/40 shadow-md rounded-2xl bg-background">
+      <CardHeader className="border-b border-border/30 bg-muted/20 pb-3 rounded-t-2xl">
         <div className="flex items-center justify-between gap-2">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
+          <CardTitle className="text-sm font-semibold text-foreground flex items-center gap-2">
             <FileCode className="h-4 w-4 text-primary" />
             Spec Preview
           </CardTitle>
           {/* Rendered / Markdown toggle */}
-          <div className="flex items-center bg-muted rounded-md p-0.5">
+          <div className="flex items-center bg-muted/50 rounded-full p-0.5">
             <button
               onClick={() => setViewMode("rendered")}
               className={cn(
-                "flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded transition-colors",
+                "flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full transition-all",
                 viewMode === "rendered"
                   ? "bg-background text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
@@ -143,7 +143,7 @@ export function OutputPreview({ data }: OutputPreviewProps) {
             <button
               onClick={() => setViewMode("markdown")}
               className={cn(
-                "flex items-center gap-1.5 px-2 py-1 text-xs font-medium rounded transition-colors",
+                "flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full transition-all",
                 viewMode === "markdown"
                   ? "bg-background text-foreground shadow-sm"
                   : "text-muted-foreground hover:text-foreground"
