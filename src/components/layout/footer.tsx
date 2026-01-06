@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { BookOpen, ArrowRight, Github, Linkedin, Youtube } from "lucide-react"
+import { SOCIAL_LINKS, hasLink } from "@/lib/constants"
 
 const footerLinks = {
   product: [
@@ -34,10 +35,10 @@ const footerLinks = {
 }
 
 const socialLinks = [
-  { label: "GitHub", href: "https://github.com/ui-d", icon: Github },
-  { label: "LinkedIn", href: "https://linkedin.com/in/dawid-nawrocki", icon: Linkedin },
-  { label: "YouTube", href: "https://youtube.com/uideveloper", icon: Youtube },
-]
+  { label: "GitHub", href: SOCIAL_LINKS.github.profile, icon: Github },
+  { label: "LinkedIn", href: SOCIAL_LINKS.linkedin, icon: Linkedin },
+  { label: "YouTube", href: SOCIAL_LINKS.youtube, icon: Youtube },
+].filter((link) => hasLink(link.href))
 
 export function Footer() {
   const pathname = usePathname()
@@ -179,10 +180,13 @@ export function Footer() {
         <div className="border-t py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Growth OS. All rights reserved.
+              © {new Date().getFullYear()} Growth OS.{" "}
+              <Link href="/license" className="hover:text-foreground transition-colors underline-offset-4 hover:underline">
+                MIT License
+              </Link>
             </p>
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
-              <span>Built with ❤️ for growth teams</span>
+              <span>Built with care for growth teams</span>
             </div>
           </div>
         </div>

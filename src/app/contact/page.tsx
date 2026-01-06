@@ -3,7 +3,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Mail, MessageSquare, Github, Twitter } from "lucide-react"
+import { Mail, MessageSquare, Github, Linkedin } from "lucide-react"
+import { SOCIAL_LINKS, hasLink } from "@/lib/constants"
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
@@ -28,21 +29,40 @@ export const metadata: Metadata = {
 }
 
 const contactMethods = [
-  {
-    title: "GitHub",
-    description: "Report issues, request features, or contribute",
-    icon: Github,
-    href: "https://github.com",
-    cta: "Open GitHub",
-  },
-  {
-    title: "Twitter",
-    description: "Follow for updates and announcements",
-    icon: Twitter,
-    href: "https://twitter.com",
-    cta: "Follow Us",
-  },
-]
+  hasLink(SOCIAL_LINKS.github.profile)
+    ? {
+        title: "GitHub",
+        description: "Report issues, request features, or contribute",
+        icon: Github,
+        href: SOCIAL_LINKS.github.profile,
+        cta: "Open GitHub",
+      }
+    : null,
+  hasLink(SOCIAL_LINKS.linkedin)
+    ? {
+        title: "LinkedIn",
+        description: "Connect for professional inquiries",
+        icon: Linkedin,
+        href: SOCIAL_LINKS.linkedin,
+        cta: "Connect",
+      }
+    : null,
+  hasLink(SOCIAL_LINKS.email)
+    ? {
+        title: "Email",
+        description: "Reach out directly with questions or feedback",
+        icon: Mail,
+        href: `mailto:${SOCIAL_LINKS.email}`,
+        cta: "Send Email",
+      }
+    : null,
+].filter(Boolean) as Array<{
+  title: string
+  description: string
+  icon: typeof Github
+  href: string
+  cta: string
+}>
 
 export default function ContactPage() {
   return (

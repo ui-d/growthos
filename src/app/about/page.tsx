@@ -20,6 +20,7 @@ import {
   Bot
 } from "lucide-react";
 import Link from "next/link";
+import { SOCIAL_LINKS, hasLink } from "@/lib/constants";
 
 const SKILLS = {
   aiFirst: ["Claude Code", "Cursor", "Lovable", "Gemini", "v0.dev", "AI Agents"],
@@ -116,30 +117,38 @@ export default function AboutPage() {
               <span>Open to Remote</span>
             </div>
             <div className="flex flex-wrap gap-3 justify-center pt-4">
-              <Button asChild size="lg" className="group">
-                <Link href="https://linkedin.com/in/dawid-nawrocki" target="_blank" rel="noopener noreferrer">
-                  <Linkedin className="mr-2 h-4 w-4" />
-                  LinkedIn
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="https://github.com/ui-d" target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-4 w-4" />
-                  GitHub
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="https://youtube.com/uideveloper" target="_blank" rel="noopener noreferrer">
-                  <Youtube className="mr-2 h-4 w-4" />
-                  YouTube
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="https://dawidat.work" target="_blank" rel="noopener noreferrer">
-                  <Globe className="mr-2 h-4 w-4" />
-                  Portfolio
-                </Link>
-              </Button>
+              {hasLink(SOCIAL_LINKS.linkedin) && (
+                <Button asChild size="lg" className="group">
+                  <Link href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="mr-2 h-4 w-4" />
+                    LinkedIn
+                  </Link>
+                </Button>
+              )}
+              {hasLink(SOCIAL_LINKS.github.profile) && (
+                <Button asChild variant="outline" size="lg">
+                  <Link href={SOCIAL_LINKS.github.profile} target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-2 h-4 w-4" />
+                    GitHub
+                  </Link>
+                </Button>
+              )}
+              {hasLink(SOCIAL_LINKS.youtube) && (
+                <Button asChild variant="outline" size="lg">
+                  <Link href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">
+                    <Youtube className="mr-2 h-4 w-4" />
+                    YouTube
+                  </Link>
+                </Button>
+              )}
+              {hasLink(SOCIAL_LINKS.portfolio) && (
+                <Button asChild variant="outline" size="lg">
+                  <Link href={SOCIAL_LINKS.portfolio} target="_blank" rel="noopener noreferrer">
+                    <Globe className="mr-2 h-4 w-4" />
+                    Portfolio
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -406,20 +415,24 @@ export default function AboutPage() {
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button asChild size="lg" className="group">
-                    <Link href="https://linkedin.com/in/dawid-nawrocki" target="_blank" rel="noopener noreferrer">
-                      <Linkedin className="mr-2 h-4 w-4" />
-                      Connect on LinkedIn
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
-                  <Button asChild variant="outline" size="lg" className="group">
-                    <Link href="mailto:dawiddeveloper@gmail.com">
-                      <Mail className="mr-2 h-4 w-4" />
-                      Send Email
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
+                  {hasLink(SOCIAL_LINKS.linkedin) && (
+                    <Button asChild size="lg" className="group">
+                      <Link href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
+                        <Linkedin className="mr-2 h-4 w-4" />
+                        Connect on LinkedIn
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </Button>
+                  )}
+                  {hasLink(SOCIAL_LINKS.email) && (
+                    <Button asChild variant="outline" size="lg" className="group">
+                      <Link href={`mailto:${SOCIAL_LINKS.email}`}>
+                        <Mail className="mr-2 h-4 w-4" />
+                        Send Email
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </Button>
+                  )}
                 </div>
               </div>
             </CardContent>

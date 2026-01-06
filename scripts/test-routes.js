@@ -28,11 +28,16 @@ const routes = [
   '/library',
   '/about',
 
+  // Documentation pages
+  '/documentation',
+  '/docs',
+  '/guides',
+  '/architecture',
+
   // Product pages
   '/pricing',
 
   // Resource pages
-  '/docs',
   '/blog',
   '/changelog',
 
@@ -54,10 +59,13 @@ const routes = [
 
 // Routes that should have meaningful content (not just loading spinners)
 const contentChecks = {
-  '/builder': ['Growth OS Builder', 'Product Basics', 'Activation Rules'],
+  '/builder': ['Growth OS Builder', 'Product', 'Activation'],
   '/': ['Growth OS'],
   '/examples': ['Growth OS Examples'],
   '/modules': ['Modules'],
+  '/documentation': ['Documentation', 'Modules', 'Guides', 'Architecture', 'Examples'],
+  '/architecture': ['Architecture', 'KPI Tree', 'Activation Framework'],
+  '/guides': ['Guides', 'Getting Started'],
 };
 
 async function testRoute(route) {

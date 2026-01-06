@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Scale, Github } from "lucide-react"
+import { SOCIAL_LINKS, hasLink } from "@/lib/constants"
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
@@ -78,17 +79,31 @@ export default function LicensePage() {
               </p>
             </div>
 
-            <div className="text-center pt-4">
-              <p className="text-muted-foreground mb-4">
-                View the source code and contribute to the project on GitHub.
-              </p>
-              <Button variant="outline" asChild>
-                <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-4 w-4" />
-                  View on GitHub
-                </Link>
-              </Button>
-            </div>
+            {hasLink(SOCIAL_LINKS.github.repo) ? (
+              <div className="text-center pt-4">
+                <p className="text-muted-foreground mb-4">
+                  View the source code and contribute to the project on GitHub.
+                </p>
+                <Button variant="outline" asChild>
+                  <Link href={SOCIAL_LINKS.github.repo} target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-2 h-4 w-4" />
+                    View on GitHub
+                  </Link>
+                </Button>
+              </div>
+            ) : hasLink(SOCIAL_LINKS.github.profile) ? (
+              <div className="text-center pt-4">
+                <p className="text-muted-foreground mb-4">
+                  View more projects on GitHub.
+                </p>
+                <Button variant="outline" asChild>
+                  <Link href={SOCIAL_LINKS.github.profile} target="_blank" rel="noopener noreferrer">
+                    <Github className="mr-2 h-4 w-4" />
+                    View GitHub Profile
+                  </Link>
+                </Button>
+              </div>
+            ) : null}
           </CardContent>
         </Card>
 

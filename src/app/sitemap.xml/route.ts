@@ -10,10 +10,14 @@ export function GET() {
     { url: '/library', changeFrequency: 'monthly', priority: 0.7 },
     { url: '/about', changeFrequency: 'monthly', priority: 0.6 },
 
-    // Secondary pages
+    // Documentation pages
+    { url: '/documentation', changeFrequency: 'monthly', priority: 0.7 },
     { url: '/docs', changeFrequency: 'monthly', priority: 0.6 },
+    { url: '/guides', changeFrequency: 'monthly', priority: 0.6 },
+    { url: '/architecture', changeFrequency: 'monthly', priority: 0.6 },
+
+    // Secondary pages
     { url: '/pricing', changeFrequency: 'monthly', priority: 0.6 },
-    { url: '/blog', changeFrequency: 'weekly', priority: 0.5 },
     { url: '/changelog', changeFrequency: 'weekly', priority: 0.5 },
 
     // Company pages
