@@ -5,14 +5,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { BuilderWizardState } from "@/lib/growth-os/types"
 import { generateGrowthSpec } from "@/lib/growth-os/generate"
 import { convertToSpecInput } from "@/lib/growth-os/converter"
-import { FileCode, Eye, Code } from "lucide-react"
+import { FileCode, Eye, Code, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface OutputPreviewProps {
   data: BuilderWizardState
+  variant?: "card" | "embedded"
 }
 
-export function OutputPreview({ data }: OutputPreviewProps) {
+export function OutputPreview({ data, variant = "card" }: OutputPreviewProps) {
   const [viewMode, setViewMode] = useState<"rendered" | "markdown">("rendered")
 
   const markdown = useMemo(() => {
@@ -118,6 +119,74 @@ export function OutputPreview({ data }: OutputPreviewProps) {
     return elements
   }
 
+  // Embedded variant - placeholder style when no content
+  if (variant === "embedded") {
+    if (!hasContent) {
+      return (
+        <div className="w-full h-full p-8">
+          <div className="w-full h-full border-2 border-dashed border-border/50 dark:border-border/30 rounded-xl flex flex-col items-center justify-center text-center p-12">
+            <div className="w-16 h-16 bg-background dark:bg-muted/30 rounded-full flex items-center justify-center shadow-lg mb-4">
+              <Sparkles className="h-8 w-8 text-primary" />
+            </div>
+            <p className="text-muted-foreground italic font-medium">
+              Fill in the wizard to see your generated Growth OS configuration...
+            </p>
+          </div>
+        </div>
+      )
+    }
+
+    // Embedded with content
+    return (
+      <div className="w-full h-full flex flex-col p-4">
+        <div className="flex items-center justify-between mb-4 flex-shrink-0">
+          <div className="flex items-center gap-2 text-sm font-medium text-foreground">
+            <FileCode className="h-4 w-4 text-primary" />
+            Spec Preview
+          </div>
+          <div className="flex items-center bg-muted/50 rounded-full p-0.5">
+            <button
+              onClick={() => setViewMode("rendered")}
+              className={cn(
+                "flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full transition-all",
+                viewMode === "rendered"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Eye className="h-3 w-3" />
+              Rendered
+            </button>
+            <button
+              onClick={() => setViewMode("markdown")}
+              className={cn(
+                "flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full transition-all",
+                viewMode === "markdown"
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              <Code className="h-3 w-3" />
+              Markdown
+            </button>
+          </div>
+        </div>
+        <div className="bg-background rounded-lg p-4 flex-1 overflow-auto border border-border/30 max-h-[500px]">
+          {viewMode === "markdown" ? (
+            <pre className="text-xs leading-relaxed font-mono whitespace-pre-wrap">
+              {markdown}
+            </pre>
+          ) : (
+            <div className="prose prose-sm dark:prose-invert max-w-none">
+              {renderMarkdown(markdown)}
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
+
+  // Card variant (default)
   return (
     <Card className="h-full border border-border/40 shadow-md rounded-2xl bg-background">
       <CardHeader className="border-b border-border/30 bg-muted/20 pb-3 rounded-t-2xl">
