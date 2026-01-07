@@ -21,22 +21,21 @@ const jetbrainsMono = JetBrains_Mono({
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
 export const metadata: Metadata = {
-  title: "Growth OS — Activation system for PLG SaaS",
+  title: {
+    default: "Growth OS — Activation system for PLG SaaS",
+    template: "%s | Growth OS",
+  },
   description: "A builder + templates for KPI trees, activation specs, tracking plans, and dashboard packs. Less chaos, faster time-to-value.",
   metadataBase: new URL(baseUrl),
+  keywords: ["PLG", "product-led growth", "SaaS", "activation", "KPI", "metrics", "tracking", "analytics", "dashboard"],
+  authors: [{ name: "Growth OS" }],
+  creator: "Growth OS",
+  publisher: "Growth OS",
   openGraph: {
     title: "Growth OS — Activation system for PLG SaaS",
     description: "A builder + templates for KPI trees, activation specs, tracking plans, and dashboard packs. Less chaos, faster time-to-value.",
     url: baseUrl,
     siteName: "Growth OS",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "Growth OS — Activation system for PLG SaaS",
-      },
-    ],
     locale: "en_US",
     type: "website",
   },
@@ -44,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Growth OS — Activation system for PLG SaaS",
     description: "A builder + templates for KPI trees, activation specs, tracking plans, and dashboard packs. Less chaos, faster time-to-value.",
-    images: ["/og.png"],
+    creator: "@growthos",
   },
   robots: {
     index: true,

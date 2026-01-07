@@ -350,6 +350,32 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Why I Built This Section */}
+      <section className="section-spacing">
+        <div className="container-narrow">
+          <p className="text-sm font-medium tracking-wide uppercase text-muted-foreground mb-6">
+            Why I built this
+          </p>
+
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-10">
+            Nobody agreed on what <span className="gradient-text">activation</span> meant.
+          </h2>
+
+          <div className="max-w-2xl space-y-4 text-lg text-muted-foreground">
+            <p>
+              Product said &quot;completed onboarding.&quot; Growth said &quot;first login.&quot; Finance said &quot;paid conversion.&quot; Engineering tracked nothing.
+            </p>
+            <p>
+              After 10 years of watching teams optimize the wrong metrics, I built Growth OS—one framework that defines activation as value delivery and generates everything you need to ship it.
+            </p>
+          </div>
+
+          <p className="mt-8 text-sm text-muted-foreground">
+            — Dawid
+          </p>
+        </div>
+      </section>
+
       {/* Bottom CTA Section */}
       <section className="section-spacing">
         <div className="container-narrow">

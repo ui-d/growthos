@@ -12,19 +12,15 @@ const footerLinks = {
     { label: "Builder", href: "/builder" },
     { label: "Modules", href: "/modules" },
     { label: "Examples", href: "/examples" },
-    { label: "Pricing", href: "/pricing" },
   ],
   resources: [
     { label: "Documentation", href: "/docs" },
     { label: "Library", href: "/library" },
-    { label: "Blog", href: "/blog" },
-    { label: "Changelog", href: "/changelog" },
+    { label: "Guides", href: "/guides" },
   ],
   company: [
     { label: "About", href: "/about" },
-    { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
-    { label: "Partners", href: "/partners" },
   ],
   legal: [
     { label: "Privacy", href: "/privacy" },

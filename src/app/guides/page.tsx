@@ -230,7 +230,7 @@ export default function GuidesPage() {
             We are actively working on comprehensive tutorials covering advanced topics.
           </p>
           <Button variant="outline" asChild>
-            <Link href="/changelog">View Changelog</Link>
+            <Link href="/builder">Open Builder</Link>
           </Button>
         </div>
       </section>

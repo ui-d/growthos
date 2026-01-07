@@ -16,14 +16,8 @@ export function GET() {
     { url: '/guides', changeFrequency: 'monthly', priority: 0.6 },
     { url: '/architecture', changeFrequency: 'monthly', priority: 0.6 },
 
-    // Secondary pages
-    { url: '/pricing', changeFrequency: 'monthly', priority: 0.6 },
-    { url: '/changelog', changeFrequency: 'weekly', priority: 0.5 },
-
     // Company pages
-    { url: '/careers', changeFrequency: 'monthly', priority: 0.4 },
     { url: '/contact', changeFrequency: 'monthly', priority: 0.5 },
-    { url: '/partners', changeFrequency: 'monthly', priority: 0.4 },
 
     // Legal pages
     { url: '/privacy', changeFrequency: 'yearly', priority: 0.3 },

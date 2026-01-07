@@ -8,6 +8,7 @@ import {
   Mail,
   Linkedin,
   Github,
+  Youtube,
   ExternalLink,
   Zap,
   BarChart3,
@@ -16,8 +17,10 @@ import {
   Code2,
   Workflow,
   FileText,
-  BookOpen,
   Wrench,
+  Bot,
+  Globe,
+  Building2,
 } from "lucide-react"
 import { SOCIAL_LINKS, SITE_CONFIG, hasLink } from "@/lib/constants"
 
@@ -25,17 +28,17 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
 export const metadata: Metadata = {
   title: "About - Growth OS",
-  description: "Growth / Activation Engineer building activation and revenue infrastructure for PLG SaaS.",
+  description: "Growth Engineer with full-stack expertise in React, Next.js, Node.js, and modern marketing stacks. Building acquisition surfaces and activation infrastructure for PLG SaaS.",
   openGraph: {
     title: "About - Growth OS",
-    description: "Growth / Activation Engineer building activation and revenue infrastructure for PLG SaaS.",
+    description: "Growth Engineer with full-stack expertise in React, Next.js, Node.js, and modern marketing stacks. Building acquisition surfaces and activation infrastructure for PLG SaaS.",
     url: `${baseUrl}/about`,
     images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "About - Growth OS",
-    description: "Growth / Activation Engineer building activation and revenue infrastructure for PLG SaaS.",
+    description: "Growth Engineer with full-stack expertise in React, Next.js, Node.js, and modern marketing stacks. Building acquisition surfaces and activation infrastructure for PLG SaaS.",
     images: ["/og.png"],
   },
   alternates: {
@@ -44,31 +47,42 @@ export const metadata: Metadata = {
 }
 
 const FOCUS_AREAS = [
-  "Activation & TTV optimization",
-  "Instrumentation architecture",
-  "Experiment infrastructure",
+  "Acquisition & activation surfaces",
+  "GTM automation & measurement",
+  "AI-first development workflows",
 ]
 
-const ARTIFACTS = [
-  { name: "KPI tree + North Star definitions", icon: Target },
-  { name: "Activation spec + TTV instrumentation", icon: Zap },
-  { name: "Tracking plan + property dictionary", icon: FileText },
-  { name: "Dashboard pack (activation, retention, adoption, revenue)", icon: BarChart3 },
-  { name: "Experiment system (scoring + decision log)", icon: Rocket },
-  { name: "Data quality + governance", icon: Workflow },
+const EXPERIENCE = [
+  { company: "Appsmith", role: "Growth Engineer", period: "Jun 2024 - Present", tech: "TypeScript, Node, Contentful, Analytics / GTM Stack" },
+  { company: "Stenn", role: "Web Engineer (Marketing)", period: "Mar 2024 - Jun 2024", tech: "Webflow, JavaScript, React, Salesforce, GTM" },
+  { company: "Hygraph", role: "Frontend Developer (Marketing)", period: "Sep 2023 - Mar 2024", tech: "Next.js 13, TypeScript, Tailwind, Storybook" },
+  { company: "Pilot", role: "Growth Engineer", period: "Feb 2022 - Aug 2023", tech: "React, Next.js, Tailwind, Storyblok, GSAP" },
+  { company: "Ziflow", role: "Web Developer (Marketing)", period: "Oct 2019 - Feb 2022", tech: "HubSpot, HTML5, CSS3, ES6+, GSAP, Lottie" },
 ]
 
 const TOOLING = [
-  { category: "Analytics", tools: "Segment, Mixpanel, Amplitude, PostHog" },
-  { category: "Data", tools: "SQL, reverse ETL, feature flags, experimentation" },
-  { category: "Frontend", tools: "Next.js, TypeScript, React, Tailwind" },
+  { category: "AI-First", tools: "Claude Code, Cursor, Lovable, Gemini, v0.dev, AI Agents" },
+  { category: "Frontend", tools: "TypeScript, React, Next.js, Vue, Tailwind, GSAP" },
+  { category: "Backend", tools: "Node.js, Python, Serverless/Edge, Headless CMS, Vercel" },
+  { category: "Data", tools: "SQL, PostgreSQL, Supabase, BigQuery, Fivetran, Looker" },
+  { category: "Marketing", tools: "Mixpanel, GA4, Segment, Chilipiper, Clay, Intercom" },
+  { category: "Low-code", tools: "Webflow, Make.com, Zapier, Airtable, n8n" },
+]
+
+const ARTIFACTS = [
+  { name: "Marketing websites & landing pages", icon: Globe },
+  { name: "Signup/demo flows & conversion funnels", icon: Zap },
+  { name: "Lead enrichment & routing automation", icon: Workflow },
+  { name: "Attribution & instrumentation systems", icon: BarChart3 },
+  { name: "A/B testing & experimentation frameworks", icon: Rocket },
+  { name: "CMS workflows & content operations", icon: FileText },
 ]
 
 const PRINCIPLES = [
-  { title: "Definitions first", description: "Instrumentation second, experiments third, scale last." },
-  { title: "Bias to measurable changes", description: "Small, validated iterations that compound." },
-  { title: "Trust data boundaries", description: "Validate at system edges, trust internal contracts." },
-  { title: "Ship artifacts, not slides", description: "Specs, tracking plans, dashboards—things teams use." },
+  { title: "AI-first delivery", description: "Leverage AI workflows for prototyping, debugging, refactoring, and documentation while maintaining high code review standards." },
+  { title: "Measurement before scale", description: "Build instrumentation and attribution hygiene first—then optimize what you can measure." },
+  { title: "Ship with guardrails", description: "Enable cross-team shipping with content controls and safer publishing workflows." },
+  { title: "Structured experimentation", description: "Hypotheses, testing, measured rollouts. Prioritize high-impact bets with clear decision logs." },
 ]
 
 const PROOF_LINKS = [
@@ -89,16 +103,20 @@ export default function AboutPage() {
               About
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              I build activation and revenue infrastructure for PLG SaaS.
+              Growth Engineer with full-stack expertise in React, Next.js, Node.js, and modern marketing stacks. I build and optimize acquisition surfaces: marketing websites, landing pages, signup/demo flows, and experimentation frameworks.
             </p>
             <div className="flex flex-wrap gap-2">
               <Badge variant="outline" className="gap-1.5">
-                <Zap className="h-3 w-3" />
-                Activation
+                <Bot className="h-3 w-3" />
+                AI-First
+              </Badge>
+              <Badge variant="outline" className="gap-1.5">
+                <Code2 className="h-3 w-3" />
+                Fullstack
               </Badge>
               <Badge variant="outline" className="gap-1.5">
                 <BarChart3 className="h-3 w-3" />
-                Instrumentation
+                GTM Automation
               </Badge>
               <Badge variant="outline" className="gap-1.5">
                 <Rocket className="h-3 w-3" />
@@ -106,11 +124,7 @@ export default function AboutPage() {
               </Badge>
               <Badge variant="outline" className="gap-1.5">
                 <Target className="h-3 w-3" />
-                Dashboards
-              </Badge>
-              <Badge variant="outline" className="gap-1.5">
-                <Code2 className="h-3 w-3" />
-                TypeScript
+                Attribution
               </Badge>
             </div>
           </div>
@@ -128,7 +142,8 @@ export default function AboutPage() {
                   <div className="space-y-4">
                     <div>
                       <h2 className="font-semibold text-lg">{SITE_CONFIG.author}</h2>
-                      <p className="text-sm text-muted-foreground">Growth / Activation Engineer</p>
+                      <p className="text-sm text-muted-foreground">Growth Engineer | AI-First</p>
+                      <p className="text-xs text-muted-foreground mt-1">Toruń, Poland (Open to Remote)</p>
                     </div>
 
                     <div className="space-y-2">
@@ -160,6 +175,14 @@ export default function AboutPage() {
                           </Link>
                         </Button>
                       )}
+                      {hasLink(SOCIAL_LINKS.youtube) && (
+                        <Button variant="outline" size="sm" asChild>
+                          <Link href={SOCIAL_LINKS.youtube} target="_blank" rel="noopener noreferrer">
+                            <Youtube className="h-4 w-4 mr-1.5" />
+                            YouTube
+                          </Link>
+                        </Button>
+                      )}
                       {hasLink(SOCIAL_LINKS.email) && (
                         <Button variant="outline" size="sm" asChild>
                           <Link href={`mailto:${SOCIAL_LINKS.email}`}>
@@ -182,26 +205,46 @@ export default function AboutPage() {
               <h2 className="text-2xl font-semibold tracking-tight mb-4">What I do</h2>
               <div className="space-y-3">
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-muted/30">
-                  <Zap className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                  <Globe className="h-5 w-5 text-primary mt-0.5 shrink-0" />
                   <div>
-                    <div className="font-medium text-sm">Reduce time-to-value</div>
-                    <div className="text-sm text-muted-foreground">Define activation events, instrument TTV, and build onboarding experiments that convert signups to active users.</div>
+                    <div className="font-medium text-sm">Build acquisition surfaces</div>
+                    <div className="text-sm text-muted-foreground">Technical owner of marketing websites, landing pages, sign-up flows, and conversion-critical paths. Architecture choices, reusable components, and UX patterns.</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-muted/30">
                   <BarChart3 className="h-5 w-5 text-primary mt-0.5 shrink-0" />
                   <div>
-                    <div className="font-medium text-sm">Build measurement infrastructure</div>
-                    <div className="text-sm text-muted-foreground">Tracking plans, property dictionaries, and dashboards that answer &quot;what&apos;s happening&quot; without ad-hoc queries.</div>
+                    <div className="font-medium text-sm">Design measurement & automation</div>
+                    <div className="text-sm text-muted-foreground">Lead enrichment, attribution consistency, and routing between marketing and sales systems. Instrumentation that improves pipeline quality and revenue.</div>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 p-4 rounded-xl bg-muted/30">
-                  <Rocket className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                  <Bot className="h-5 w-5 text-primary mt-0.5 shrink-0" />
                   <div>
-                    <div className="font-medium text-sm">Run structured experiments</div>
-                    <div className="text-sm text-muted-foreground">Hypothesis → test → decision log. Prioritization frameworks that focus effort on high-impact bets.</div>
+                    <div className="font-medium text-sm">Apply AI-first workflows</div>
+                    <div className="text-sm text-muted-foreground">Speed up prototyping, debugging, refactoring, test scaffolding, and documentation while keeping high standards for performance (Core Web Vitals), accessibility, and experiment validity.</div>
                   </div>
                 </div>
+              </div>
+            </section>
+
+            {/* Experience Section */}
+            <section>
+              <h2 className="text-2xl font-semibold tracking-tight mb-4">Experience</h2>
+              <div className="space-y-3">
+                {EXPERIENCE.map((exp) => (
+                  <div key={exp.company} className="flex items-start gap-3 p-4 rounded-xl bg-muted/30 border border-border/40">
+                    <Building2 className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                        <div className="font-medium text-sm">{exp.role}</div>
+                        <div className="text-xs text-muted-foreground">{exp.period}</div>
+                      </div>
+                      <div className="text-sm text-muted-foreground">{exp.company}</div>
+                      <div className="text-xs text-muted-foreground/70 mt-1">{exp.tech}</div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </section>
 
@@ -218,14 +261,14 @@ export default function AboutPage() {
               </div>
             </section>
 
-            {/* Tooling Section */}
+            {/* Technical Skills Section */}
             <section>
-              <h2 className="text-2xl font-semibold tracking-tight mb-4">Tooling</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <h2 className="text-2xl font-semibold tracking-tight mb-4">Technical skills</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {TOOLING.map((item) => (
                   <div key={item.category} className="p-4 rounded-xl bg-muted/40">
                     <div className="text-sm font-medium mb-1">{item.category}</div>
-                    <div className="text-sm text-muted-foreground">{item.tools}</div>
+                    <div className="text-xs text-muted-foreground">{item.tools}</div>
                   </div>
                 ))}
               </div>

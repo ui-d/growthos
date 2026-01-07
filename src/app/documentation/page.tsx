@@ -60,7 +60,6 @@ const docSections = [
 const quickLinks = [
   { title: "Getting Started", href: "/builder", description: "Build your first growth spec" },
   { title: "Resource Library", href: "/library", description: "Curated tools and references" },
-  { title: "Changelog", href: "/changelog", description: "Latest updates and releases" },
 ]
 
 export default function DocumentationPage() {
