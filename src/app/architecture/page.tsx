@@ -579,6 +579,12 @@ export default function ArchitecturePage() {
               {/* CTA Row */}
               <div className="flex flex-wrap gap-3">
                 <Button variant="outline" asChild>
+                  <Link href="/technical-deep-dive">
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Technical Deep Dive
+                  </Link>
+                </Button>
+                <Button variant="outline" asChild>
                   <Link href="/guides">
                     <BookOpen className="mr-2 h-4 w-4" />
                     View Guides

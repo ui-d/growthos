@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { BookOpen, Hammer, Library, FileText, ArrowRight, Layers, Route } from "lucide-react"
+import { BookOpen, Hammer, Library, FileText, ArrowRight, Layers, Route, Microscope } from "lucide-react"
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
@@ -54,6 +54,13 @@ const docSections = [
     icon: Hammer,
     href: "/examples",
     cta: "View Examples",
+  },
+  {
+    title: "Technical Deep Dive",
+    description: "Recruiter-grade technical analysis: architecture decisions, tradeoffs, and future options",
+    icon: Microscope,
+    href: "/technical-deep-dive",
+    cta: "Deep Dive",
   },
 ]
 
