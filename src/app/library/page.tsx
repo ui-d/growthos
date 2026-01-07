@@ -55,6 +55,24 @@ const downloadableAssets = [
     downloadPath: "/downloads/event-naming-conventions.md"
   },
   {
+    title: "Activation Definition Template",
+    description: "Template for documenting your product's activation metrics, criteria, and validation framework.",
+    icon: FileText,
+    format: "Markdown",
+    category: "Analytics",
+    fileName: "activation-definition-template.md",
+    downloadPath: "/downloads/activation-definition-template.md"
+  },
+  {
+    title: "KPI Tree Template",
+    description: "Framework for building a metrics hierarchy that connects team efforts to business outcomes.",
+    icon: GitBranch,
+    format: "Markdown",
+    category: "Analytics",
+    fileName: "kpi-tree-template.md",
+    downloadPath: "/downloads/kpi-tree-template.md"
+  },
+  {
     title: "Dashboard Pack Checklist",
     description: "Comprehensive checklist for building executive, acquisition, activation, and retention dashboards.",
     icon: LayoutGrid,
@@ -85,52 +103,58 @@ const downloadableAssets = [
 
 const guides = [
   {
-    title: "Implementing Segment Tracking",
-    description: "Step-by-step guide to implement Segment analytics with best practices for data governance",
+    title: "Segment Tracking & Governance",
+    description: "Build a scalable tracking implementation with event dictionaries, environment management, and governance best practices",
     icon: Code2,
-    readTime: "15 min",
-    level: "Intermediate",
-    href: "/modules/tracking-spec"
-  },
-  {
-    title: "Building Growth Loops",
-    description: "Framework for designing and implementing sustainable growth loops in your product",
-    icon: BarChart3,
     readTime: "20 min",
-    level: "Advanced",
-    href: "/modules/funnels"
+    level: "Intermediate",
+    href: "/guides/segment-tracking-governance",
+    cta: "Read Guide"
   },
   {
-    title: "Activation Metrics 101",
-    description: "How to identify, measure, and optimize your activation metrics for better retention",
+    title: "Typed Event Tracking",
+    description: "Eliminate tracking bugs at compile time with type-safe analytics for Mixpanel, PostHog, or any provider",
+    icon: Database,
+    readTime: "18 min",
+    level: "Intermediate",
+    href: "/guides/typed-event-tracking",
+    cta: "Read Guide"
+  },
+  {
+    title: "Dashboard Pack Implementation",
+    description: "Build North Star and Activation dashboards with clear metric definitions, SQL queries, and alerting strategies",
+    icon: BarChart3,
+    readTime: "25 min",
+    level: "Advanced",
+    href: "/guides/dashboard-pack-implementation",
+    cta: "Read Guide"
+  },
+  {
+    title: "Activation Metrics Overview",
+    description: "Overview of how to identify, measure, and optimize your activation metrics for better retention",
     icon: BookOpen,
     readTime: "10 min",
     level: "Beginner",
-    href: "/modules/activation-definition"
+    href: "/modules/activation-definition",
+    cta: "View Module"
   },
   {
-    title: "Data Layer Architecture",
-    description: "Best practices for structuring your analytics data layer for scalability and accuracy",
-    icon: Database,
-    readTime: "25 min",
-    level: "Advanced",
-    href: "/modules/data-quality"
-  },
-  {
-    title: "KPI Tree Construction",
-    description: "How to build a metrics hierarchy that connects team efforts to business outcomes",
+    title: "KPI Tree Overview",
+    description: "Overview of how to build a metrics hierarchy that connects team efforts to business outcomes",
     icon: GitBranch,
     readTime: "18 min",
     level: "Intermediate",
-    href: "/modules/kpi-tree"
+    href: "/modules/kpi-tree",
+    cta: "View Module"
   },
   {
-    title: "Running Effective Experiments",
-    description: "End-to-end guide to designing, running, and analyzing A/B tests and experiments",
+    title: "Experiments Overview",
+    description: "Overview of designing, running, and analyzing A/B tests and experiments",
     icon: TestTube,
     readTime: "22 min",
     level: "Intermediate",
-    href: "/modules/experiments"
+    href: "/modules/experiments",
+    cta: "View Module"
   }
 ]
 
@@ -477,7 +501,7 @@ export default function LibraryPage() {
                         <div className="flex items-center gap-3 mt-3">
                           <Button variant="link" className="p-0 h-auto" asChild>
                             <Link href={guide.href}>
-                              Read Guide
+                              {guide.cta}
                               <ArrowRight className="ml-1 h-3 w-3" />
                             </Link>
                           </Button>

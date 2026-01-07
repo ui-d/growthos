@@ -1,5 +1,6 @@
 import { BuilderWizardState } from './types';
 import { GrowthSpecInput } from './generate';
+import { pluralizeWord, withArticle } from '../utils';
 
 export function convertToSpecInput(wizardData: BuilderWizardState): GrowthSpecInput {
   const input: GrowthSpecInput = {}
@@ -11,10 +12,11 @@ export function convertToSpecInput(wizardData: BuilderWizardState): GrowthSpecIn
 
   // North Star Metric
   if (wizardData.primaryObject && wizardData.valueAction) {
+    const pluralObject = pluralizeWord(wizardData.primaryObject)
     input.northStarMetric = {
-      name: `Weekly Active ${wizardData.primaryObject}s`,
-      description: `Number of ${wizardData.primaryObject}s that perform ${wizardData.valueAction} action weekly`,
-      formula: `COUNT(DISTINCT ${wizardData.primaryObject}_id WHERE action = '${wizardData.valueAction}' AND week = current_week)`
+      name: `Weekly Active ${pluralObject}`,
+      description: `Number of ${pluralObject.toLowerCase()} that perform ${wizardData.valueAction} action weekly`,
+      formula: `COUNT(DISTINCT ${wizardData.primaryObject.toLowerCase()}_id WHERE action = '${wizardData.valueAction}' AND week = current_week)`
     }
   }
 
@@ -60,11 +62,11 @@ export function convertToSpecInput(wizardData: BuilderWizardState): GrowthSpecIn
     const rules = wizardData.activationRules.map(rule => {
       switch(rule) {
         case 'created_primary_object':
-          return `User has created at least one ${wizardData.primaryObject}`
+          return `User has created at least one ${wizardData.primaryObject?.toLowerCase() || 'object'}`
         case 'invited_teammate':
           return 'User has invited at least one team member'
         case 'used_key_feature':
-          return `User has used the ${wizardData.valueAction} feature`
+          return `User has used the ${wizardData.valueAction?.toLowerCase() || 'key'} feature`
         case 'connected_integration':
           return 'User has connected at least one integration'
         default:
@@ -81,6 +83,7 @@ export function convertToSpecInput(wizardData: BuilderWizardState): GrowthSpecIn
 
   // Core Events
   if (wizardData.coreEvents.length > 0) {
+    const objectName = wizardData.primaryObject?.toLowerCase() || 'object'
     input.coreEvents = wizardData.coreEvents.map(event => {
       const eventName = event.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
       let description = ''
@@ -96,19 +99,19 @@ export function convertToSpecInput(wizardData: BuilderWizardState): GrowthSpecIn
           trigger = 'On successful authentication'
           break
         case 'object_created':
-          description = `User creates a new ${wizardData.primaryObject || 'object'}`
+          description = `User creates ${withArticle(objectName)}`
           trigger = 'On successful object creation'
           break
         case 'object_updated':
-          description = `User modifies an existing ${wizardData.primaryObject || 'object'}`
+          description = `User modifies an existing ${objectName}`
           trigger = 'On successful object update'
           break
         case 'object_deleted':
-          description = `User removes a ${wizardData.primaryObject || 'object'}`
+          description = `User removes ${withArticle(objectName)}`
           trigger = 'On successful object deletion'
           break
         case 'feature_used':
-          description = `User interacts with ${wizardData.valueAction || 'key feature'}`
+          description = `User interacts with ${wizardData.valueAction?.toLowerCase() || 'key feature'}`
           trigger = 'On feature interaction'
           break
         case 'integration_connected':
@@ -183,8 +186,9 @@ export function convertToSpecInput(wizardData: BuilderWizardState): GrowthSpecIn
   ]
 
   // Experiment Card Example
+  const experimentObject = wizardData.primaryObject?.toLowerCase() || 'object'
   input.experimentExample = {
-    hypothesis: `Reducing the number of steps to create a ${wizardData.primaryObject || 'object'} will increase activation rate by 15%`,
+    hypothesis: `Reducing the number of steps to create ${withArticle(experimentObject)} will increase activation rate by 15%`,
     metric: 'New User Activation Rate',
     duration: '14 days',
     audience: 'New users signing up after experiment start',

@@ -2,7 +2,8 @@ import { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Layers, ArrowRight, Code, Database, Share2, Server, Shield, TestTube2, Rocket } from "lucide-react"
+import { Layers, ArrowRight, Code, Database, Share2, Server, Shield, TestTube2, Rocket, FileDown } from "lucide-react"
+import { SOCIAL_LINKS, hasLink } from "@/lib/constants"
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.growthos.fyi"
 
@@ -320,6 +321,48 @@ decode: decompressFromEncodedURIComponent → JSON.parse`}
         </div>
       </section>
 
+      {/* Exports */}
+      <section className="container-wide section-spacing-sm">
+        <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+          <FileDown className="h-5 w-5 text-primary" />
+          Exports
+        </h2>
+        <Card className="p-6">
+          <div className="space-y-4 text-sm text-muted-foreground">
+            <p>Three export formats, each with honest tradeoffs:</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+              <div className="p-3 bg-muted/50 rounded-lg">
+                <h4 className="font-medium text-foreground mb-2">Markdown (.md)</h4>
+                <ul className="space-y-1">
+                  <li>• Full spec as structured markdown</li>
+                  <li>• Tables for tracking plans, experiment templates</li>
+                  <li>• Copy to clipboard or download file</li>
+                  <li className="text-muted-foreground/70">Limitation: Tables may render differently across tools</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-muted/50 rounded-lg">
+                <h4 className="font-medium text-foreground mb-2">JSON</h4>
+                <ul className="space-y-1">
+                  <li>• Raw BuilderWizardState object</li>
+                  <li>• Machine-readable for integrations</li>
+                  <li>• Same data as URL payload (uncompressed)</li>
+                  <li className="text-muted-foreground/70">Limitation: No generated output, just input data</li>
+                </ul>
+              </div>
+              <div className="p-3 bg-muted/50 rounded-lg">
+                <h4 className="font-medium text-foreground mb-2">Print to PDF</h4>
+                <ul className="space-y-1">
+                  <li>• Browser&apos;s native <code className="text-primary">window.print()</code></li>
+                  <li>• CSS <code className="text-primary">@media print</code> hides UI chrome</li>
+                  <li>• &quot;Save as PDF&quot; in print dialog</li>
+                  <li className="text-muted-foreground/70">Limitation: Quality depends on browser; no custom styling</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </section>
+
       {/* Validation Strategy */}
       <section className="container-wide section-spacing-sm">
         <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
@@ -445,14 +488,22 @@ export const GrowthSpecInputSchema = z.object({
               <h3 className="font-semibold">View Source</h3>
             </div>
             <p className="text-sm text-muted-foreground mb-4">
-              The codebase is open. See implementation details in the GitHub repository.
+              {hasLink(SOCIAL_LINKS.github.profile)
+                ? "The codebase is open. See implementation details in the GitHub repository."
+                : "Repository link coming soon. The codebase will be open source."}
             </p>
-            <Button variant="outline" asChild>
-              <Link href="https://github.com/ui-d" target="_blank" rel="noopener noreferrer">
-                GitHub
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+            {hasLink(SOCIAL_LINKS.github.profile) ? (
+              <Button variant="outline" asChild>
+                <Link href={SOCIAL_LINKS.github.profile} target="_blank" rel="noopener noreferrer">
+                  GitHub
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            ) : (
+              <Button variant="outline" disabled>
+                Coming Soon
+              </Button>
+            )}
           </Card>
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-3">

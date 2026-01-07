@@ -125,7 +125,7 @@ export default function GuidesPage() {
         <div className="mb-8">
           <h2 className="text-2xl font-semibold mb-2">Implementation Guides</h2>
           <p className="text-muted-foreground">
-            Comprehensive, practical guides with code snippets, checklists, and real-world patterns.
+            Comprehensive, practical guides with code snippets, checklists, and proven patterns.
           </p>
         </div>
         <div className="space-y-4">
